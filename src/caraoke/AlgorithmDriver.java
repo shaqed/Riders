@@ -9,7 +9,11 @@ import java.util.List;
 public class AlgorithmDriver {
 
     public static void main(String[] args) {
+        long startTime = System.currentTimeMillis();
         go(GenerateInput.getInput());
+        long endtime = System.currentTimeMillis();
+
+        System.out.println("Took: " + (endtime - startTime) + " ms");
     }
 
 

@@ -54,7 +54,7 @@ public class Algo1 {
         if (visited.size() == N) {
             count++;
             for (int i = 0; i < visited.size(); i++) {
-                System.out.print(convertIndexToNode(visited.get(i)) + ", ");
+                printN(convertIndexToNode(visited.get(i)) + ", ");
             }
             int arr[] = stackToArray(visited);
             int ans = calculatePath(arr);
@@ -177,6 +177,10 @@ public class Algo1 {
 
     private void print(String msg) {
         System.out.println(msg);
+    }
+
+    private void printN(String msg) {
+        System.out.print(msg);
     }
 
     private void swap(int[] array, int i, int j) {

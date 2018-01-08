@@ -76,7 +76,7 @@ public class GenerateInput {
     }
 
     private static double getRadius() {
-        return 0.001;
+        return 0.003;
     }
 
 }

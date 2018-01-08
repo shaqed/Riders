@@ -1,3 +1,5 @@
+package inputs;
+
 public class GlobalFunctions {
 
     public static final int X = 10000;
