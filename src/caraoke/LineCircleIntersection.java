@@ -1,5 +1,7 @@
 package caraoke;
 
+import polyline_decoder.Point;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -10,13 +12,27 @@ public class LineCircleIntersection {
     // Test of the functions
     public static void main(String[] args) {
         Point point1 = new Point(0,0);
-        Point point2 = new Point(10, 10);
+        Point point2 = new Point(20, 20);
         Point pointCircle = new Point(2, 2);
         double radiusCircle = 16;
 
         System.out.println(intersect(point1, point2, pointCircle, radiusCircle));
     }
 
+
+
+
+
+
+
+    public static boolean intersect(polyline_decoder.Point point1, polyline_decoder.Point point2, polyline_decoder.Point pointCircle, double radius) {
+
+        return intersect(new Point(point1.getLat(), point1.getLng()),
+                new Point(point2.getLat(), point2.getLng()),
+                new Point(pointCircle.getLat(), pointCircle.getLng()),
+                radius);
+
+    }
 
     /**
      * Check if a circle with a given radius intersects a given line between 2 points
@@ -28,6 +44,7 @@ public class LineCircleIntersection {
         if (answer != null) {
             System.out.println(Arrays.toString(answer.toArray()));
             for (Point p : answer) {
+                // TODO WHAT HAPPENS IF LINE IS ENTIRELY INSIDE THE CIRCLE
                 if (Math.min(point1.x, point2.x) <= p.x && p.x <= Math.max(point1.x ,point2.x)){ // is on the line
                     return true;
                 }
@@ -39,7 +56,10 @@ public class LineCircleIntersection {
 
     }
 
-    public static List<Point> getCircleLineIntersectionPoint(Point pointA, Point pointB, Point center, double radius) {
+
+
+
+    private static List<Point> getCircleLineIntersectionPoint(Point pointA, Point pointB, Point center, double radius) {
         double baX = pointB.x - pointA.x;
         double baY = pointB.y - pointA.y;
         double caX = center.x - pointA.x;
