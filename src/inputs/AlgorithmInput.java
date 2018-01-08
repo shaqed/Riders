@@ -34,13 +34,14 @@ public class AlgorithmInput {
         public Point t;
         public String name;
         public Passenger(String name, Point s, Point t) {
+            this.name = name;
             this.s = s;
             this.t = t;
         }
 
         @Override
         public String toString() {
-            return "Passenger: " + name;
+            return "Passenger: " + name + " S: " + s + " T: " + t;
         }
     }
 }

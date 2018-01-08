@@ -42,7 +42,6 @@ public class LineCircleIntersection {
         // Calculate result
         List<Point> answer = getCircleLineIntersectionPoint(point1, point2, pointCircle, radiusCircle);
         if (answer != null) {
-            System.out.println(Arrays.toString(answer.toArray()));
             for (Point p : answer) {
                 // TODO WHAT HAPPENS IF LINE IS ENTIRELY INSIDE THE CIRCLE
                 if (Math.min(point1.x, point2.x) <= p.x && p.x <= Math.max(point1.x ,point2.x)){ // is on the line

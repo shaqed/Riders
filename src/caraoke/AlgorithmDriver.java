@@ -1,11 +1,18 @@
 package caraoke;
 
 import inputs.AlgorithmInput;
+import inputs.GenerateInput;
 import polyline_decoder.Point;
 
 import java.util.List;
 
 public class AlgorithmDriver {
+
+    public static void main(String[] args) {
+        go(GenerateInput.getInput());
+    }
+
+
 
     public static void go(AlgorithmInput input) {
 

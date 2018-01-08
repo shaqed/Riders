@@ -1,3 +1,5 @@
+package brute_force;
+
 import java.util.Arrays;
 import java.util.Stack;
 
