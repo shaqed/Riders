@@ -4,6 +4,8 @@ import java.util.List;
 
 public class LineCircleIntersection {
 
+
+    // Test of the functions
     public static void main(String[] args) {
         Point point1 = new Point(0,0);
         Point point2 = new Point(10, 10);
@@ -13,6 +15,11 @@ public class LineCircleIntersection {
         System.out.println(intersect(point1, point2, pointCircle, radiusCircle));
     }
 
+
+    /**
+     * Check if a circle with a given radius intersects a given line between 2 points
+     *
+     * */
     public static boolean intersect(Point point1, Point point2, Point pointCircle, double radiusCircle) {
         // Calculate result
         List<Point> answer = getCircleLineIntersectionPoint(point1, point2, pointCircle, radiusCircle);
@@ -29,7 +36,6 @@ public class LineCircleIntersection {
         }
 
     }
-
 
     public static List<Point> getCircleLineIntersectionPoint(Point pointA, Point pointB, Point center, double radius) {
         double baX = pointB.x - pointA.x;

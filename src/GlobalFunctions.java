@@ -2,6 +2,10 @@ public class GlobalFunctions {
 
     public static final int X = 10000;
 
+    /**
+     * Generate template short - distances matrix
+     *
+     * */
     public static int[][] getMatrix() {
 
         int[][] graph2 = {
