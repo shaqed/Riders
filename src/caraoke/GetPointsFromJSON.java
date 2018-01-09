@@ -91,8 +91,6 @@ public class GetPointsFromJSON {
             }
 
 
-            System.out.println(points.size());
-
         } catch (Exception e) {
 //            e.printStackTrace();
         }

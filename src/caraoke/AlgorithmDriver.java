@@ -9,8 +9,9 @@ import java.util.List;
 public class AlgorithmDriver {
 
     public static void main(String[] args) {
+        AlgorithmInput input = GenerateInput.getInput();
         long startTime = System.currentTimeMillis();
-        go(GenerateInput.getInput());
+        go(input);
         long endtime = System.currentTimeMillis();
 
         System.out.println("Took: " + (endtime - startTime) + " ms");
@@ -35,12 +36,12 @@ public class AlgorithmDriver {
 
             // Check if Si and Ti, with a given radius, intersects with the path
             boolean siIntersects = circleIntersectionWithPath(driverPath, si, radius);
-            boolean tiIntersects = circleIntersectionWithPath(driverPath, ti, radius);
-
+//            boolean tiIntersects = circleIntersectionWithPath(driverPath, ti, radius);
+            boolean tiIntersects = true;
 
             // TODO Temporary output, for now just prints the passengers you need to include
             if (siIntersects && tiIntersects) {
-                output("You should include: " + passenger);
+                output("You should include: " + passenger + "\n");
             }
 
         }
@@ -61,7 +62,9 @@ public class AlgorithmDriver {
             if (intersection) {
 
                 // Debug
-
+                if (true){
+//                    System.out.println("Intersection found between: " + x + " and " + y);
+                }
 
                 return true;
             }

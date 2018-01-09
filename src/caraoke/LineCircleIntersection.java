@@ -45,7 +45,12 @@ public class LineCircleIntersection {
             for (Point p : answer) {
                 // TODO WHAT HAPPENS IF LINE IS ENTIRELY INSIDE THE CIRCLE
                 if (Math.min(point1.x, point2.x) <= p.x && p.x <= Math.max(point1.x ,point2.x)){ // is on the line
-                    return true;
+                    if (point1.x != point2.x) {
+
+                        System.out.println("DEBUG: Found intersection " + point1.toString() + " " + point2.toString() + " and circle: " + pointCircle.toString());
+
+                        return true;
+                    }
                 }
             }
             return false;
@@ -97,7 +102,7 @@ public class LineCircleIntersection {
 
         @Override
         public String toString() {
-            return "Point [x=" + x + ", y=" + y + "]";
+            return "(" + x + ", " + y + ")";
         }
     }
 

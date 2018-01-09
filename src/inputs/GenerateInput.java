@@ -1,5 +1,7 @@
 package inputs;
 
+import caraoke.AlgorithmDriver;
+import caraoke.GetPointsFromJSON;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -16,17 +18,15 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class GenerateInput {
 
 
     public static void main(String[] args) {
-        getInput(); //Runs the algorithm
+//        getInput(); //Runs the algorithm
 
-//        test();
+        test();
 
 
     }
@@ -34,15 +34,39 @@ public class GenerateInput {
 
     public static void test() {
         try {
-            List<AlgorithmInput.Passenger> passengers = generatePassengersFromXMLFile();
-            System.out.println(Arrays.toString(passengers.toArray()));
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
+            JSONObject path = loadJSONFromFileURL("C:\\Users\\DELL\\Desktop\\project\\passengers_data\\HaifaToJerusalem_Path.json");
+
+            List<Point> pathPoints = GetPointsFromJSON.getPoints(path);
+            for (int i = 0; i < pathPoints.size(); i++) {
+                System.out.println(i + ": " + pathPoints.get(i));
+            }
+
+            /*
+            Set<Point> hashTables = new HashSet<>();
+            int errors = 0;
+            for (int i = 0; i < pathPoints.size(); i++) {
+                Point currentPoint = pathPoints.get(i);
+
+                if (hashTables.contains(currentPoint)) {
+                    System.out.println(i + ": DANGER DANGER DUPLICATION: " + currentPoint);
+                    errors++;
+                } else {
+                    hashTables.add(currentPoint);
+                    System.out.println(i + ": " + currentPoint);
+                }
+            }
+            System.out.println("A total of : " + errors + " duplications found in the points list");
+*/
+
+            List<AlgorithmInput.Passenger> passengers = generatePassengersFromXMLFile("C:\\Users\\DELL\\Desktop\\project\\passengers_data\\HaifaToJerusalem.kml");
+            double radius = getRadius();
+
+            AlgorithmDriver.go(new AlgorithmInput(path, passengers, radius));
+
+        } catch (IOException | ParseException | SAXException | ParserConfigurationException e) {
             e.printStackTrace();
         }
+
     }
 
 
@@ -59,7 +83,7 @@ public class GenerateInput {
 //                    loadJSONFromFileURL("C:\\Users\\DELL\\Desktop\\project\\create-points\\data\\bs-to-sapir-answer.json"),
 //                    generatePassengersFromTextFile("C:\\\\Users\\\\DELL\\\\Desktop\\\\project\\\\create-points\\\\data\\\\passengers.txt"),
 
-                    loadPathFromGoogleMaps("Be'er Sheva", "Sderot"),
+                    loadPathFromGoogleMaps("Haifa", "Jerusalem"),
 
                     generatePassengersFromXMLFile(),
 
@@ -105,8 +129,13 @@ public class GenerateInput {
 
     }
 
-    private static List<AlgorithmInput.Passenger> generatePassengersFromXMLFile() throws ParserConfigurationException, IOException, SAXException {
-        String url = "C:\\Users\\DELL\\Desktop\\Map_L_1.kml";
+
+    private static List<AlgorithmInput.Passenger> generatePassengersFromXMLFile() throws IOException, SAXException, ParserConfigurationException {
+        String url = "C:\\Users\\DELL\\Desktop\\project\\passengers_data\\HaifaToJerusalem.kml";
+        return generatePassengersFromXMLFile(url);
+    }
+
+    private static List<AlgorithmInput.Passenger> generatePassengersFromXMLFile(String url) throws ParserConfigurationException, IOException, SAXException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
         Document document = builder.parse(new File(url));
@@ -117,6 +146,9 @@ public class GenerateInput {
         NodeList list = document.getElementsByTagName("Placemark");
         for (int i = 0; i < list.getLength(); i++) {
             Node point = list.item(i).getChildNodes().item(5);
+
+            String pointName = list.item(i).getChildNodes().item(1).getTextContent();
+
             if (point.getNodeName().equals("Point")) {
                 String cordsString = point.getTextContent().replaceAll("\\s+", "");
 
@@ -127,7 +159,7 @@ public class GenerateInput {
                 Point Si = new Point(Double.parseDouble(lat), Double.parseDouble(lng));
                 Point Ti = new Point(31.522547, 34.5960228); // TODO Fixed Ti for now (sderot)
 
-                pointList.add(new AlgorithmInput.Passenger("P:" + (i+1), Si, Ti));
+                pointList.add(new AlgorithmInput.Passenger(pointName, Si, Ti));
 
             }
         }
@@ -150,12 +182,8 @@ public class GenerateInput {
         return (JSONObject) new JSONParser().parse(new BufferedReader(new InputStreamReader(connection.getInputStream())));
     }
 
-
-
-
-
     private static double getRadius() {
-        return 0.005;
+        return 0.003;
     }
 
 }
