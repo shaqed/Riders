@@ -59,6 +59,10 @@ public class AlgorithmDriver {
             Point y = path.get(i+1);
             boolean intersection = LineCircleIntersection.intersect(x,y, point, radius);
             if (intersection) {
+
+                // Debug
+
+
                 return true;
             }
         }
