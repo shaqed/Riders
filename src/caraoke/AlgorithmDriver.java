@@ -18,12 +18,14 @@ public class AlgorithmDriver {
 
 
 
+    /**
+     * Main function of the algorithm
+     * @param input Create an instance of AlgorithmInput using the GenerateInput class
+     * */
     public static void go(AlgorithmInput input) {
 
         // For each passenger, check if its S and its T as circle points intersects with the
         // Driver's path
-
-
         List<Point> driverPath = GetPointsFromJSON.getPoints(input.getPathToDestination());
         double radius = input.getRadius();
 
@@ -31,13 +33,12 @@ public class AlgorithmDriver {
             Point si = passenger.s;
             Point ti = passenger.t;
 
-            // Check if Si, with a given radius, intersects with the path
-
+            // Check if Si and Ti, with a given radius, intersects with the path
             boolean siIntersects = circleIntersectionWithPath(driverPath, si, radius);
             boolean tiIntersects = circleIntersectionWithPath(driverPath, ti, radius);
 
 
-            // Temporary output, for now just prints the passengers you need to include
+            // TODO Temporary output, for now just prints the passengers you need to include
             if (siIntersects && tiIntersects) {
                 output("You should include: " + passenger);
             }
