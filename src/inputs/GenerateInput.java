@@ -1,7 +1,6 @@
 package inputs;
 
 import caraoke.AlgorithmDriver;
-import caraoke.GetPointsFromJSON;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -33,39 +32,7 @@ public class GenerateInput {
 
 
     public static void test() {
-        try {
-            JSONObject path = loadJSONFromFileURL("C:\\Users\\DELL\\Desktop\\project\\passengers_data\\HaifaToJerusalem_Path.json");
 
-            List<Point> pathPoints = GetPointsFromJSON.getPoints(path);
-            for (int i = 0; i < pathPoints.size(); i++) {
-                System.out.println(i + ": " + pathPoints.get(i));
-            }
-
-            /*
-            Set<Point> hashTables = new HashSet<>();
-            int errors = 0;
-            for (int i = 0; i < pathPoints.size(); i++) {
-                Point currentPoint = pathPoints.get(i);
-
-                if (hashTables.contains(currentPoint)) {
-                    System.out.println(i + ": DANGER DANGER DUPLICATION: " + currentPoint);
-                    errors++;
-                } else {
-                    hashTables.add(currentPoint);
-                    System.out.println(i + ": " + currentPoint);
-                }
-            }
-            System.out.println("A total of : " + errors + " duplications found in the points list");
-*/
-
-            List<AlgorithmInput.Passenger> passengers = generatePassengersFromXMLFile("C:\\Users\\DELL\\Desktop\\project\\passengers_data\\HaifaToJerusalem.kml");
-            double radius = getRadius();
-
-            AlgorithmDriver.go(new AlgorithmInput(path, passengers, radius));
-
-        } catch (IOException | ParseException | SAXException | ParserConfigurationException e) {
-            e.printStackTrace();
-        }
 
     }
 
@@ -79,17 +46,11 @@ public class GenerateInput {
 
 
         try {
-            AlgorithmInput input = new AlgorithmInput(
-//                    loadJSONFromFileURL("C:\\Users\\DELL\\Desktop\\project\\create-points\\data\\bs-to-sapir-answer.json"),
-//                    generatePassengersFromTextFile("C:\\\\Users\\\\DELL\\\\Desktop\\\\project\\\\create-points\\\\data\\\\passengers.txt"),
 
-                    loadPathFromGoogleMaps("Haifa", "Jerusalem"),
+            String passengersURL = "C:\\Users\\DELL\\Desktop\\project\\passengers_data\\KiryatShmonaToHadera.kml";
 
-                    generatePassengersFromXMLFile(),
+            AlgorithmInput input = AlgorithmInput.getTestInstance("Kiryat Shmona", "Hadera", passengersURL, 0.003);
 
-                    getRadius());
-
-            System.out.println("Generation of input was successful");
             return input;
         } catch (IOException | ParseException e) {
             e.printStackTrace();
@@ -101,32 +62,6 @@ public class GenerateInput {
 
         // Return result
         return null;
-    }
-
-
-    private static List<AlgorithmInput.Passenger> generatePassengersFromTextFile(String url) throws IOException {
-        List<AlgorithmInput.Passenger> passengerList = new ArrayList<>();
-        BufferedReader bufferedReader = new BufferedReader(new FileReader(url));
-        int counter = 0;
-        String line = "";
-        while (line != null) {
-            line = bufferedReader.readLine();
-
-            if (line != null) {
-                double lat = Double.parseDouble(line.split(", ")[0]);
-                double lng = Double.parseDouble(line.split(", ")[1]);
-
-                Point source = new Point(lat, lng);
-                Point target = new Point(31.522547, 34.5960228); // TODO Fixed Ti for now
-                passengerList.add(new AlgorithmInput.Passenger("P" + counter++, source, target));
-            } else {
-                break;
-            }
-        }
-
-        bufferedReader.close();
-        return passengerList;
-
     }
 
 

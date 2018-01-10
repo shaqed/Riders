@@ -1,4 +1,4 @@
-package caraoke;
+package inputs;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -78,6 +78,8 @@ public class GetPointsFromJSON {
                     Point end = new Point((double) jsonObject8.get("lat"), (double) jsonObject8.get("lng"));
                     points.add(end);
 
+
+                    // This translates the polyline to points
                     JSONObject jsonObject9 = (JSONObject) js5.get("polyline");
                     String polyline = (String) jsonObject9.get("points");
                     PolylineDecoder p = new PolylineDecoder();

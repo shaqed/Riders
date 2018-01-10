@@ -2,6 +2,7 @@ package caraoke;
 
 import inputs.AlgorithmInput;
 import inputs.GenerateInput;
+import inputs.GetPointsFromJSON;
 import polyline_decoder.Point;
 
 import java.util.List;
@@ -10,11 +11,18 @@ public class AlgorithmDriver {
 
     public static void main(String[] args) {
         AlgorithmInput input = GenerateInput.getInput();
-        long startTime = System.currentTimeMillis();
-        go(input);
-        long endtime = System.currentTimeMillis();
 
-        System.out.println("Took: " + (endtime - startTime) + " ms");
+        double radiuses[] = {0.003, 0.006, 0.012};
+        for (double radius : radiuses) {
+            input.setRadius(radius);
+            System.out.println("Starting algorithm with radius: " + input.getRadius());
+            long startTime = System.currentTimeMillis();
+            int answer = go(input);
+            long endtime = System.currentTimeMillis();
+
+            System.out.println("Total number of passengers on route: " + answer +
+                    ". Algorithm took: " + (endtime - startTime) + " ms\n\n");
+        }
     }
 
 
@@ -23,11 +31,12 @@ public class AlgorithmDriver {
      * Main function of the algorithm
      * @param input Create an instance of AlgorithmInput using the GenerateInput class
      * */
-    public static void go(AlgorithmInput input) {
+    public static int go(AlgorithmInput input) {
+        int numOfPassengersToCollect = 0;
 
         // For each passenger, check if its S and its T as circle points intersects with the
         // Driver's path
-        List<Point> driverPath = GetPointsFromJSON.getPoints(input.getPathToDestination());
+        List<Point> driverPath = input.getPathToDestination();
         double radius = input.getRadius();
 
         for (AlgorithmInput.Passenger passenger : input.getPassengers()) {
@@ -42,10 +51,11 @@ public class AlgorithmDriver {
             // TODO Temporary output, for now just prints the passengers you need to include
             if (siIntersects && tiIntersects) {
                 output("You should include: " + passenger + "\n");
+                numOfPassengersToCollect++;
             }
 
         }
-
+        return numOfPassengersToCollect;
 
     }
 

@@ -47,7 +47,7 @@ public class LineCircleIntersection {
                 if (Math.min(point1.x, point2.x) <= p.x && p.x <= Math.max(point1.x ,point2.x)){ // is on the line
                     if (point1.x != point2.x) {
 
-                        System.out.println("DEBUG: Found intersection " + point1.toString() + " " + point2.toString() + " and circle: " + pointCircle.toString());
+//                        System.out.println("DEBUG: Found intersection " + point1.toString() + " " + point2.toString() + " and circle: " + pointCircle.toString());
 
                         return true;
                     }
