@@ -13,24 +13,29 @@ public class EulerCircuit {
 	private int E;
 
 	public EulerCircuit() {
-		this.graph = new int[][]{
-				// TODO: THIS GRAPH IS NOT VALID!
+		int [][] graph = new int[][]{
+				// House-like graph
 //				A		B		C		D		E
-				{0,		1,		0,		1,		0},
+				{0,		1,		1,		0,		0},
 				{1,		0,		1,		1,		1},
-				{0,		1,		0,		0,		1},
-				{1,		1,		0,		0,		1},
+				{1,		1,		0,		1,		1},
+				{0,		1,		1,		0,		1},
 				{0,		1,		1,		1,		0}
 		};
+
+		this.graph = cloneGraph(graph);
 		this.E = calculateE();
 
 	}
 
 	public EulerCircuit(int[][] graph) {
-		this.graph = graph;
+		this.graph = cloneGraph(graph);
 		this.E = calculateE();
 	}
 
+
+	// TODO: When visiting an edge (not only a node) - mark it in some way
+	// That way you avoid repeating same edge over and over
 	public void go() {
 		List<Integer> circuit = new ArrayList<>();
 
@@ -90,6 +95,16 @@ public class EulerCircuit {
 
 	}
 
+
+	private int[][] cloneGraph(int graph[][]) {
+		int ans [][] = new int[graph.length][graph.length];
+		for (int i = 0; i < ans.length; i++) {
+			for (int j = 0; j < ans.length; j++) {
+				ans[i][j] = graph[i][j];
+			}
+		}
+		return ans;
+	}
 
 	private int findIndexOfOddDegreeNode() {
 		for (int i = 0; i < this.graph.length; i++) {
