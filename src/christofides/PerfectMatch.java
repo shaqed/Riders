@@ -9,30 +9,29 @@ public class PerfectMatch {
 
 
 
-//	private double graph[][] = {
-//			{0,		1,		2,		1},
-//			{1,		0,		1,		2},
-//			{2,		1,		0,		1},
-//			{1,		2,		1,		0}
-//	};
-
-	private int graph[][] = GlobalFunctions.getMatrix();
 
 	public static void main(String[] args) {
+		int graph[][] = GlobalFunctions.getMatrix();
 		List<Integer> arrayList = new ArrayList<>();
 		for (int i = 0; i < 8; i++) {
 			arrayList.add(i);
 		}
-		new PerfectMatch().go(arrayList);
+		new PerfectMatch().go(graph, arrayList);
 	}
 
-	// Given a set of odd vertices, return a perfect matching
-	// The greedy way.
-	// Pick a vertex - and pair it with the closest other vertex you can find
-
-	// TODO: Return the answer as what ?
-	public void go(List<Integer> oddVertices) {
+	/** Given a set of odd vertices, return a perfect matching. The greedy way.
+	 * Pick a vertex - and pair it with the closest other vertex you can find
+	 *
+	 * @param graph A graph represented with an adjacency matrix
+	 * @param oddVertices List of vertices you wish to pair with one another (is that necessary?)
+	 *
+	 * @return Returns a List of pairs. For every item in the list - that's a list which contains 2 integers.
+	 * 				These integers represent the indexes you should pair with one another.
+	*/
+	public List<List<Integer>> go(int graph[][], List<Integer> oddVertices) {
 		List<Integer> odds = duplicateList(oddVertices);
+
+		List<List<Integer>> answer = new ArrayList<>();
 
 		while (!odds.isEmpty()) {
 			int sourceVertex = odds.get(0);
@@ -52,8 +51,13 @@ public class PerfectMatch {
 			odds.remove(new Integer(sourceVertex));
 			odds.remove(new Integer(pairedVertex));
 			System.out.println("You should pair: " + sourceVertex + " with: " + pairedVertex + ". length is: " + length);
+			List<Integer> pair = new ArrayList<>();
+			pair.add(sourceVertex);
+			pair.add(pairedVertex);
+			answer.add(pair);
 		}
 
+		return answer;
 	}
 
 
