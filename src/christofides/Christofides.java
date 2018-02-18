@@ -1,6 +1,7 @@
 package christofides;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Christofides {
@@ -14,27 +15,49 @@ public class Christofides {
 		this.graph = graph;
 	}
 
-	public void go() {
+	public void go() throws Exception {
 		// Create MST from the graph
-		int [][] mst = new Prim(this.graph).go(0);
+		int [][] mst = new Prim(this.graph).go(4);
+		System.out.println("MST:");
+		printGraph(mst);
 
 		// Find out all the vertices with odd degrees and store them in a list
 		List<Integer> oddVertices = findOddVerticesInGraph(mst);
+		System.out.println("Odd vertices is mst are: " + oddVertices.toString());
 
 		// Form a new graph only with those vertices
 		// (edges will change to keep the triangle inequality)
-		int onlyOddsGraph [][] = null;
+		int onlyOddsGraph [][] = createSubGraphIncluding(oddVertices);
+		System.out.println("Sub graph with these vertices");
+		printGraph(onlyOddsGraph);
 
 		// Get perfect matching
-
+		List<List<Integer>> tuples = new PerfectMatch().go(onlyOddsGraph, oddVertices, mst);
 
 		// Add it to the MST
+		for (List<Integer> tuple : tuples) {
+			System.out.println("You should match: " + tuple.get(0) + " with: " + tuple.get(1));
+			mst[tuple.get(0)][tuple.get(1)] = tuple.get(2);
+			mst[tuple.get(1)][tuple.get(0)] = tuple.get(2);
+		}
+
+		System.out.println("MST after adding extra edges:");
+		printGraph(mst);
 
 		// Find Euler circuit on that graph
+		List<Integer> eulerCircuit = new EulerCircuit(mst).go();
 
 		// Remove duplicated nodes
+		List<Integer> hamiltonianCircuit = new ArrayList<>();
+		for (int node: eulerCircuit) {
+			if (!hamiltonianCircuit.contains(node)) {
+				hamiltonianCircuit.add(node);
+			}
+		}
+		hamiltonianCircuit.add(hamiltonianCircuit.get(0));
 
 		// There's your Traveling Salesman solution
+		System.out.println("Fin: " + hamiltonianCircuit.toString());
 	}
 
 
@@ -137,6 +160,29 @@ public class Christofides {
 
 
 	public static void main(String[] args) {
+		try {
+			int graph[][] = {
+					{0, 1, 1, 1, 2},
+					{1, 0, 1, 2, 1},
+					{1, 1, 0, 1, 1},
+					{1, 2, 1, 0, 1},
+					{2, 1, 1, 1, 0}
+			};
+			new Christofides(graph).go();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+
+	public static void printGraph(int g[][]) {
+		for (int[] a : g) {
+			System.out.println(Arrays.toString(a));
+		}
+	}
+
+	private static void test1() {
 		int X = Integer.MAX_VALUE/4;
 
 		int someMST[][] = {
@@ -157,9 +203,9 @@ public class Christofides {
 			System.out.println();
 		}
 
-		List<List<Integer>> pairs = new PerfectMatch().go(ans, oddVertices);
-		for(List<Integer> pair : pairs) {
-			System.out.println("Pair: " + pair.get(0) + " with: " + pair.get(1));
-		}
+//		List<List<Integer>> pairs = new PerfectMatch().go(ans, oddVertices);
+//		for(List<Integer> pair : pairs) {
+//			System.out.println("Pair: " + pair.get(0) + " with: " + pair.get(1));
+//		}
 	}
 }

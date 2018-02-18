@@ -1,9 +1,14 @@
 package christofides;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Prim {
 
 	public static void main(String[] args) {
-		new Prim().go(0);
+		int[][] mst = new Prim().go(2);
+		print(mst);
 	}
 
 
@@ -12,12 +17,12 @@ public class Prim {
 
 	public Prim() {
 		int X = Integer.MAX_VALUE;
-		int graph[][] = new int[][]{
-				{X, 2, X, 6, X},
-				{2, X, 3, 8, 5},
-				{X, 3, X, X, 7},
-				{6, 8, X, X, 9},
-				{X, 5, 7, 9, X},
+		int graph[][] = {
+				{0, 1, 1, 1, 2},
+				{1, 0, 1, 2, 1},
+				{1, 1, 0, 1, 1},
+				{1, 2, 1, 0, 1},
+				{2, 1, 1, 1, 0}
 		};
 		this.graph = graph;
 	}
@@ -37,6 +42,7 @@ public class Prim {
 	 * */
 	public int[][] go(int indexOfSource) {
 		int mst[][] = new int[this.graph.length][this.graph.length];
+		int[] parentOf = new int[this.graph.length];
 
 		// Initialize empty queue
 		int N = this.graph.length;
@@ -47,8 +53,13 @@ public class Prim {
 		}
 		Q[indexOfSource] = 0; // change that to source index
 
+
+		parentOf[indexOfSource] = -1; // root has no source
+
 		while (!isEmpty(Q)) { // While queue isn't empty
 			int minimumIndex = getMinimumIndexOf(Q);
+
+
 			for (int i = 0; i < N; i++) {
 				int adjacentEdge = graph[minimumIndex][i]; // From minimumIndex to I
 
@@ -56,13 +67,20 @@ public class Prim {
 				boolean weightInGraphSmallerThanQueue = adjacentEdge < Q[i];
 				if (neighborInQueue && weightInGraphSmallerThanQueue) {
 
-					// Add it to the MST (symmetrically)
-					mst[minimumIndex][i] = adjacentEdge;
-					mst[i][minimumIndex] = adjacentEdge;
+					// Add it to the MST
+					parentOf[i] = minimumIndex;
 
 					// Change the value in the Q for i (which is the v)
 					Q[i] = adjacentEdge;
 				}
+			}
+		}
+		// construct the adjacency matrix
+		for (int child = 0; child < parentOf.length; child++) {
+			int parent = parentOf[child];
+			if (parent != -1) {
+				mst[child][parent] = graph[child][parent];
+				mst[parent][child] = graph[parent][child];
 			}
 		}
 		return mst;
@@ -95,13 +113,21 @@ public class Prim {
 		int ans[][] = new int[arr.length][arr.length];
 		for (int i = 0; i < arr.length; i++) {
 			for (int j = 0; j < arr.length; j++) {
-				ans[i][j] = arr[i][j];
+				if (arr[i][j] != 0) {
+					ans[i][j] = arr[i][j];
+				} else {
+					ans[i][j] = Integer.MAX_VALUE;
+				}
 			}
 		}
 		return ans;
 	}
 
-	private void print(int[][] a) {
+	private void debug(String msg) {
+		System.out.println(msg);
+	}
+
+	public static void print(int[][] a) {
 		for (int i = 0; i < a.length; i++) {
 			for (int j = 0; j < a[i].length; j++) {
 				System.out.print(a[i][j] + ", ");
