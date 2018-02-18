@@ -50,7 +50,7 @@ public class PerfectMatch {
 			}
 			odds.remove(new Integer(sourceVertex));
 			odds.remove(new Integer(pairedVertex));
-			System.out.println("You should pair: " + sourceVertex + " with: " + pairedVertex + ". length is: " + length);
+//			System.out.println("You should pair: " + sourceVertex + " with: " + pairedVertex + ". length is: " + length);
 			List<Integer> pair = new ArrayList<>();
 			pair.add(sourceVertex);
 			pair.add(pairedVertex);

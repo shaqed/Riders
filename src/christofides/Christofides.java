@@ -60,7 +60,7 @@ public class Christofides {
 		// After we've removed all vertices from the graph
 
 		for(int u : vertices) { // For each vertex we want to keep
-			for (int i = 0; i < V; i++) { // For each other vertex in the graph
+			for (int i : vertices) { // For each other vertex in the graph
 				subgraph[u][i] = distances[u][i]; // Shortest path to it without that vertex i
 			}
 		}
@@ -138,21 +138,28 @@ public class Christofides {
 
 	public static void main(String[] args) {
 		int X = Integer.MAX_VALUE/4;
-		int someMST[][] = {
-				{0, 0, 1, 0, X, 0},
-				{0,	0, 1, 0, X, 0},
-				{1, 1, 0, 1, X, 1},
-				{0, 0, 1, 0, X, 0},
-				{X, X, X, X, X, X},
-				{0, 0, 1, 0, X, 0}
-		};
 
-		int ans[][] = new Christofides(someMST).floydWarshall(someMST);
+		int someMST[][] = {
+				{0, 0, 1, 0, 0},
+				{0,	0, 1, 0, 0},
+				{1, 1, 0, 1, 1},
+				{0, 0, 1, 0, 0},
+				{0, 0, 1, 0, 0}
+		};
+		Christofides christ = new Christofides(someMST);
+		List<Integer> oddVertices = christ.findOddVerticesInGraph(someMST);
+		int ans[][] = christ.createSubGraphIncluding(oddVertices);
+
 		for (int i = 0; i < ans.length; i++) {
 			for (int j = 0; j < ans.length; j++) {
 				System.out.print(ans[i][j] + ", ");
 			}
 			System.out.println();
+		}
+
+		List<List<Integer>> pairs = new PerfectMatch().go(ans, oddVertices);
+		for(List<Integer> pair : pairs) {
+			System.out.println("Pair: " + pair.get(0) + " with: " + pair.get(1));
 		}
 	}
 }
