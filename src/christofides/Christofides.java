@@ -1,5 +1,7 @@
 package christofides;
 
+import java.util.List;
+
 public class Christofides {
 
 	private int graph[][];
@@ -28,5 +30,10 @@ public class Christofides {
 		// Remove duplicated nodes
 
 		// There's your Traveling Salesman solution
+	}
+
+
+	private List<Integer> findOddVerticesInGraph(int graph[][]) {
+		return null;
 	}
 }
