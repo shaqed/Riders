@@ -1,13 +1,44 @@
 package christofides;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class EulerCircuit {
 
 	public static void main(String[] args) {
-		new EulerCircuit().go();
+
+		List<Integer> a = new ArrayList<>();
+		a.add(1);
+		a.add(2);
+
+		List<Integer> b = new ArrayList<>();
+		b.add(0);
+		b.add(4);
+
+		List<Integer> c = new ArrayList<>();
+		c.add(0);
+		c.add(4);
+
+		List<Integer> d = new ArrayList<>();
+		d.add(4);
+		d.add(4);
+
+		List<Integer> e = new ArrayList<>();
+		e.add(1);
+		e.add(2);
+		e.add(3);
+		e.add(3);
+
+		List<List<Integer>> graph = new ArrayList<>();
+		graph.add(a);
+		graph.add(b);
+		graph.add(c);
+		graph.add(d);
+		graph.add(e);
+
+
+		System.out.println(new EulerCircuit().go(graph).toString());
+//		new EulerCircuit().go();
 	}
 
 	private boolean verbose = false;
@@ -17,7 +48,7 @@ public class EulerCircuit {
 
 	public EulerCircuit() {
 		int [][] graph = new int[][]{
-				// House-like graph - THIS IS ALSO NOT GOOD!
+
 //				A		B		C		D		E		F		G
 		/*A*/	{0,		1,		0,		1,		0,		1,		1},
 		/*B*/	{1,		0,		1,		0,		0,		0,		0},
@@ -131,6 +162,132 @@ public class EulerCircuit {
 	}
 
 
+	/**
+	 * Calculates an euler circuit on a valid graph, this can support multi graphs! (graph with repeated edges)
+	 * @param g Adjacency list of the multi graph, the graph has to be valid (all vertices with even degree), and if you
+	 *          want to have the same edge twice just add it to the list twice.
+	 * @return List of integers representing the indexes which you should follow in the circuit
+	 * */
+	public List<Integer> go(List<List<Integer>> g) {
+
+		List<Integer> circuit = null;
+
+		int V = g.size();
+		int E = calculateE(g);
+
+
+		boolean foundCircuit = false;
+		for (int j = 0; j < V && !foundCircuit; j++) {
+
+			List<List<Integer>> adjacencyList = cloneGraph(g);
+			circuit = new ArrayList<>();
+
+			print("Start node: " + j);
+
+			// Init
+			boolean visitedNodes[] = new boolean[V];
+			for (int i = 0; i < visitedNodes.length; i++) {
+				visitedNodes[i] = false; // None have been visited yet
+			}
+
+			// Visit the first node (start from it)
+			int startNode = j;
+			circuit.add(startNode);
+			visitedNodes[startNode] = true;
+
+
+			int edgesVisited = 0;
+			int currentNode = startNode;
+			while (edgesVisited < E) {
+
+				print(edgesVisited + " / " + E);
+
+				boolean movedToANewVertex = false;
+				for (int neighborOfCurrent : adjacencyList.get(currentNode)) {
+					boolean newVertex = !visitedNodes[neighborOfCurrent];
+					if (newVertex) {
+						print("Traveling to a new node: " + neighborOfCurrent);
+
+						// Remove visited edge
+						removeEdge(adjacencyList, currentNode, neighborOfCurrent);
+						edgesVisited++;
+
+
+						// Advance towards the neighbor
+						circuit.add(neighborOfCurrent);
+						currentNode = neighborOfCurrent;
+						visitedNodes[neighborOfCurrent] = true;
+
+						movedToANewVertex = true;
+
+						break;
+					}
+				}
+
+				if (!movedToANewVertex) { // If you haven't found a new vertex to go to, just go to the next available
+					for(int neighborOfCurrent : adjacencyList.get(currentNode)){
+						print("Traveling to a visited node: " + neighborOfCurrent);
+
+						// Remove visited edge
+						removeEdge(adjacencyList, currentNode, neighborOfCurrent);
+						edgesVisited++;
+
+						// Advance towards that neighbor
+						circuit.add(neighborOfCurrent);
+						currentNode = neighborOfCurrent;
+						movedToANewVertex = true;
+						break;
+					}
+
+				}
+
+				if (!movedToANewVertex) {
+					print("Haven't moved to a new vertex... are you stuck?\n");
+					break; // breaks the while loop
+				}
+
+				if (edgesVisited == E) {
+					print("DONE!\n");
+					foundCircuit = true; // exit big for loop
+					break;
+				}
+			}
+		}
+		return circuit;
+
+	}
+
+
+	private int calculateE(List<List<Integer>> adjacencyList) {
+		int e = 0;
+		for (List<Integer> neighborsOfU : adjacencyList) {
+			e += neighborsOfU.size();
+		}
+		return e/2; // Counting A-B twice, so dividing by 2 at the end
+	}
+
+	private void removeEdge(List<List<Integer>> adjacencyList, int u, int v) {
+		adjacencyList.get(u).remove(new Integer(v));
+
+		// Remove edge from neighbor to the last current
+		adjacencyList.get(v).remove(new Integer(u));
+
+	}
+
+	private List<List<Integer>> cloneGraph(List<List<Integer>> adjacencyList) {
+		List<List<Integer>> ans = new ArrayList<>();
+		for (List<Integer> neighbors : adjacencyList) {
+			List<Integer> newNeighbors = new ArrayList<>();
+			for (int node : neighbors) {
+				newNeighbors.add(node);
+			}
+			ans.add(newNeighbors);
+		}
+		return ans;
+	}
+
+
+
 	private int[][] cloneGraph(int graph[][]) {
 		int ans [][] = new int[graph.length][graph.length];
 		for (int i = 0; i < ans.length; i++) {
@@ -169,6 +326,8 @@ public class EulerCircuit {
 		}
 		return ans;
 	}
+
+
 
 	private void print(String msg) {
 		if (verbose) {

@@ -37,7 +37,7 @@ public class PerfectMatch {
 	 * The first two integers represent the indexes you should pair with one another.
 	 * The third one is how much should that edge take
 	 */
-	public List<List<Integer>> go(int graph[][], List<Integer> oddVerticesInMST, int mst[][]) {
+	public List<List<Integer>> go(int graph[][], List<Integer> oddVerticesInMST) {
 		List<Integer> odds = duplicateList(oddVerticesInMST);
 
 		List<List<Integer>> answer = new ArrayList<>();
@@ -54,8 +54,7 @@ public class PerfectMatch {
 				int candidateVertex = odds.get(i);
 
 				int distanceFromSourceToCandidate = graph[sourceVertex][candidateVertex];
-				boolean edgeDoesNotExistInMSTYet = mst[sourceVertex][candidateVertex] == 0;
-				if (distanceFromSourceToCandidate < length && edgeDoesNotExistInMSTYet) {
+				if (distanceFromSourceToCandidate < length) {
 					length = distanceFromSourceToCandidate;
 					pairedVertex = candidateVertex;
 				}

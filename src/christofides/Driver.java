@@ -1,0 +1,68 @@
+package christofides;
+
+import java.util.List;
+
+public class Driver {
+
+
+	public static void main(String[] args) {
+
+		test3();
+
+	}
+
+
+
+
+
+
+	private static void test3(){
+		int[][] graph = new int[][]{
+				{0, 10, 15, 20},
+				{10, 0, 35, 25},
+				{15, 35, 0, 30},
+				{20, 25, 30, 0}
+		};
+
+		int distances[][] = Christofides.floydWarshall(graph);
+		Christofides christofides = new Christofides(distances);
+
+		List<Integer> circuit = christofides.go();
+		int cost = christofides.calculatePathCost(circuit);
+
+		System.out.println("Circuit: " + circuit.toString() + " Cost: " + cost);
+	}
+
+	private static void test2() throws Exception {
+		int [][] graph = new int[][]{
+
+//						A		B		C		D		E		F		G
+				/*A*/	{0,		1,		0,		1,		0,		0,		0},
+				/*B*/	{1,		0,		1,		1,		0,		1,		0},
+				/*C*/	{0,		1,		0,		1,		1,		1,		0},
+				/*D*/	{1,		1,		1,		0,		1,		0,		0},
+				/*E*/	{0,		0,		1,		1,		0,		1,		1},
+				/*F*/	{0,		1,		1,		0,		1,		0,		1},
+				/*G*/	{0,		0,		0,		0,		1,		1,		0},
+		};
+
+		int distances [][] = Christofides.floydWarshall(graph);
+		Christofides christofides = new Christofides(distances);
+
+		christofides.go();
+
+	}
+
+	private static void test1() {
+		int X = Integer.MAX_VALUE/4;
+
+		int someMST[][] = {
+				{0, 0, 1, 0, 0},
+				{0, 0, 1, 0, 0},
+				{1, 1, 0, 1, 1},
+				{0, 0, 1, 0, 0},
+				{0, 0, 1, 0, 0}
+
+		};
+	}
+}
