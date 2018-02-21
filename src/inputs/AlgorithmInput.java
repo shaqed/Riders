@@ -27,6 +27,8 @@ public class AlgorithmInput {
     private List<Passenger> passengers;
     private double radius;
 
+    // Constructor
+
     private AlgorithmInput(String pathJSONFileURL, String passengersXMLFileURL, double radius) throws IOException, SAXException, ParserConfigurationException {
         this.pathToDestination = GetPointsFromJSON.getPoints(pathJSONFileURL);
         this.passengers = generatePassengersFromXMLFile(passengersXMLFileURL);
@@ -38,6 +40,9 @@ public class AlgorithmInput {
         this.passengers = passengers;
         this.radius = radius;
     }
+
+
+    // Getters & Setters
 
     public List<Point> getPathToDestination() {
         return pathToDestination;
@@ -57,6 +62,7 @@ public class AlgorithmInput {
 
 
 
+    // Builder functions
 
     public static AlgorithmInput getInstance(String source, String dest, double radius) {
         // TODO Function
@@ -145,7 +151,7 @@ public class AlgorithmInput {
         String apiURL = "https://maps.googleapis.com/maps/api/directions/json?origin=" + URLEncoder.encode(source, "UTF-8") + "&destination=" + URLEncoder.encode(destination, "UTF-8") + "&key=AIzaSyD56LHjhdpL7ztyU33rsph0zYYEY136nOo";
 
         Scanner scanner = new Scanner(System.in);
-        System.out.println("You're about to ask Google Maps API for something... are you sure? (y/n)");
+        System.out.println("You're about to ask Google Maps API for a path... are you sure? (y/n)");
         String ans = scanner.nextLine();
         if (ans.equals("y")) {
             URL url = new URL(apiURL);
@@ -172,5 +178,49 @@ public class AlgorithmInput {
             return "Passenger: " + name + " S: " + s + " T: " + t;
         }
     }
+
+
+
+    // This function extracts the path of the driver
+    // As well as the passengers
+    private static void passengersAndPathFromKML() {
+        String kmlFilePath = "C:\\Users\\DELL\\Desktop\\Sderot-Route-1 (1).kml";
+
+        // Extract path
+        /*
+        * The KML File contains 2 <Folder> elements (1 for each "layer")
+
+        get all 2 folders:
+	        NodeList folders = document.getElementsByTagName("Folder");
+
+        for each folder
+	        Node folder = folders.item(i);
+
+        checkout the name by diving down:
+	    Node nameTag = folder.getChildNodes().item(1); // child #0 is nothing...
+	    String nameOfTag = nameTag.getNodeName();
+	    String innerHTML = nameTag.getTextContent();
+        *
+        * */
+        try {
+            Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(kmlFilePath);
+            NodeList folders = document.getElementsByTagName("Folder");
+
+            String m = folders.item(0).getTextContent();
+            System.out.println(m);
+
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    public static void main(String[] args) {
+        passengersAndPathFromKML();
+    }
+
 
 }
