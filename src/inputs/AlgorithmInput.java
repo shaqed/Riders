@@ -19,6 +19,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class AlgorithmInput {
 
@@ -143,9 +144,16 @@ public class AlgorithmInput {
     private static JSONObject loadPathFromGoogleMaps(String source, String destination) throws IOException, ParseException {
         String apiURL = "https://maps.googleapis.com/maps/api/directions/json?origin=" + URLEncoder.encode(source, "UTF-8") + "&destination=" + URLEncoder.encode(destination, "UTF-8") + "&key=AIzaSyD56LHjhdpL7ztyU33rsph0zYYEY136nOo";
 
-        URL url = new URL(apiURL);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        return (JSONObject) new JSONParser().parse(new BufferedReader(new InputStreamReader(connection.getInputStream())));
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("You're about to ask Google Maps API for something... are you sure? (y/n)");
+        String ans = scanner.nextLine();
+        if (ans.equals("y")) {
+            URL url = new URL(apiURL);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            return (JSONObject) new JSONParser().parse(new BufferedReader(new InputStreamReader(connection.getInputStream())));
+        } else {
+            throw new IOException("ABORTED BY USER");
+        }
     }
 
 

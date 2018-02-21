@@ -1,0 +1,56 @@
+HAIFA TO JERUSALEM OUTPUT
+
+Starting algorithm with radius: 0.003
+You should include: Passenger: חיפה S: (32.78612, 35.0395203) T: (31.522547, 34.5960228)
+
+You should include: Passenger: רמות מנשה S: (32.5971555, 35.0515366) T: (31.522547, 34.5960228)
+
+You should include: Passenger: אליקים S: (32.6330143, 35.0673294) T: (31.522547, 34.5960228)
+
+You should include: Passenger: מאור S: (32.4263402, 35.0165176) T: (31.522547, 34.5960228)
+
+You should include: Passenger: שער אפרים S: (32.2911959, 35.0048447) T: (31.522547, 34.5960228)
+
+You should include: Passenger: רעות S: (31.8830968, 35.0175476) T: (31.522547, 34.5960228)
+
+Total number of passengers on route: 6. Algorithm took: 31 ms
+
+
+Starting algorithm with radius: 0.006
+You should include: Passenger: חיפה S: (32.78612, 35.0395203) T: (31.522547, 34.5960228)
+
+You should include: Passenger: רמות מנשה S: (32.5971555, 35.0515366) T: (31.522547, 34.5960228)
+
+You should include: Passenger: אליקים S: (32.6330143, 35.0673294) T: (31.522547, 34.5960228)
+
+You should include: Passenger: מאור S: (32.4263402, 35.0165176) T: (31.522547, 34.5960228)
+
+You should include: Passenger: שער אפרים S: (32.2911959, 35.0048447) T: (31.522547, 34.5960228)
+
+You should include: Passenger: עינת S: (32.0825746, 34.9372101) T: (31.522547, 34.5960228)
+
+You should include: Passenger: רעות S: (31.8830968, 35.0175476) T: (31.522547, 34.5960228)
+
+Total number of passengers on route: 7. Algorithm took: 9 ms
+
+
+Starting algorithm with radius: 0.012
+You should include: Passenger: חיפה S: (32.78612, 35.0395203) T: (31.522547, 34.5960228)
+
+You should include: Passenger: רמות מנשה S: (32.5971555, 35.0515366) T: (31.522547, 34.5960228)
+
+You should include: Passenger: נשר S: (32.7647588, 35.0491333) T: (31.522547, 34.5960228)
+
+You should include: Passenger: אליקים S: (32.6330143, 35.0673294) T: (31.522547, 34.5960228)
+
+You should include: Passenger: מאור S: (32.4263402, 35.0165176) T: (31.522547, 34.5960228)
+
+You should include: Passenger: שער אפרים S: (32.2911959, 35.0048447) T: (31.522547, 34.5960228)
+
+You should include: Passenger: עינת S: (32.0825746, 34.9372101) T: (31.522547, 34.5960228)
+
+You should include: Passenger: שוהם S: (31.9958477, 34.9516296) T: (31.522547, 34.5960228)
+
+You should include: Passenger: רעות S: (31.8830968, 35.0175476) T: (31.522547, 34.5960228)
+
+Total number of passengers on route: 9. Algorithm took: 8 ms

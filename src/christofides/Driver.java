@@ -2,6 +2,7 @@ package christofides;
 
 import polyline_decoder.Point;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -11,10 +12,13 @@ public class Driver {
 
 	public static void main(String[] args) {
 
-		testPoints2();
-
+//		testPoints2();
+		test();
 	}
 
+	private static void test() {
+		System.out.println(System.getProperty("user.dir"));
+	}
 
 	private static void testPoints2() {
 		List<Point> points = new ArrayList<>();

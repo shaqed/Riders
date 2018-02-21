@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d05cb9b0-45c8-40b2-8d79-d3ccc57f3cb8" name="Default" comment="" />
+    <list default="true" id="d05cb9b0-45c8-40b2-8d79-d3ccc57f3cb8" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/out/production/Riders/christofides/Christofides.class" afterPath="$PROJECT_DIR$/out/production/Riders/christofides/Christofides.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/Riders/christofides/Driver.class" afterPath="$PROJECT_DIR$/out/production/Riders/christofides/Driver.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/Riders/christofides/PerfectMatch.class" afterPath="$PROJECT_DIR$/out/production/Riders/christofides/PerfectMatch.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/Riders/christofides/Prim.class" afterPath="$PROJECT_DIR$/out/production/Riders/christofides/Prim.class" />
+      <change beforePath="$PROJECT_DIR$/src/christofides/Driver.java" afterPath="$PROJECT_DIR$/src/christofides/Driver.java" />
+      <change beforePath="$PROJECT_DIR$/src/inputs/AlgorithmInput.java" afterPath="$PROJECT_DIR$/src/inputs/AlgorithmInput.java" />
+      <change beforePath="$PROJECT_DIR$/src/inputs/GenerateInput.java" afterPath="$PROJECT_DIR$/src/inputs/GenerateInput.java" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -15,62 +24,32 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="Prim.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/christofides/Prim.java">
+      <file leaf-file-name="AlgorithmDriver.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/caraoke/AlgorithmDriver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="756">
-              <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#508#509#0" expanded="true" />
-                <element signature="e#2836#2837#0" expanded="true" />
-                <element signature="e#2866#2867#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="-297">
+              <caret line="24" column="9" lean-forward="true" selection-start-line="24" selection-start-column="9" selection-end-line="24" selection-end-column="9" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EulerCircuit.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/christofides/EulerCircuit.java">
+      <file leaf-file-name="GenerateInput.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/inputs/GenerateInput.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2538">
-              <caret line="178" column="37" lean-forward="false" selection-start-line="178" selection-start-column="37" selection-end-line="178" selection-end-column="37" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#go#0;class#EulerCircuit#0" expanded="false" />
-                <element signature="method#cloneGraph#1;class#EulerCircuit#0" expanded="false" />
-                <element signature="method#isGraphValid#0;class#EulerCircuit#0" expanded="false" />
-                <element signature="method#calculateE#1;class#EulerCircuit#0" expanded="false" />
-              </folding>
+            <state relative-caret-position="324">
+              <caret line="50" column="0" lean-forward="true" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Christofides.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/christofides/Christofides.java">
+      <file leaf-file-name="AlgorithmInput.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/inputs/AlgorithmInput.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="422">
-              <caret line="62" column="0" lean-forward="true" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1359#1360#0" expanded="true" />
-                <element signature="e#1380#1381#0" expanded="true" />
-                <element signature="e#1412#1413#0" expanded="true" />
-                <element signature="e#1457#1458#0" expanded="true" />
-                <element signature="method#go#0;class#Christofides#0" expanded="false" />
-                <element signature="docComment;method#calculatePathCost#0;class#Christofides#0" expanded="false" />
-                <element signature="method#calculatePathCost#0;class#Christofides#0" expanded="false" />
-                <element signature="docComment;method#floydWarshall#0;class#Christofides#0" expanded="false" />
-                <element signature="method#floydWarshall#0;class#Christofides#0" expanded="false" />
-                <element signature="docComment;method#createSubGraphIncluding#0;class#Christofides#0" expanded="false" />
-                <element signature="method#createSubGraphIncluding#0;class#Christofides#0" expanded="false" />
-                <element signature="docComment;method#addEdgesToGraph#0;class#Christofides#0" expanded="false" />
-                <element signature="method#addEdgesToGraph#0;class#Christofides#0" expanded="false" />
-                <element signature="method#findOddVerticesInGraph#0;class#Christofides#0" expanded="false" />
-                <element signature="method#debug#0;class#Christofides#0" expanded="false" />
-                <element signature="method#printGraph#0;class#Christofides#0" expanded="false" />
-                <element signature="method#printGraph#1;class#Christofides#0" expanded="false" />
-              </folding>
+            <state relative-caret-position="180">
+              <caret line="95" column="33" lean-forward="false" selection-start-line="95" selection-start-column="33" selection-end-line="95" selection-end-column="33" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -78,22 +57,11 @@
       <file leaf-file-name="Driver.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/christofides/Driver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+            <state relative-caret-position="270">
+              <caret line="15" column="15" lean-forward="false" selection-start-line="15" selection-start-column="15" selection-end-line="15" selection-end-column="15" />
               <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PerfectMatch.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/christofides/PerfectMatch.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="768">
-              <caret line="80" column="5" lean-forward="false" selection-start-line="80" selection-start-column="5" selection-end-line="80" selection-end-column="5" />
-              <folding>
-                <element signature="method#duplicateList#0;class#PerfectMatch#0" expanded="false" />
+                <element signature="e#281#282#0" expanded="true" />
+                <element signature="e#338#339#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -154,14 +122,14 @@
         <option value="$PROJECT_DIR$/src/caraoke/LineCircleIntersection.java" />
         <option value="$PROJECT_DIR$/src/inputs/GetPointsFromJSON.java" />
         <option value="$PROJECT_DIR$/src/caraoke/AlgorithmDriver.java" />
-        <option value="$PROJECT_DIR$/src/inputs/AlgorithmInput.java" />
-        <option value="$PROJECT_DIR$/src/inputs/GenerateInput.java" />
         <option value="$PROJECT_DIR$/src/christofides/graph/GraphBuilder.java" />
         <option value="$PROJECT_DIR$/src/christofides/Prim.java" />
         <option value="$PROJECT_DIR$/src/christofides/EulerCircuit.java" />
         <option value="$PROJECT_DIR$/src/christofides/PerfectMatch.java" />
         <option value="$PROJECT_DIR$/src/christofides/Christofides.java" />
+        <option value="$PROJECT_DIR$/src/inputs/AlgorithmInput.java" />
         <option value="$PROJECT_DIR$/src/christofides/Driver.java" />
+        <option value="$PROJECT_DIR$/src/inputs/GenerateInput.java" />
       </list>
     </option>
   </component>
@@ -207,7 +175,24 @@
             <path>
               <item name="Riders" type="b2602c69:ProjectViewProjectNode" />
               <item name="Riders" type="462c0819:PsiDirectoryNode" />
+              <item name="algo-data" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Riders" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Riders" type="462c0819:PsiDirectoryNode" />
+              <item name="algo-data" type="462c0819:PsiDirectoryNode" />
+              <item name="kml" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Riders" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Riders" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Riders" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Riders" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="caraoke" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Riders" type="b2602c69:ProjectViewProjectNode" />
@@ -259,12 +244,31 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Driver">
+  <component name="RunManager" selected="Application.AlgorithmDriver">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="WIDTH" value="400" />
       <option name="HEIGHT" value="300" />
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <module />
+    </configuration>
+    <configuration name="AlgorithmDriver" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="caraoke.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="caraoke.AlgorithmDriver" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="Riders" />
+      <envs />
     </configuration>
     <configuration name="Christofides" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
@@ -331,25 +335,6 @@
         </pattern>
       </extension>
       <option name="MAIN_CLASS_NAME" value="christofides.PerfectMatch" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="Riders" />
-      <envs />
-    </configuration>
-    <configuration name="Prim" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="christofides.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="MAIN_CLASS_NAME" value="christofides.Prim" />
       <option name="VM_PARAMETERS" />
       <option name="PROGRAM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -437,18 +422,18 @@
     </configuration>
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Application.PerfectMatch" />
-      <item index="1" class="java.lang.String" itemvalue="Application.Prim" />
-      <item index="2" class="java.lang.String" itemvalue="Application.EulerCircuit" />
-      <item index="3" class="java.lang.String" itemvalue="Application.Christofides" />
-      <item index="4" class="java.lang.String" itemvalue="Application.Driver" />
+      <item index="1" class="java.lang.String" itemvalue="Application.EulerCircuit" />
+      <item index="2" class="java.lang.String" itemvalue="Application.Christofides" />
+      <item index="3" class="java.lang.String" itemvalue="Application.Driver" />
+      <item index="4" class="java.lang.String" itemvalue="Application.AlgorithmDriver" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Application.Driver" />
-        <item index="1" class="java.lang.String" itemvalue="Application.Christofides" />
-        <item index="2" class="java.lang.String" itemvalue="Application.EulerCircuit" />
-        <item index="3" class="java.lang.String" itemvalue="Application.PerfectMatch" />
-        <item index="4" class="java.lang.String" itemvalue="Application.Prim" />
+        <item index="0" class="java.lang.String" itemvalue="Application.AlgorithmDriver" />
+        <item index="1" class="java.lang.String" itemvalue="Application.Driver" />
+        <item index="2" class="java.lang.String" itemvalue="Application.Christofides" />
+        <item index="3" class="java.lang.String" itemvalue="Application.EulerCircuit" />
+        <item index="4" class="java.lang.String" itemvalue="Application.PerfectMatch" />
       </list>
     </recent_temporary>
   </component>
@@ -635,7 +620,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="129305000" />
+    <option name="totallyTimeSpent" value="129890000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -664,7 +649,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23737916" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15306123" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -673,12 +658,34 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4371461" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4371461" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295583" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295583" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="OpenShift Origin" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32975295" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25028312" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31823328" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23737916" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -997,13 +1004,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/inputs/GenerateInput.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="945">
-          <caret line="52" column="0" lean-forward="false" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/brute_force/Algo1.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4590">
@@ -1033,29 +1033,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/inputs/AlgorithmInput.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1458">
-          <caret line="89" column="0" lean-forward="false" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/caraoke/AlgorithmDriver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="891">
-          <caret line="41" column="17" lean-forward="false" selection-start-line="41" selection-start-column="17" selection-end-line="41" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/christofides/Prim.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="756">
-          <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+        <state relative-caret-position="2457">
+          <caret line="98" column="14" lean-forward="false" selection-start-line="98" selection-start-column="14" selection-end-line="98" selection-end-column="14" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#508#509#0" expanded="true" />
-            <element signature="e#2836#2837#0" expanded="true" />
-            <element signature="e#2866#2867#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#483#484#0" expanded="false" />
+            <element signature="e#520#521#0" expanded="false" />
+            <element signature="method#isEmpty#0;class#Prim#0" expanded="false" />
+            <element signature="e#2890#2891#0" expanded="false" />
+            <element signature="e#2920#2921#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1065,7 +1053,7 @@
         <state relative-caret-position="2538">
           <caret line="178" column="37" lean-forward="false" selection-start-line="178" selection-start-column="37" selection-end-line="178" selection-end-column="37" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
             <element signature="method#go#0;class#EulerCircuit#0" expanded="false" />
             <element signature="method#cloneGraph#1;class#EulerCircuit#0" expanded="false" />
             <element signature="method#isGraphValid#0;class#EulerCircuit#0" expanded="false" />
@@ -1074,41 +1062,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/christofides/PerfectMatch.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="768">
-          <caret line="80" column="5" lean-forward="false" selection-start-line="80" selection-start-column="5" selection-end-line="80" selection-end-column="5" />
-          <folding>
-            <element signature="method#duplicateList#0;class#PerfectMatch#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/christofides/Driver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/christofides/Christofides.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="422">
-          <caret line="62" column="0" lean-forward="true" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
+        <state relative-caret-position="1026">
+          <caret line="38" column="23" lean-forward="false" selection-start-line="38" selection-start-column="23" selection-end-line="38" selection-end-column="23" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1359#1360#0" expanded="true" />
-            <element signature="e#1380#1381#0" expanded="true" />
-            <element signature="e#1412#1413#0" expanded="true" />
-            <element signature="e#1457#1458#0" expanded="true" />
-            <element signature="method#go#0;class#Christofides#0" expanded="false" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#1435#1436#0" expanded="false" />
+            <element signature="e#1456#1457#0" expanded="false" />
+            <element signature="e#1491#1492#0" expanded="false" />
+            <element signature="e#1536#1537#0" expanded="false" />
             <element signature="docComment;method#calculatePathCost#0;class#Christofides#0" expanded="false" />
-            <element signature="method#calculatePathCost#0;class#Christofides#0" expanded="false" />
             <element signature="docComment;method#floydWarshall#0;class#Christofides#0" expanded="false" />
             <element signature="method#floydWarshall#0;class#Christofides#0" expanded="false" />
+            <element signature="method#convertPointsToGraph#0;class#Christofides#0" expanded="false" />
+            <element signature="method#distanceBetweenTwoPoints#0;class#Christofides#0" expanded="false" />
             <element signature="docComment;method#createSubGraphIncluding#0;class#Christofides#0" expanded="false" />
             <element signature="method#createSubGraphIncluding#0;class#Christofides#0" expanded="false" />
             <element signature="docComment;method#addEdgesToGraph#0;class#Christofides#0" expanded="false" />
@@ -1118,6 +1086,51 @@
             <element signature="method#printGraph#0;class#Christofides#0" expanded="false" />
             <element signature="method#printGraph#1;class#Christofides#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/christofides/PerfectMatch.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1755">
+          <caret line="68" column="41" lean-forward="true" selection-start-line="68" selection-start-column="41" selection-end-line="68" selection-end-column="41" />
+          <folding>
+            <element signature="method#duplicateList#0;class#PerfectMatch#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/christofides/Driver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="15" column="15" lean-forward="false" selection-start-line="15" selection-start-column="15" selection-end-line="15" selection-end-column="15" />
+          <folding>
+            <element signature="e#281#282#0" expanded="true" />
+            <element signature="e#338#339#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/inputs/AlgorithmInput.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="95" column="33" lean-forward="false" selection-start-line="95" selection-start-column="33" selection-end-line="95" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/inputs/GenerateInput.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="50" column="0" lean-forward="true" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/caraoke/AlgorithmDriver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-297">
+          <caret line="24" column="9" lean-forward="true" selection-start-line="24" selection-start-column="9" selection-end-line="24" selection-end-column="9" />
+          <folding />
         </state>
       </provider>
     </entry>

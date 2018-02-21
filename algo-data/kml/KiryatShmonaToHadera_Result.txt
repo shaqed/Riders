@@ -1,0 +1,32 @@
+KIRYAT SHMONA TO HADERA OUTPUT
+
+Starting algorithm with radius: 0.003
+You should include: Passenger: ראש פינה S: (32.9694995, 35.5531311) T: (31.522547, 34.5960228)
+
+You should include: Passenger: כלנית S: (32.8746855, 35.4537392) T: (31.522547, 34.5960228)
+
+Total number of passengers on route: 2. Algorithm took: 20 ms
+
+
+Starting algorithm with radius: 0.006
+You should include: Passenger: רמות נפתלי S: (33.1030462, 35.5702972) T: (31.522547, 34.5960228)
+
+You should include: Passenger: ראש פינה S: (32.9694995, 35.5531311) T: (31.522547, 34.5960228)
+
+You should include: Passenger: כלנית S: (32.8746855, 35.4537392) T: (31.522547, 34.5960228)
+
+Total number of passengers on route: 3. Algorithm took: 14 ms
+
+
+Starting algorithm with radius: 0.012
+You should include: Passenger: רמות נפתלי S: (33.1030462, 35.5702972) T: (31.522547, 34.5960228)
+
+You should include: Passenger: יסוד המעלה S: (33.055292, 35.5826569) T: (31.522547, 34.5960228)
+
+You should include: Passenger: ראש פינה S: (32.9694995, 35.5531311) T: (31.522547, 34.5960228)
+
+You should include: Passenger: כלנית S: (32.8746855, 35.4537392) T: (31.522547, 34.5960228)
+
+You should include: Passenger: אלוני אבא S: (32.7285918, 35.1736736) T: (31.522547, 34.5960228)
+
+Total number of passengers on route: 5. Algorithm took: 6 ms

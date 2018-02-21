@@ -1,0 +1,50 @@
+TEL AVIV TO EILAT OUTPUT
+
+Starting algorithm with radius: 0.003
+You should include: Passenger: עין יהב S: (30.6579969, 35.231781) T: (31.522547, 34.5960228)
+
+You should include: Passenger: תל אביב2 S: (32.0607551, 34.7834015) T: (31.522547, 34.5960228)
+
+Total number of passengers on route: 2. Algorithm took: 50 ms
+
+
+Starting algorithm with radius: 0.006
+You should include: Passenger: נתבג S: (31.9911889, 34.8918915) T: (31.522547, 34.5960228)
+
+You should include: Passenger: בית קמה S: (31.4474103, 34.766922) T: (31.522547, 34.5960228)
+
+You should include: Passenger: דימונה S: (31.0670508, 35.0206375) T: (31.522547, 34.5960228)
+
+You should include: Passenger: יטבתה S: (29.8960198, 35.058403) T: (31.522547, 34.5960228)
+
+You should include: Passenger: עין יהב S: (30.6579969, 35.231781) T: (31.522547, 34.5960228)
+
+You should include: Passenger: פארן S: (30.3562864, 35.1617432) T: (31.522547, 34.5960228)
+
+You should include: Passenger: תל אביב2 S: (32.0607551, 34.7834015) T: (31.522547, 34.5960228)
+
+Total number of passengers on route: 7. Algorithm took: 17 ms
+
+
+Starting algorithm with radius: 0.012
+You should include: Passenger: נתבג S: (31.9911889, 34.8918915) T: (31.522547, 34.5960228)
+
+You should include: Passenger: בית קמה S: (31.4474103, 34.766922) T: (31.522547, 34.5960228)
+
+You should include: Passenger: דימונה S: (31.0670508, 35.0206375) T: (31.522547, 34.5960228)
+
+You should include: Passenger: יטבתה S: (29.8960198, 35.058403) T: (31.522547, 34.5960228)
+
+You should include: Passenger: עין יהב S: (30.6579969, 35.231781) T: (31.522547, 34.5960228)
+
+You should include: Passenger: באר שבע 3 S: (31.2632917, 34.8239136) T: (31.522547, 34.5960228)
+
+You should include: Passenger: נבטים S: (31.2213162, 34.886055) T: (31.522547, 34.5960228)
+
+You should include: Passenger: פארן S: (30.3562864, 35.1617432) T: (31.522547, 34.5960228)
+
+You should include: Passenger: גרופית S: (29.9418454, 35.0676727) T: (31.522547, 34.5960228)
+
+You should include: Passenger: תל אביב2 S: (32.0607551, 34.7834015) T: (31.522547, 34.5960228)
+
+Total number of passengers on route: 10. Algorithm took: 12 ms

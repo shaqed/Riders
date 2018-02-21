@@ -47,8 +47,9 @@ public class GenerateInput {
 
         try {
 
-            String passengersURL = "C:\\Users\\DELL\\Desktop\\project\\passengers_data\\KiryatShmonaToHadera.kml";
+//            String passengersURL = "C:\\Users\\DELL\\Desktop\\project\\passengers_data\\KiryatShmonaToHadera.kml";
 
+            String passengersURL = "algo-data/kml/KiryatShmonaToHadera.kml";
             AlgorithmInput input = AlgorithmInput.getTestInstance("Kiryat Shmona", "Hadera", passengersURL, 0.003);
 
             return input;
