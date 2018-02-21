@@ -11,12 +11,25 @@ public class Driver {
 
 	public static void main(String[] args) {
 
-		testPoints();
+		testPoints2();
 
 	}
 
 
+	private static void testPoints2() {
+		List<Point> points = new ArrayList<>();
+		points.add(new Point(1,1));
+		points.add(new Point(1,2));
+		points.add(new Point(2,1));
+		points.add(new Point(2,2));
 
+		Christofides christofides = new Christofides(points, false);
+		String circuit = christofides.getCircuitString();
+		double cost = christofides.getCircuitCost();
+
+		System.out.println("Circuit: " + circuit + " cost: " + cost);
+
+	}
 
 	private static void testPoints() {
 		List<Point> points = new ArrayList<>();
@@ -28,7 +41,7 @@ public class Driver {
 		points.add(new Point(4,2));
 		points.add(new Point(5,5));
 
-		int G [][] = Christofides.convertPointsToGraph(points);
+		double G [][] = Christofides.convertPointsToGraph(points);
 		Christofides christofides = new Christofides(G);
 
 		String answer = christofides.getCircuitString() + ": " + christofides.getCircuitCost();
@@ -37,24 +50,24 @@ public class Driver {
 
 
 	private static void test3(){
-		int[][] graph = new int[][]{
+		double[][] graph = new double[][]{
 				{0, 10, 15, 20},
 				{10, 0, 35, 25},
 				{15, 35, 0, 30},
 				{20, 25, 30, 0}
 		};
 
-		int distances[][] = Christofides.floydWarshall(graph);
+		double distances[][] = Christofides.floydWarshall(graph);
 		Christofides christofides = new Christofides(distances);
 
 		List<Integer> circuit = christofides.go();
-		int cost = christofides.calculatePathCost(circuit);
+		double cost = christofides.calculatePathCost(circuit);
 
 		System.out.println("Circuit: " + circuit.toString() + " Cost: " + cost);
 	}
 
 	private static void test2() throws Exception {
-		int [][] graph = new int[][]{
+		double [][] graph = new double[][]{
 
 //						A		B		C		D		E		F		G
 				/*A*/	{0,		1,		0,		1,		0,		0,		0},
@@ -66,7 +79,7 @@ public class Driver {
 				/*G*/	{0,		0,		0,		0,		1,		1,		0},
 		};
 
-		int distances [][] = Christofides.floydWarshall(graph);
+		double distances [][] = Christofides.floydWarshall(graph);
 		Christofides christofides = new Christofides(distances);
 
 		christofides.go();

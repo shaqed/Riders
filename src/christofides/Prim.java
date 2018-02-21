@@ -7,17 +7,17 @@ import java.util.List;
 public class Prim {
 
 	public static void main(String[] args) {
-		int[][] mst = new Prim().go(2);
+		double[][] mst = new Prim().go(2);
 		print(mst);
 	}
 
 
-	private int graph[][];
+	private double graph[][];
 
 
 	public Prim() {
 		int X = Integer.MAX_VALUE;
-		int graph[][] = {
+		double graph[][] = {
 				{0, 1, 1, 1, 2},
 				{1, 0, 1, 2, 1},
 				{1, 1, 0, 1, 1},
@@ -27,7 +27,7 @@ public class Prim {
 		this.graph = graph;
 	}
 
-	public Prim(int[][] graph) {
+	public Prim(double[][] graph) {
 		this.graph = cloneArray(graph);
 	}
 
@@ -40,14 +40,14 @@ public class Prim {
 	 * @param indexOfSource The index of the node to start building the MST from
 	 * @return Two-dimensional array representing the MST (indirect graph)
 	 * */
-	public int[][] go(int indexOfSource) {
-		int mst[][] = new int[this.graph.length][this.graph.length];
+	public double[][] go(int indexOfSource) {
+		double mst[][] = new double[this.graph.length][this.graph.length];
 		int[] parentOf = new int[this.graph.length];
 
 		// Initialize empty queue
 		int N = this.graph.length;
 
-		int Q[] = new int[N];
+		double Q[] = new double[N];
 		for (int i = 0; i < Q.length; i++) {
 			Q[i] = Integer.MAX_VALUE;
 		}
@@ -61,7 +61,7 @@ public class Prim {
 
 
 			for (int i = 0; i < N; i++) {
-				int adjacentEdge = graph[minimumIndex][i]; // From minimumIndex to I
+				double adjacentEdge = graph[minimumIndex][i]; // From minimumIndex to I
 
 				boolean neighborInQueue = Q[i] != -1;
 				boolean weightInGraphSmallerThanQueue = adjacentEdge < Q[i];
@@ -86,8 +86,8 @@ public class Prim {
 		return mst;
 	}
 
-	private boolean isEmpty(int a[]) {
-		for (int i : a) {
+	private boolean isEmpty(double a[]) {
+		for (double i : a) {
 			if (i != -1) {
 				return false;
 			}
@@ -95,8 +95,8 @@ public class Prim {
 		return true;
 	}
 
-	private int getMinimumIndexOf(int a[]) {
-		int min = Integer.MAX_VALUE;
+	private int getMinimumIndexOf(double a[]) {
+		double min = Integer.MAX_VALUE;
 		int minIndex = 0;
 		for (int i = 0; i < a.length; i++) {
 			if (a[i] < min && a[i] != -1) {
@@ -109,8 +109,8 @@ public class Prim {
 	}
 
 
-	private int[][] cloneArray(int[][] arr) {
-		int ans[][] = new int[arr.length][arr.length];
+	private double[][] cloneArray(double[][] arr) {
+		double ans[][] = new double[arr.length][arr.length];
 		for (int i = 0; i < arr.length; i++) {
 			for (int j = 0; j < arr.length; j++) {
 				if (arr[i][j] != 0) {
@@ -127,7 +127,7 @@ public class Prim {
 		System.out.println(msg);
 	}
 
-	public static void print(int[][] a) {
+	public static void print(double[][] a) {
 		for (int i = 0; i < a.length; i++) {
 			for (int j = 0; j < a[i].length; j++) {
 				System.out.print(a[i][j] + ", ");
