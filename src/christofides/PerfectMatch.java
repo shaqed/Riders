@@ -37,15 +37,15 @@ public class PerfectMatch {
 	 * The first two integers represent the indexes you should pair with one another.
 	 * The third one is how much should that edge take
 	 */
-	public List<List<Integer>> go(int graph[][], List<Integer> oddVerticesInMST) {
+	public List<List<Double>> go(double graph[][], List<Integer> oddVerticesInMST) {
 		List<Integer> odds = duplicateList(oddVerticesInMST);
 
-		List<List<Integer>> answer = new ArrayList<>();
+		List<List<Double>> answer = new ArrayList<>();
 
 		while (!odds.isEmpty()) {
 			int sourceVertex = odds.get(0);
 
-			int length = Integer.MAX_VALUE;
+			double length = Integer.MAX_VALUE;
 			int pairedVertex = -1;
 
 
@@ -53,7 +53,7 @@ public class PerfectMatch {
 			for (int i = 1; i < odds.size(); i++) {
 				int candidateVertex = odds.get(i);
 
-				int distanceFromSourceToCandidate = graph[sourceVertex][candidateVertex];
+				double distanceFromSourceToCandidate = graph[sourceVertex][candidateVertex];
 				if (distanceFromSourceToCandidate < length) {
 					length = distanceFromSourceToCandidate;
 					pairedVertex = candidateVertex;
@@ -64,9 +64,9 @@ public class PerfectMatch {
 			odds.remove(new Integer(sourceVertex));
 			odds.remove(new Integer(pairedVertex));
 			debug("You should pair: " + sourceVertex + " with: " + pairedVertex + ". length is: " + length);
-			List<Integer> pair = new ArrayList<>();
-			pair.add(sourceVertex);
-			pair.add(pairedVertex);
+			List<Double> pair = new ArrayList<>();
+			pair.add((double) sourceVertex);
+			pair.add((double) pairedVertex);
 			pair.add(length);
 			answer.add(pair);
 

@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d05cb9b0-45c8-40b2-8d79-d3ccc57f3cb8" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/christofides/Christofides.java" afterPath="$PROJECT_DIR$/src/christofides/Christofides.java" />
-      <change beforePath="$PROJECT_DIR$/src/christofides/Driver.java" afterPath="$PROJECT_DIR$/src/christofides/Driver.java" />
-      <change beforePath="$PROJECT_DIR$/src/christofides/PerfectMatch.java" afterPath="$PROJECT_DIR$/src/christofides/PerfectMatch.java" />
-    </list>
+    <list default="true" id="d05cb9b0-45c8-40b2-8d79-d3ccc57f3cb8" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -50,11 +46,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Christofides.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Christofides.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/christofides/Christofides.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1323">
-              <caret line="57" column="0" lean-forward="false" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+            <state relative-caret-position="422">
+              <caret line="62" column="0" lean-forward="true" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1359#1360#0" expanded="true" />
@@ -79,11 +75,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Driver.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Driver.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/christofides/Driver.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="378">
-              <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+              <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -94,7 +90,7 @@
       <file leaf-file-name="PerfectMatch.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/christofides/PerfectMatch.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2079">
+            <state relative-caret-position="768">
               <caret line="80" column="5" lean-forward="false" selection-start-line="80" selection-start-column="5" selection-end-line="80" selection-end-column="5" />
               <folding>
                 <element signature="method#duplicateList#0;class#PerfectMatch#0" expanded="false" />
@@ -122,6 +118,7 @@
       <find>DANGER</find>
       <find>(32.790211, 34.992121)</find>
       <find>(31.9365147, 34.92852269999999)</find>
+      <find>int [][]</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -499,7 +496,7 @@
       <workItem from="1519122122553" duration="49000" />
       <workItem from="1519123234882" duration="5495000" />
       <workItem from="1519148702904" duration="249000" />
-      <workItem from="1519225487442" duration="57000" />
+      <workItem from="1519225487442" duration="458000" />
     </task>
     <task id="LOCAL-00001" summary="Added comments">
       <created>1515404677299</created>
@@ -638,7 +635,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="128904000" />
+    <option name="totallyTimeSpent" value="129305000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -651,9 +648,11 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295583" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295583" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="OpenShift Origin" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -661,11 +660,11 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25028312" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31823328" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31823328" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23737916" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23737916" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -677,7 +676,6 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295583" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32975295" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1078,7 +1076,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/christofides/PerfectMatch.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2079">
+        <state relative-caret-position="768">
           <caret line="80" column="5" lean-forward="false" selection-start-line="80" selection-start-column="5" selection-end-line="80" selection-end-column="5" />
           <folding>
             <element signature="method#duplicateList#0;class#PerfectMatch#0" expanded="false" />
@@ -1086,10 +1084,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/christofides/Driver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/christofides/Christofides.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1323">
-          <caret line="57" column="0" lean-forward="false" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+        <state relative-caret-position="422">
+          <caret line="62" column="0" lean-forward="true" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1359#1360#0" expanded="true" />
@@ -1109,16 +1117,6 @@
             <element signature="method#debug#0;class#Christofides#0" expanded="false" />
             <element signature="method#printGraph#0;class#Christofides#0" expanded="false" />
             <element signature="method#printGraph#1;class#Christofides#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/christofides/Driver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

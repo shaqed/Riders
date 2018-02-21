@@ -18,12 +18,12 @@ import java.util.List;
  * */
 public class Christofides {
 
-	private int graph[][];
+	private double graph[][];
 	private boolean verbose = false;
 
 	private List<Integer> circuit;
 
-	public Christofides(int[][] graph) {
+	public Christofides(double[][] graph) {
 		this.graph = graph;
 		this.circuit = go();
 	}
@@ -34,7 +34,7 @@ public class Christofides {
 	 *              from a non-completely connected graph
 	 * @param verbose Messages to the output stream
 	 * */
-	public Christofides(int[][] graph, boolean verbose) {
+	public Christofides(double[][] graph, boolean verbose) {
 		this.graph = graph;
 		this.verbose = verbose;
 		this.circuit = go();
@@ -42,19 +42,21 @@ public class Christofides {
 
 	public Christofides(List<Point> points, boolean verbose) {
 		this.verbose = verbose;
-
+		this.graph = convertPointsToGraph(points);
+		this.circuit = go();
 	}
 
 	public List<Integer> getCircuit() {
 		return circuit;
 	}
 
-	public int getCircuitCost() {
+	public double getCircuitCost() {
 		return calculatePathCost(this.circuit);
 	}
 
 	public String getCircuitString() {
 		StringBuilder stringBuilder = new StringBuilder();
+
 
 		for (int node : this.circuit) {
 			stringBuilder.append(((char) (node + 65)));
@@ -66,7 +68,7 @@ public class Christofides {
 
 	public List<Integer> go() {
 		// Create MST from the graph
-		int [][] mst = new Prim(this.graph).go(1);
+		double [][] mst = new Prim(this.graph).go(1);
 		debug("MST:");
 //		printGraph(mst);
 
@@ -76,12 +78,12 @@ public class Christofides {
 
 		// Form a new graph only with those vertices
 		// (edges will change to keep the triangle inequality)
-		int onlyOddsGraph [][] = createSubGraphIncluding(oddVertices);
+		double onlyOddsGraph [][] = createSubGraphIncluding(oddVertices);
 		debug("Sub graph with these vertices");
 //		printGraph(onlyOddsGraph);
 
 		// Get perfect matching
-		List<List<Integer>> tuples = new PerfectMatch().go(onlyOddsGraph, oddVertices);
+		List<List<Double>> tuples = new PerfectMatch().go(onlyOddsGraph, oddVertices);
 		debug("Got the following tuples: ");
 //		printGraph(tuples);
 
@@ -104,7 +106,7 @@ public class Christofides {
 		hamiltonianCircuit.add(hamiltonianCircuit.get(0));
 
 
-		int routeSum = 0;
+		double routeSum = 0;
 		for (int i = 0; i < hamiltonianCircuit.size()-1; i++) {
 			routeSum += this.graph[hamiltonianCircuit.get(i)][hamiltonianCircuit.get(i+1)];
 		}
@@ -121,8 +123,8 @@ public class Christofides {
 	 * @param result The answer from the go() function (the hamiltonian circuit)
 	 * @return The cost of traveling to each node based on the graph
 	 * */
-	public int calculatePathCost(List<Integer> result) {
-		int routeSum = 0;
+	public double calculatePathCost(List<Integer> result) {
+		double routeSum = 0;
 		for (int i = 0; i < result.size()-1; i++) {
 			routeSum += this.graph[result.get(i)][result.get(i+1)];
 		}
@@ -139,11 +141,11 @@ public class Christofides {
 	 * @param graph A graph to compute the algorithm on. NOTE: THE GRAPH IS NOT CHANGED IN THE PROCESS!
 	 * @return A matrix representing the shortest paths from index i to index j
 	 * */
-	public static int[][] floydWarshall(int[][] graph) {
+	public static double[][] floydWarshall(double[][] graph) {
 
 		// Since the original graph will not be changed, we're creating a new one
 		int V = graph.length;
-		int shortDistancesMatrix[][] = new int[V][V];
+		double shortDistancesMatrix[][] = new double[V][V];
 		int INF = Integer.MAX_VALUE/4;
 		for (int i = 0; i < V; i++) {
 			for (int j = 0; j < V; j++) {
@@ -180,9 +182,9 @@ public class Christofides {
 	}
 
 
-	public static int[][] convertPointsToGraph(List<Point> points) {
+	public static double[][] convertPointsToGraph(List<Point> points) {
 		int V = points.size();
-		int [][] graph = new int[V][V];
+		double [][] graph = new double[V][V];
 
 		for (int u = 0; u < points.size(); u++) {
 			for (int v = 0; v < points.size(); v++) {
@@ -190,14 +192,14 @@ public class Christofides {
 				Point pointU = points.get(u);
 				Point pointV = points.get(v);
 
-				graph[u][v] = (int) (distanceBetweenTwoPoints(pointU, pointV) * 100);
+				graph[u][v] = (distanceBetweenTwoPoints(pointU, pointV));
 
 			}
 		}
 
 		System.out.println("Done");
 		// print
-		for (int [] arr: graph) {
+		for (double [] arr: graph) {
 			System.out.println(Arrays.toString(arr));
 		}
 
@@ -227,13 +229,13 @@ public class Christofides {
 	 * @return An adjacency matrix with the SAME SIZE OF THE INPUT.
 	 * 			Except that vertices which were removed will have all of their edges marked as INF
 	 * */
-	private int[][] createSubGraphIncluding(List<Integer> vertices) {
+	private double[][] createSubGraphIncluding(List<Integer> vertices) {
 		int V = this.graph.length;
 		final int INF = Integer.MAX_VALUE;
-		int distances[][] = floydWarshall(this.graph);
+		double distances[][] = floydWarshall(this.graph);
 
 		// Create a subgraph, first all edges do not exist
-		int subgraph[][] = new int[V][V];
+		double subgraph[][] = new double[V][V];
 		for (int i = 0; i < V; i++) {
 			for (int j = 0; j < V; j++) {
 				subgraph[i][j] = INF;
@@ -256,7 +258,7 @@ public class Christofides {
 	 * @param tuples The result from the PerfectMatch algorithm
 	 * @return A new multi graph represented with an adjacency list
 	 * */
-	private List<List<Integer>> addEdgesToGraph(int graph[][], List<List<Integer>> tuples) {
+	private List<List<Integer>> addEdgesToGraph(double graph[][], List<List<Double>> tuples) {
 		List<List<Integer>> adjacencyList = new ArrayList<>();
 		for (int i = 0; i < graph.length; i++) {
 			adjacencyList.add(new ArrayList<>());
@@ -273,9 +275,9 @@ public class Christofides {
 		}
 
 		// Add the extras
-		for(List<Integer> tuple : tuples) {
-			int u = tuple.get(0);
-			int v = tuple.get(1);
+		for(List<Double> tuple : tuples) {
+			int u = tuple.get(0).intValue();
+			int v = tuple.get(1).intValue();
 			// Add the edge on both ends
 			adjacencyList.get(u).add(v);
 			adjacencyList.get(v).add(u);
@@ -285,7 +287,7 @@ public class Christofides {
 		return adjacencyList;
 	}
 
-	private List<Integer> findOddVerticesInGraph(int graph[][]) {
+	private List<Integer> findOddVerticesInGraph(double graph[][]) {
 		List<Integer> oddVertices = new ArrayList<>();
 
 		for (int i = 0; i < graph.length; i++) {
