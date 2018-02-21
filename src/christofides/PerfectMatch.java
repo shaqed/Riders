@@ -77,7 +77,7 @@ public class PerfectMatch {
 
 
 	private void debug(String msg) {
-		System.out.println(msg);
+//		System.out.println(msg);
 	}
 
 	private List<Integer> duplicateList(List<Integer> src) {

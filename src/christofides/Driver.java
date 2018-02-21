@@ -1,5 +1,9 @@
 package christofides;
 
+import polyline_decoder.Point;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Driver {
@@ -7,13 +11,29 @@ public class Driver {
 
 	public static void main(String[] args) {
 
-		test3();
+		testPoints();
 
 	}
 
 
 
 
+	private static void testPoints() {
+		List<Point> points = new ArrayList<>();
+
+
+		points.add(new Point(1,1));
+		points.add(new Point(1,5));
+		points.add(new Point(2,3));
+		points.add(new Point(4,2));
+		points.add(new Point(5,5));
+
+		int G [][] = Christofides.convertPointsToGraph(points);
+		Christofides christofides = new Christofides(G);
+
+		String answer = christofides.getCircuitString() + ": " + christofides.getCircuitCost();
+		System.out.println(answer);
+	}
 
 
 	private static void test3(){

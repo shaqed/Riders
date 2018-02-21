@@ -1,5 +1,7 @@
 package christofides;
 
+import polyline_decoder.Point;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -19,8 +21,11 @@ public class Christofides {
 	private int graph[][];
 	private boolean verbose = false;
 
+	private List<Integer> circuit;
+
 	public Christofides(int[][] graph) {
 		this.graph = graph;
+		this.circuit = go();
 	}
 
 	/**
@@ -32,6 +37,31 @@ public class Christofides {
 	public Christofides(int[][] graph, boolean verbose) {
 		this.graph = graph;
 		this.verbose = verbose;
+		this.circuit = go();
+	}
+
+	public Christofides(List<Point> points, boolean verbose) {
+		this.verbose = verbose;
+
+	}
+
+	public List<Integer> getCircuit() {
+		return circuit;
+	}
+
+	public int getCircuitCost() {
+		return calculatePathCost(this.circuit);
+	}
+
+	public String getCircuitString() {
+		StringBuilder stringBuilder = new StringBuilder();
+
+		for (int node : this.circuit) {
+			stringBuilder.append(((char) (node + 65)));
+		}
+
+
+		return stringBuilder.toString();
 	}
 
 	public List<Integer> go() {
@@ -85,6 +115,12 @@ public class Christofides {
 	}
 
 
+	// PUBLIC HELPER FUNCTIONS
+
+	/**
+	 * @param result The answer from the go() function (the hamiltonian circuit)
+	 * @return The cost of traveling to each node based on the graph
+	 * */
 	public int calculatePathCost(List<Integer> result) {
 		int routeSum = 0;
 		for (int i = 0; i < result.size()-1; i++) {
@@ -94,7 +130,96 @@ public class Christofides {
 	}
 
 
+
+	// GLOBAL UTILITY FUNCTIONS
+
+	/**
+	 * Floyd Warshall Algorithm for multiple-source-shortest-path problem
+	 *
+	 * @param graph A graph to compute the algorithm on. NOTE: THE GRAPH IS NOT CHANGED IN THE PROCESS!
+	 * @return A matrix representing the shortest paths from index i to index j
+	 * */
+	public static int[][] floydWarshall(int[][] graph) {
+
+		// Since the original graph will not be changed, we're creating a new one
+		int V = graph.length;
+		int shortDistancesMatrix[][] = new int[V][V];
+		int INF = Integer.MAX_VALUE/4;
+		for (int i = 0; i < V; i++) {
+			for (int j = 0; j < V; j++) {
+				if (i == j) {
+					shortDistancesMatrix[i][j] = 0;
+
+				} else if (graph[i][j] == 0) {
+					// i and j are NOT equal, yet the graph say 0
+					// So there's no direct edge between the two
+					// For the purpose of the algorithm, apply INF
+					shortDistancesMatrix[i][j] = INF;
+				} else {
+					// i and j are NOT equal
+					// And there's a direct edge between them
+					// Take the value from the graph
+					shortDistancesMatrix[i][j] = graph[i][j];
+				}
+
+			}
+		}
+
+		// Apply Floyd Warshall algorithm on the slightly-changed graph
+		for (int k = 0; k < V; k++) {
+			for (int i = 0; i < V; i++) {
+				for (int j = 0; j < V; j++) {
+					if (shortDistancesMatrix[i][k] + shortDistancesMatrix[k][j] < shortDistancesMatrix[i][j]) {
+						shortDistancesMatrix[i][j] = shortDistancesMatrix[i][k] + shortDistancesMatrix[k][j];
+					}
+				}
+			}
+		}
+
+		return shortDistancesMatrix;
+	}
+
+
+	public static int[][] convertPointsToGraph(List<Point> points) {
+		int V = points.size();
+		int [][] graph = new int[V][V];
+
+		for (int u = 0; u < points.size(); u++) {
+			for (int v = 0; v < points.size(); v++) {
+
+				Point pointU = points.get(u);
+				Point pointV = points.get(v);
+
+				graph[u][v] = (int) (distanceBetweenTwoPoints(pointU, pointV) * 100);
+
+			}
+		}
+
+		System.out.println("Done");
+		// print
+		for (int [] arr: graph) {
+			System.out.println(Arrays.toString(arr));
+		}
+
+		return graph;
+	}
+
+
+
 	// PRIVATE HELPER FUNCTIONS
+
+	private static double distanceBetweenTwoPoints(Point p1, Point p2) {
+		double x1 = p1.getLat();
+		double y1 = p1.getLng();
+
+		double x2 = p2.getLat();
+		double y2 = p2.getLng();
+
+		double a1 = Math.pow((x1-x2), 2);
+		double a2 = Math.pow((y1-y2), 2);
+
+		return Math.sqrt(a1+a2);
+	}
 
 	/**
 	 * Creates a sub graph of the original graph from a set of vertices
@@ -199,51 +324,7 @@ public class Christofides {
 		}
 	}
 
-	/**
-	 * Floyd Warshall Algorithm for multiple-source-shortest-path problem
-	 *
-	 * @param graph A graph to compute the algorithm on. NOTE: THE GRAPH IS NOT CHANGED IN THE PROCESS!
-	 * @return A matrix representing the shortest paths from index i to index j
-	 * */
-	public static int[][] floydWarshall(int[][] graph) {
 
-		// Since the original graph will not be changed, we're creating a new one
-		int V = graph.length;
-		int shortDistancesMatrix[][] = new int[V][V];
-		int INF = Integer.MAX_VALUE/4;
-		for (int i = 0; i < V; i++) {
-			for (int j = 0; j < V; j++) {
-				if (i == j) {
-					shortDistancesMatrix[i][j] = 0;
-
-				} else if (graph[i][j] == 0) {
-					// i and j are NOT equal, yet the graph say 0
-					// So there's no direct edge between the two
-					// For the purpose of the algorithm, apply INF
-					shortDistancesMatrix[i][j] = INF;
-				} else {
-					// i and j are NOT equal
-					// And there's a direct edge between them
-					// Take the value from the graph
-					shortDistancesMatrix[i][j] = graph[i][j];
-				}
-
-			}
-		}
-
-		// Apply Floyd Warshall algorithm on the slightly-changed graph
-		for (int k = 0; k < V; k++) {
-			for (int i = 0; i < V; i++) {
-				for (int j = 0; j < V; j++) {
-					if (shortDistancesMatrix[i][k] + shortDistancesMatrix[k][j] < shortDistancesMatrix[i][j]) {
-						shortDistancesMatrix[i][j] = shortDistancesMatrix[i][k] + shortDistancesMatrix[k][j];
-					}
-				}
-			}
-		}
-
-		return shortDistancesMatrix;
-	}
 
 
 }
