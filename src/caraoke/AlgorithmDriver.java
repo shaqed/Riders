@@ -1,8 +1,10 @@
 package caraoke;
 
+import christofides.Christofides;
 import inputs.AlgorithmInput;
 import polyline_decoder.Point;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AlgorithmDriver {
@@ -10,7 +12,7 @@ public class AlgorithmDriver {
     public static void main(String[] args) {
         AlgorithmInput input = AlgorithmInput.getInstance("algo-data/kml/Sderot-Route-1.kml", 0.003);
 
-        double radiuses[] = {0.003, 0.006, 0.012};
+        double radiuses[] = {0.001, 0.002, 0.003};
         for (double radius : radiuses) {
             input.setRadius(radius);
             System.out.println("Starting algorithm with radius: " + input.getRadius());
@@ -21,8 +23,23 @@ public class AlgorithmDriver {
             System.out.println("Total number of passengers on route: " + answer +
                     ". Algorithm took: " + (endtime - startTime) + " ms\n\n");
         }
+
+		System.out.println("----");
+        tsp(input);
     }
 
+
+    private static void tsp(AlgorithmInput input) {
+    	List<Point> pointList = new ArrayList<>();
+
+    	for(AlgorithmInput.Passenger p : input.getPassengers()) {
+    		pointList.add(p.s);
+		}
+
+		Christofides christofides = new Christofides(pointList, false);
+		System.out.println("TSP: " + christofides.getCircuitString() + ": " + christofides.getCircuitCost());
+
+	}
 
 
     /**
@@ -48,7 +65,7 @@ public class AlgorithmDriver {
 
             // TODO Temporary debug, for now just prints the passengers you need to include
             if (siIntersects && tiIntersects) {
-                debug("You should include: " + passenger + "\n");
+                System.out.println("You should include: " + passenger );
                 numOfPassengersToCollect++;
             }
 
@@ -82,7 +99,7 @@ public class AlgorithmDriver {
 
 
     private static void debug(String msg) {
-        if (true) {
+        if (false) {
             System.out.println(msg);
         }
     }

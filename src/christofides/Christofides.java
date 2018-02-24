@@ -197,12 +197,6 @@ public class Christofides {
 			}
 		}
 
-		System.out.println("Done");
-		// print
-		for (double [] arr: graph) {
-			System.out.println(Arrays.toString(arr));
-		}
-
 		return graph;
 	}
 
