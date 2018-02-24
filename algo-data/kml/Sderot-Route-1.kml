@@ -3,9 +3,9 @@
   <Document>
     <name>Sderot-Route-1</name>
     <description/>
-    <Style id="icon-1899-0288D1-nodesc-normal">
+    <Style id="icon-1899-DB4436-nodesc-normal">
       <IconStyle>
-        <color>ffd18802</color>
+        <color>ff3644db</color>
         <scale>1</scale>
         <Icon>
           <href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
@@ -19,9 +19,9 @@
         <text><![CDATA[<h3>$[name]</h3>]]></text>
       </BalloonStyle>
     </Style>
-    <Style id="icon-1899-0288D1-nodesc-highlight">
+    <Style id="icon-1899-DB4436-nodesc-highlight">
       <IconStyle>
-        <color>ffd18802</color>
+        <color>ff3644db</color>
         <scale>1</scale>
         <Icon>
           <href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
@@ -35,21 +35,91 @@
         <text><![CDATA[<h3>$[name]</h3>]]></text>
       </BalloonStyle>
     </Style>
-    <StyleMap id="icon-1899-0288D1-nodesc">
+    <StyleMap id="icon-1899-DB4436-nodesc">
       <Pair>
         <key>normal</key>
-        <styleUrl>#icon-1899-0288D1-nodesc-normal</styleUrl>
+        <styleUrl>#icon-1899-DB4436-nodesc-normal</styleUrl>
       </Pair>
       <Pair>
         <key>highlight</key>
-        <styleUrl>#icon-1899-0288D1-nodesc-highlight</styleUrl>
+        <styleUrl>#icon-1899-DB4436-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-1899-E65100-nodesc-normal">
+      <IconStyle>
+        <color>ff0051e6</color>
+        <scale>1</scale>
+        <Icon>
+          <href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="16" xunits="pixels" y="32" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="icon-1899-E65100-nodesc-highlight">
+      <IconStyle>
+        <color>ff0051e6</color>
+        <scale>1</scale>
+        <Icon>
+          <href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="16" xunits="pixels" y="32" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="icon-1899-E65100-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-1899-E65100-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-1899-E65100-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-1267FF-5000-nodesc-normal">
+      <LineStyle>
+        <color>ffff6712</color>
+        <width>5</width>
+      </LineStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="line-1267FF-5000-nodesc-highlight">
+      <LineStyle>
+        <color>ffff6712</color>
+        <width>7.5</width>
+      </LineStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="line-1267FF-5000-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-1267FF-5000-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-1267FF-5000-nodesc-highlight</styleUrl>
       </Pair>
     </StyleMap>
     <Folder>
       <name>Passengers</name>
       <Placemark>
         <name>Passenger1</name>
-        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <styleUrl>#icon-1899-E65100-nodesc</styleUrl>
         <Point>
           <coordinates>
             34.58745,31.533043,0
@@ -58,7 +128,7 @@
       </Placemark>
       <Placemark>
         <name>Passenger 2</name>
-        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <styleUrl>#icon-1899-E65100-nodesc</styleUrl>
         <Point>
           <coordinates>
             34.5910549,31.5343598,0
@@ -67,7 +137,7 @@
       </Placemark>
       <Placemark>
         <name>Passenger 3</name>
-        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <styleUrl>#icon-1899-E65100-nodesc</styleUrl>
         <Point>
           <coordinates>
             34.5914841,31.5307385,0
@@ -76,10 +146,139 @@
       </Placemark>
       <Placemark>
         <name>Passenger 4</name>
-        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <styleUrl>#icon-1899-E65100-nodesc</styleUrl>
         <Point>
           <coordinates>
             34.5900249,31.5324211,0
+          </coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>Directions from Yehoshua Bin Nun Street, Sderot to Maoz School, Sderot</name>
+      <Placemark>
+        <name>Directions from Yehoshua Bin Nun Street, Sderot to Maoz School, Sderot</name>
+        <styleUrl>#line-1267FF-5000-nodesc</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            34.58921,31.53589,0
+            34.58967,31.53579,0
+            34.59046,31.53561,0
+            34.59085,31.53549,0
+            34.59143,31.53522,0
+            34.59205,31.5348,0
+            34.5925,31.53446,0
+            34.5925,31.53445,0
+            34.59249,31.53445,0
+            34.59249,31.53444,0
+            34.59249,31.53443,0
+            34.59249,31.53442,0
+            34.59248,31.53442,0
+            34.59248,31.53441,0
+            34.59248,31.5344,0
+            34.59249,31.5344,0
+            34.59249,31.53439,0
+            34.592,31.53408,0
+            34.59153,31.53382,0
+            34.59129,31.53365,0
+            34.59104,31.53348,0
+            34.59078,31.53326,0
+            34.59055,31.53299,0
+            34.59029,31.53259,0
+            34.59027,31.53259,0
+            34.59026,31.53259,0
+            34.59024,31.53258,0
+            34.59022,31.53257,0
+            34.59021,31.53256,0
+            34.5902,31.53255,0
+            34.59018,31.53254,0
+            34.59017,31.53252,0
+            34.59017,31.53251,0
+            34.59016,31.53249,0
+            34.59016,31.53247,0
+            34.59015,31.53246,0
+            34.59016,31.53244,0
+            34.59016,31.53243,0
+            34.59016,31.53242,0
+            34.59017,31.5324,0
+            34.59017,31.53239,0
+            34.59018,31.53238,0
+            34.59019,31.53237,0
+            34.5902,31.53236,0
+            34.59021,31.53235,0
+            34.59022,31.53235,0
+            34.59023,31.53234,0
+            34.59025,31.53233,0
+            34.59026,31.53233,0
+            34.59028,31.53233,0
+            34.59029,31.53232,0
+            34.59031,31.53232,0
+            34.59033,31.53233,0
+            34.59035,31.53233,0
+            34.59036,31.53234,0
+            34.59038,31.53235,0
+            34.59039,31.53236,0
+            34.5904,31.53237,0
+            34.59041,31.53237,0
+            34.59073,31.53229,0
+            34.59134,31.53214,0
+            34.59182,31.53199,0
+            34.59183,31.53199,0
+            34.59183,31.53198,0
+            34.59184,31.53197,0
+            34.59184,31.53196,0
+            34.59185,31.53196,0
+            34.59185,31.53195,0
+            34.59186,31.53195,0
+            34.59187,31.53195,0
+            34.59187,31.53194,0
+            34.59188,31.53194,0
+            34.59188,31.53193,0
+            34.59189,31.53193,0
+            34.5919,31.53193,0
+            34.59191,31.53192,0
+            34.59193,31.53192,0
+            34.59194,31.53192,0
+            34.59195,31.53192,0
+            34.59196,31.53192,0
+            34.59197,31.53192,0
+            34.59198,31.53192,0
+            34.59199,31.53192,0
+            34.592,31.53193,0
+            34.59201,31.53193,0
+            34.59202,31.53193,0
+            34.59202,31.53194,0
+            34.59203,31.53194,0
+            34.59289,31.53175,0
+            34.59435,31.53139,0
+            34.59465,31.53131,0
+            34.5945,31.5309,0
+            34.59388,31.53102,0
+            34.59318,31.53119,0
+            34.59291,31.53027,0
+            34.59291,31.53025,0
+            34.59291,31.53023,0
+            34.59291,31.53022,0
+            34.59292,31.53021,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Yehoshua Bin Nun Street, Sderot</name>
+        <styleUrl>#icon-1899-DB4436-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            34.5892148,31.5358852,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Maoz School, Sderot</name>
+        <styleUrl>#icon-1899-DB4436-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            34.5929175,31.5302055,0
           </coordinates>
         </Point>
       </Placemark>

@@ -10,7 +10,7 @@ import java.util.List;
 public class AlgorithmDriver {
 
     public static void main(String[] args) {
-        AlgorithmInput input = GenerateInput.getInput();
+        AlgorithmInput input = AlgorithmInput.getInstance("algo-data/kml/Sderot-Route-1.kml", 0.003);
 
         double radiuses[] = {0.003, 0.006, 0.012};
         for (double radius : radiuses) {
@@ -73,7 +73,9 @@ public class AlgorithmDriver {
 
                 // Debug
                 if (true){
-//                    System.out.println("Intersection found between: " + x + " and " + y);
+                    System.out.println("Intersection! line from: " + x + " to: " + y +
+                            " touches the circle with radius: " + radius + " at point: " + point);
+                    // TODO: ADD DESMOS FRIENDLY DEBUG INFO!
                 }
 
                 return true;

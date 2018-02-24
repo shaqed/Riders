@@ -26,6 +26,13 @@ public class AlgorithmInput {
 
     // Constructor
 
+	private AlgorithmInput(String kmlFile, double radius) throws Exception {
+		KMLParser kmlParser = new KMLParser(kmlFile);
+		this.pathToDestination = kmlParser.getPath();
+		this.passengers = kmlParser.getPassengers();
+		this.radius = radius;
+	}
+
     private AlgorithmInput(String pathJSONFileURL, String passengersXMLFileURL, double radius) throws IOException, SAXException, ParserConfigurationException {
         this.pathToDestination = GetPointsFromJSON.getPoints(pathJSONFileURL);
         this.passengers = generatePassengersFromXMLFile(passengersXMLFileURL);
@@ -74,7 +81,16 @@ public class AlgorithmInput {
         // TODO Function
         // Take the passenger's XML file and understand the source, dest, path and passengers from it
         // This is to be done later...
-        return null;
+
+		AlgorithmInput input = null;
+
+		try {
+			input = new AlgorithmInput(pathToXMLFile, radius);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return input;
     }
 
 
@@ -187,145 +203,8 @@ public class AlgorithmInput {
     }
 
 
-
-    // This function extracts the path of the driver
-    // As well as the passengers
-    private static void passengersAndPathFromKML() throws Exception {
-        String kmlFilePath = "C:\\Users\\DELL\\Desktop\\Sderot-Route-1 (1).kml";
-
-        Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(kmlFilePath);
-        NodeList folders = document.getElementsByTagName("Folder");
-
-        List<Point> path = new ArrayList<>();
-        String source = null;
-        String dest = null;
-
-        List<Passenger> passengers = new ArrayList<>();
-
-        for (int i = 0; i < folders.getLength(); i++) {
-            Node folder = folders.item(i);
-
-            List<Node> nodes = getElementsByTagName(folder, "name");
-
-            Node nameTag = nodes.get(0);
-            if (nameTag != null) {
-                String name = nameTag.getTextContent();
-                if (name.equals("Passengers")) {
-                    System.out.println("Extracting Passengers...");
-
-
-                    List<Node> placemarks = getElementsByTagName(folder, "Placemark");
-
-                    for (Node placemark : placemarks) {
-
-                        // Name of passenger
-                        Node nameTagOfPassenger = getElementsByTagName(placemark, "name").get(0);
-                        String nameOfPassenger = nameTagOfPassenger.getTextContent();
-
-                        // Point
-                        Node pointNode = getElementsByTagName(placemark, "Point").get(0);
-                        Node coordinates = getElementsByTagName(pointNode, "coordinates").get(0);
-                        String cords = coordinates.getTextContent();
-                        Point point = new Point(Double.valueOf(cords.split(",")[0]),
-                                Double.valueOf(cords.split(",")[1]));
-
-                        // Do not construct a passenger yet because you do not know its Ti or Si
-                        // You know only of 1 point
-
-                        passengers.add(new Passenger(nameOfPassenger, point));
-                    }
-
-
-                } else if (name.contains("Directions")) {
-
-                    String drivingPath[] = name.split(" from ")[1].split(" to ");
-                    source = drivingPath[0];
-                    dest = drivingPath[1];
-
-                    List<Node> placemarks = getElementsByTagName(folder, "Placemark");
-                    for(Node placemark : placemarks) {
-
-                        String nameOfPlacemark = getElementsByTagName(placemark, "name").get(0).getTextContent();
-
-
-                        if (nameOfPlacemark.contains("Directions")) {
-                            // A bunch of coordinates to extract
-
-                            Node lineStringNode = getElementsByTagName(placemark, "LineString").get(0);
-                            Node cordsNode = getElementsByTagName(lineStringNode, "coordinates").get(0);
-
-                            String cordsStrings []= cordsNode.getTextContent().split("\n");
-                            for (String string : cordsStrings) {
-                                String splitted[] = string.split(",");
-
-                                if (splitted.length > 1) {
-                                    double lat = Double.valueOf(splitted[0]);
-                                    double lng = Double.valueOf(splitted[1]);
-
-                                    Point point = new Point(lat, lng);
-                                    path.add(point);
-                                }
-                            }
-
-                        } else if (nameOfPlacemark.equals(source)) {
-                            Point point = extractPointFromPlacemark(placemark);
-                            path.add(0, point);
-
-                        } else if (nameOfPlacemark.equals(dest)) {
-                            Point point = extractPointFromPlacemark(placemark);
-                            path.add(point);
-                        }
-
-                    }
-
-
-                }
-            }
-        }
-
-
-        System.out.println("Done path contains: " + path.size() + " points from : " + source + " to " + dest);
-        for (Passenger p : passengers) {
-            System.out.println(p);
-        }
-
-        System.out.println("path");
-        for (Point p : path) {
-            System.out.println(p);
-        }
-
-    }
-
-
-    private static Point extractPointFromPlacemark(Node placemarkNode) {
-        Node pointNode = getElementsByTagName(placemarkNode, "Point").get(0);
-        Node coordsNode = getElementsByTagName(pointNode, "coordinates").get(0);
-
-        String cord = coordsNode.getTextContent();
-        double lat = Double.valueOf(cord.split(",")[0]);
-        double lng = Double.valueOf(cord.split(",")[1]);
-        Point point = new Point(lat, lng);
-        return point;
-    }
-
-    private static List<Node> getElementsByTagName(Node node, String name) {
-    	List<Node> nodes = new ArrayList<>();
-    	NodeList children = node.getChildNodes();
-		for (int i = 0; i < children.getLength(); i++) {
-			Node child = children.item(i);
-			if (child.getNodeName().equals(name)) {
-				nodes.add(child);
-			}
-		}
-		return nodes;
-	}
-
     public static void main(String[] args) {
-		try {
-			passengersAndPathFromKML();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+
 	}
 
 
