@@ -12,9 +12,9 @@ public class LineCircleIntersection {
     // Test of the functions
     public static void main(String[] args) {
         Point point1 = new Point(0,0);
-        Point point2 = new Point(20, 20);
+        Point point2 = new Point(5,5);
         Point pointCircle = new Point(2, 2);
-        double radiusCircle = 16;
+        double radiusCircle = 4;
 
         System.out.println(intersect(point1, point2, pointCircle, radiusCircle));
     }
@@ -43,8 +43,12 @@ public class LineCircleIntersection {
         List<Point> answer = getCircleLineIntersectionPoint(point1, point2, pointCircle, radiusCircle);
         if (answer != null) {
             for (Point p : answer) {
-                // TODO WHAT HAPPENS IF LINE IS ENTIRELY INSIDE THE CIRCLE
-                if (Math.min(point1.x, point2.x) <= p.x && p.x <= Math.max(point1.x ,point2.x)){ // is on the line
+                // This is true IFF from point1 to point2 we cross the perimeter of the circle
+                boolean clearIntersection = Math.min(point1.x, point2.x) <= p.x && p.x <= Math.max(point1.x ,point2.x);
+
+                boolean lineInsideCircle = true; // TODO: Complete that statement, you will need 2 intersection points to calculate this.
+
+                if (clearIntersection || lineInsideCircle){ // is on the line
                     if (point1.x != point2.x) {
 
 //                        System.out.println("DEBUG: Found intersection " + point1.toString() + " " + point2.toString() + " and circle: " + pointCircle.toString());

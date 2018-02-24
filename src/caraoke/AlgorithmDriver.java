@@ -1,8 +1,6 @@
 package caraoke;
 
 import inputs.AlgorithmInput;
-import inputs.GenerateInput;
-import inputs.GetPointsFromJSON;
 import polyline_decoder.Point;
 
 import java.util.List;
@@ -48,9 +46,9 @@ public class AlgorithmDriver {
 //            boolean tiIntersects = circleIntersectionWithPath(driverPath, ti, radius);
             boolean tiIntersects = true;
 
-            // TODO Temporary output, for now just prints the passengers you need to include
+            // TODO Temporary debug, for now just prints the passengers you need to include
             if (siIntersects && tiIntersects) {
-                output("You should include: " + passenger + "\n");
+                debug("You should include: " + passenger + "\n");
                 numOfPassengersToCollect++;
             }
 
@@ -59,29 +57,35 @@ public class AlgorithmDriver {
 
     }
 
-    private static void output(String msg) {
-        System.out.println(msg);
-    }
-
     private static boolean circleIntersectionWithPath(List<Point> path, Point point, double radius) {
         for (int i = 0; i < path.size() - 1; i++) {
             // Intersection must be between 2 points
             Point x = path.get(i);
             Point y = path.get(i+1);
             boolean intersection = LineCircleIntersection.intersect(x,y, point, radius);
+
+            String circleDesmosString = "(x - " + point.getLat() + ")^2 + (y - " + point.getLng()
+                    + ")^2 = (" + radius + ")^2";
+
+
             if (intersection) {
-
-                // Debug
-                if (true){
-                    System.out.println("Intersection! line from: " + x + " to: " + y +
-                            " touches the circle with radius: " + radius + " at point: " + point);
-                    // TODO: ADD DESMOS FRIENDLY DEBUG INFO!
-                }
-
+                debug("Intersection detected between circle: " + circleDesmosString + " and points: " +
+                        x.toString() + " and " + y.toString());
                 return true;
+            } else {
+                debug("No intersection between circle: " + circleDesmosString + " and points: " +
+                        x.toString() + " and " + y.toString());
             }
         }
         return false;
     }
+
+
+    private static void debug(String msg) {
+        if (true) {
+            System.out.println(msg);
+        }
+    }
+
 
 }
