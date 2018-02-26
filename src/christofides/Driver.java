@@ -11,9 +11,7 @@ public class Driver {
 
 
 	public static void main(String[] args) {
-
-//		testPoints2();
-		test();
+		test4();
 	}
 
 	private static void test() {
@@ -22,10 +20,10 @@ public class Driver {
 
 	private static void testPoints2() {
 		List<Point> points = new ArrayList<>();
-		points.add(new Point(1,1));
-		points.add(new Point(1,2));
-		points.add(new Point(2,1));
-		points.add(new Point(2,2));
+		points.add(new Point(1,1)); // a
+		points.add(new Point(1,2)); // b
+		points.add(new Point(2,1)); // c
+		points.add(new Point(2,2)); // d
 
 		Christofides christofides = new Christofides(points, false);
 		String circuit = christofides.getCircuitString();
@@ -52,6 +50,20 @@ public class Driver {
 		System.out.println(answer);
 	}
 
+
+	private static void test4() {
+		double graph[][] = {
+				{0 ,0.5, 1.1, 0.3},
+				{0.4, 0, 1.4, 0.7},
+				{1.1, 1.2, 0, 1.4},
+				{0.4, 0.7, 0.8, 0}
+
+		};
+
+		Christofides christofides = new Christofides(Christofides.floydWarshall(graph));
+		System.out.println(christofides.getCircuitString() + ": " + christofides.getCircuitCost());
+
+	}
 
 	private static void test3(){
 		double[][] graph = new double[][]{

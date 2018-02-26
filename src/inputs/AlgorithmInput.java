@@ -23,6 +23,8 @@ public class AlgorithmInput {
     private List<Point> pathToDestination;
     private List<Passenger> passengers;
     private double radius;
+    private String source;
+    private String destination;
 
     // Constructor
 
@@ -31,6 +33,8 @@ public class AlgorithmInput {
 		this.pathToDestination = kmlParser.getPath();
 		this.passengers = kmlParser.getPassengers();
 		this.radius = radius;
+		this.source = kmlParser.getSource();
+		this.destination = kmlParser.getDestination();
 	}
 
     private AlgorithmInput(String pathJSONFileURL, String passengersXMLFileURL, double radius) throws IOException, SAXException, ParserConfigurationException {
@@ -60,7 +64,15 @@ public class AlgorithmInput {
         return radius;
     }
 
-    public void setRadius(double radius) {
+	public String getSource() {
+		return source;
+	}
+
+	public String getDestination() {
+		return destination;
+	}
+
+	public void setRadius(double radius) {
         this.radius = radius;
     }
 

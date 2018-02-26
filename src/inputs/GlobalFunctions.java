@@ -1,6 +1,20 @@
 package inputs;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 public class GlobalFunctions {
+
+	public static void main(String[] args) {
+		try {
+			String ans = URLEncoder.encode("|", "utf-8");
+			System.out.println(ans);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+	}
+
+
 
     public static final int X = 10000;
 
