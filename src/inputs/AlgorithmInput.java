@@ -90,10 +90,11 @@ public class AlgorithmInput {
     /**
      * Returns a URL to Google Maps that displays the given route
      * Paste that URL to your browser to see the route
-     * @param path The route that is to be calculated (this is the output of the algorithm)
+     * @param passengers The passengers available to choose from
+     * @param path The route that is to be calculated from the passengers provided (this is the output of the algorithm)
      * @return An HTTP url to Google Maps with the parameters.
      * */
-	public String getResultOnGoogleMaps(List<Integer> path) {
+	public String getResultOnGoogleMaps(List<Passenger> passengers, List<Integer> path) {
         try {
             final String UTF8 = "utf-8";
             String divider = "/";
@@ -107,7 +108,7 @@ public class AlgorithmInput {
             for (int i = 1; i < path.size() - 1; i++) {
                 int index = path.get(i);
 
-                Passenger p = this.passengers.get(index-1);
+                Passenger p = passengers.get(index-1);
 
                 stringBuilder.append(URLEncoder.encode(p.s.getLng() + ", " + p.s.getLat(), UTF8));
                 stringBuilder.append(divider);

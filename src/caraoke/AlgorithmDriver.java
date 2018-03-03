@@ -65,24 +65,21 @@ public class AlgorithmDriver {
 
             List<Point> pathToDest = new ArrayList<>();
             pathToDest.add(input.getPathToDestination().get(0));
-            System.out.println("Taking: " + pathToDest.get(0));
             for(AlgorithmInput.Passenger p : passengersToInclude) {
                 pathToDest.add(p.s);
                 // TODO: Add the t as well
-                System.out.println("Taking: " + p.s);
             }
             pathToDest.add(input.getPathToDestination().get(input.getPathToDestination().size()-1)); // get last point
-            System.out.println("Taking: last");
 
             System.out.println("Main points: " + pathToDest.toString());
 
             // Currently taking the points directly
             // If you want accurate results you have to give it a distances matrix from the real world
             // Giving a bunch of points is only for testing
-            c = new Christofides(g, false, 0, pathToDest.size()-1);
+            c = new Christofides(pathToDest, false, 0, pathToDest.size()-1);
 
 			System.out.println(readResult(c, passengersToInclude));
-            System.out.println("Path on Google Maps: " + input.getResultOnGoogleMaps(c.getCircuit()));
+            System.out.println("Path on Google Maps: " + input.getResultOnGoogleMaps(passengersToInclude, c.getCircuit()));
 
 		} catch (Exception e) {
 			e.printStackTrace();
