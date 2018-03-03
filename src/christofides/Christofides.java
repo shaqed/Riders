@@ -8,12 +8,14 @@ import java.util.List;
 
 
 /**
- * Implementation of the Christofides algorithm for solving the Traveling Salesman Problem
+ * Implementation of the Christofides algorithm for solving the Traveling Salesman Problem.
+ * The implementation can create a Hamiltonian Path as well as a cycle.
  * How to work with this class:
- * 		1. Create an instance of the class with an adjacency matrix of a fully connected graph.
- * 			If you do not have that, you may use the FloydWarshall() static method of that class to compute a complete graph
- * 		2. Run the go() function to receive the desired circuit
- * 		3. You can also call the calculatePathCost() method to get the cost of your circuit
+ * 		1. Create an instance using one of the constructors (note that using the constructor without
+ * 	The source/dest parameters will create a cycle not a path.
+ * 	Also note that the computation is being done in the constructor
+ * 		2. Call one of the Getter methods to get your results. Note that the circuit is also the path if
+ * 	That's what you selected in the first place
  *
  * */
 public class Christofides {
@@ -72,6 +74,10 @@ public class Christofides {
 		return stringBuilder.toString();
 	}
 
+
+	/**
+	 * Creates an Hamiltonian cycle from the graph loaded to the class
+	 * */
 	public List<Integer> go() {
 		// Create MST from the graph
 		double [][] mst = new Prim(this.graph).go(1);
@@ -122,6 +128,11 @@ public class Christofides {
 		return hamiltonianCircuit;
 	}
 
+	/**
+	 * Creates an Hamiltonian path from the graph loaded to the class
+	 * @param source Index of the source vertex
+	 * @param dest Index of the destination vertex
+	 * */
 	public List<Integer> go(int source, int dest) throws Exception {
 
 		double mst[][] = new Prim(this.graph).go(0);

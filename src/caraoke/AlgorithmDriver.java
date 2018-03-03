@@ -22,6 +22,16 @@ public class AlgorithmDriver {
             int answer = go(input);
             long endtime = System.currentTimeMillis();
 
+            // TODO: From the passengers selected, There needs to be a TSP solution which will tell who to pick up first
+			/* Need to:
+			*		1. [ ]	Extract the passengers from the function
+			*		2. [ ]	Create an adjacency matrix between all of the points
+			*			2.1 [V]	Use the Google API and the HTTPer class for creating an API query
+			*			2.2 [ ]	Extract the matrix from the HTTP response
+			*		3. [ ]	Plug the matrix as well as the source and destination to Christofides to calculate a path
+			*
+			* */
+
             System.out.println("Total number of passengers on route: " + answer +
                     ". Algorithm took: " + (endtime - startTime) + " ms\n\n");
         }
@@ -49,9 +59,6 @@ public class AlgorithmDriver {
 			builder.setMethod("GET");
 
 
-			List<Point> myPoints = new ArrayList<>();
-			myPoints.add(new Point(40.924044,-74.698135));
-			myPoints.add(new Point(40.905392,-74.707945));
 
 			StringBuilder stringBuilder = new StringBuilder();
 			for(Point p : pointList) {
@@ -86,7 +93,7 @@ public class AlgorithmDriver {
 
 		Christofides c = null;
 		try {
-			c = new Christofides(g,true, 0, g.length-1);
+			c = new Christofides(g,false, 0, g.length-1);
 			System.out.println(readResult(c, input));
 		} catch (Exception e) {
 			e.printStackTrace();

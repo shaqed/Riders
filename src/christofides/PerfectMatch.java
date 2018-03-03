@@ -26,7 +26,7 @@ public class PerfectMatch {
 	}
 
 
-	private boolean verbose = true;
+	private boolean verbose = false;
 
 	/**
 	 * Given a set of odd vertices, return a perfect matching. The greedy way.
@@ -81,6 +81,12 @@ public class PerfectMatch {
 	 * Constructs a minimum weight perfect matching the greedy way on a given graph
 	 * This method takes into account that 2 vertices must remain odd at the end of the algorithm
 	 * This to enable an euler path to be found in the graph later
+	 * @param graph The graph represented as an adjacency matrix (Result of the MST)
+	 * @param oddVerticesInMST The odd vertices you wish to pair with one another
+	 * @param odd1 The index of the vertex you wish to keep/make odd
+	 * @param odd2 The index of the vertex you wish to keep/make odd
+	 * @return A multi graph based on the given graph, after additional edges have been added to it
+	 *
 	 * */
 	public List<List<Integer>> goOdd(double graph[][], List<Integer> oddVerticesInMST, int odd1, int odd2) {
 
