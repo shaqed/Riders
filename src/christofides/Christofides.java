@@ -46,6 +46,12 @@ public class Christofides {
 		this.circuit = go();
 	}
 
+	public Christofides(double graph[][], boolean verbose, int source, int dest) throws Exception {
+		this.verbose = verbose;
+		this.graph = graph;
+		this.circuit = go(source, dest);
+	}
+
 	public List<Integer> getCircuit() {
 		return circuit;
 	}
@@ -114,6 +120,45 @@ public class Christofides {
 		// There's your Traveling Salesman solution
 		System.out.println("Fin: " + hamiltonianCircuit.toString() + ". sum: " + routeSum);
 		return hamiltonianCircuit;
+	}
+
+	public List<Integer> go(int source, int dest) throws Exception {
+
+		double mst[][] = new Prim(this.graph).go(0);
+
+		debug("MST:");
+		printGraph(mst);
+
+
+		List<Integer> oddVertices = findOddVerticesInGraph(mst);
+
+		debug("Odd vertices before: " + oddVertices.toString());
+
+		oddVertices.remove(new Integer(source));
+		oddVertices.remove(new Integer(dest));
+
+		debug("Odd vertices after: " + oddVertices.toString());
+
+		double oddsOnlyGraph[][] = createSubGraphIncluding(oddVertices);
+
+		List<List<Integer>> multiGraph = new PerfectMatch().goOdd(mst, oddVertices, source, dest);
+
+		debug("Multigraph:");
+		if (verbose) {
+			printGraph(multiGraph);
+		}
+
+
+		List<Integer> eulerPath = new EulerPath(multiGraph).getPath();
+
+		List<Integer> hamiltonianPath = new ArrayList<>();
+		for (int u : eulerPath) {
+			if (!hamiltonianPath.contains(u)) {
+				hamiltonianPath.add(u);
+			}
+		}
+
+		return hamiltonianPath;
 	}
 
 
@@ -308,9 +353,11 @@ public class Christofides {
 		}
 	}
 
-	private static void printGraph(int g[][]) {
-		for (int[] a : g) {
-			System.out.println(Arrays.toString(a));
+	private void printGraph(double g[][]) {
+		if (verbose) {
+			for (double[] a : g) {
+				System.out.println(Arrays.toString(a));
+			}
 		}
 	}
 
@@ -321,6 +368,22 @@ public class Christofides {
 	}
 
 
+	public static void main(String[] args) {
+		double g[][] = {
+//				A	B	C	D	E
+				{0,	1,	1,	1,	2},
+				{1,	0,	1,	2,	1},
+				{1,	1,	0,	1,	1},
+				{1,	2,	1,	0,	1},
+				{2,	1,	1,	1,	0}
+		};
 
+		try {
+			Christofides christofides = new Christofides(g, true, 1, 4);
+			System.out.println(christofides.getCircuitString());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 }

@@ -84,8 +84,13 @@ public class AlgorithmDriver {
 				{1.3, 1.0, 1.2, 0.3, 1.3, 0}
 		};
 
-		Christofides c = new Christofides(g);
-		System.out.println(readResult(c, input));
+		Christofides c = null;
+		try {
+			c = new Christofides(g,true, 0, g.length-1);
+			System.out.println(readResult(c, input));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		// END TEST
 
