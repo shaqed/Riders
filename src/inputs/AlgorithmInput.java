@@ -72,6 +72,43 @@ public class AlgorithmInput {
 		return destination;
 	}
 
+
+	/**
+     * Returns a URL to Google Maps that displays the given route
+     * Paste that URL to your browser to see the route
+     * @param path The route that is to be calculated (this is the output of the algorithm)
+     * @return An HTTP url to Google Maps with the parameters.
+     * */
+	public String getResultOnGoogleMaps(List<Integer> path) {
+        try {
+            final String UTF8 = "utf-8";
+            String divider = "/";
+
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append("https://www.google.co.il/maps/dir/");
+
+            stringBuilder.append(URLEncoder.encode(this.getSource(), UTF8));
+            stringBuilder.append(divider);
+
+            for (int i = 1; i < path.size() - 1; i++) {
+                int index = path.get(i);
+
+                Passenger p = this.passengers.get(index-1);
+
+                stringBuilder.append(URLEncoder.encode(p.s.getLng() + ", " + p.s.getLat(), UTF8));
+                stringBuilder.append(divider);
+            }
+            stringBuilder.append(URLEncoder.encode(this.getDestination(), UTF8));
+
+            return stringBuilder.toString();
+
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
 	public void setRadius(double radius) {
         this.radius = radius;
     }
