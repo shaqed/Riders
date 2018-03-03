@@ -50,21 +50,38 @@ public class AlgorithmDriver {
 
     private static void tsp(AlgorithmInput input, List<AlgorithmInput.Passenger> passengersToInclude) {
 
-        System.out.println("debug: " + passengersToInclude.toString());
-
         HTTPer matrixRequest = getAdjacencyMatrixRequest(input.getSource(), passengersToInclude, input.getDestination());
 
         System.out.println("debug: " + matrixRequest.toString());
 
         JSONObject jsonObject = null;
-//        JSONObject jsonObject = getJSONFromInputStream(...); Needs to be performed
+//        JSONObject jsonObject = new JSONObject(matrixRequest.get()); Needs to be performed
 
-		double [][] g = getMatrixFromJSON(jsonObject); // TODO: FIXED VALUE FOR NOW.. return real matrix from HTTP Request
+		double [][] g = getMatrixFromJSON(jsonObject); // TODO: FIXED VALUE FOR NOW.. return real matrix from Google Distances matrix API
 
 		Christofides c = null;
 		try {
-			c = new Christofides(g,false, 0, g.length-1);
-			System.out.println(readResult(c, input));
+//			c = new Christofides(g,false, 0, g.length-1);
+
+            List<Point> pathToDest = new ArrayList<>();
+            pathToDest.add(input.getPathToDestination().get(0));
+            System.out.println("Taking: " + pathToDest.get(0));
+            for(AlgorithmInput.Passenger p : passengersToInclude) {
+                pathToDest.add(p.s);
+                // TODO: Add the t as well
+                System.out.println("Taking: " + p.s);
+            }
+            pathToDest.add(input.getPathToDestination().get(input.getPathToDestination().size()-1)); // get last point
+            System.out.println("Taking: last");
+
+            System.out.println("Main points: " + pathToDest.toString());
+
+            // Currently taking the points directly
+            // If you want accurate results you have to give it a distances matrix from the real world
+            // Giving a bunch of points is only for testing
+            c = new Christofides(g, false, 0, pathToDest.size()-1);
+
+			System.out.println(readResult(c, passengersToInclude));
             System.out.println("Path on Google Maps: " + input.getResultOnGoogleMaps(c.getCircuit()));
 
 		} catch (Exception e) {
@@ -160,11 +177,10 @@ public class AlgorithmDriver {
         return g;
     }
 
-    private static String readResult(Christofides christofides, AlgorithmInput input){
+    private static String readResult(Christofides christofides, List<AlgorithmInput.Passenger> passengers){
 		StringBuilder stringBuilder = new StringBuilder();
 
     	List<Integer> circuit = christofides.getCircuit();
-    	List<AlgorithmInput.Passenger> passengers = input.getPassengers();
 
     	for (int i : circuit) {
 			String nameOfNode = null;

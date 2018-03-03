@@ -152,9 +152,7 @@ public class EulerPath {
 
 				currentNode = nextNode;
 			}
-
 		}
-		System.out.println("done");
 	}
 
 	private int oddVertex() {

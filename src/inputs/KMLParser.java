@@ -107,6 +107,14 @@ public class KMLParser {
 		return path;
 	}
 
+	public Point getSourcePoint() {
+		return this.path.get(0);
+	}
+
+	public Point getDestinationPoint() {
+		return this.path.get(this.path.size()-1); // get last point in the list
+	}
+
 	public List<AlgorithmInput.Passenger> getPassengers() {
 		return passengers;
 	}

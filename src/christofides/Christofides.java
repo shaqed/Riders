@@ -48,6 +48,12 @@ public class Christofides {
 		this.circuit = go();
 	}
 
+	public Christofides(List<Point> points, boolean verbose, int source, int dest) throws Exception {
+		this.verbose = verbose;
+		this.graph = convertPointsToGraph(points);
+		this.circuit = go(source, dest);
+	}
+
 	public Christofides(double graph[][], boolean verbose, int source, int dest) throws Exception {
 		this.verbose = verbose;
 		this.graph = graph;

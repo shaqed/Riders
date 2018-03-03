@@ -26,7 +26,9 @@ public class AlgorithmInput {
     private String source;
     private String destination;
 
-    // Constructor
+    private List<Point> mainPoints; // passengers and source & destination
+
+    // Constructors
 
 	private AlgorithmInput(String kmlFile, double radius) throws Exception {
 		KMLParser kmlParser = new KMLParser(kmlFile);
@@ -35,6 +37,15 @@ public class AlgorithmInput {
 		this.radius = radius;
 		this.source = kmlParser.getSource();
 		this.destination = kmlParser.getDestination();
+
+		this.mainPoints = new ArrayList<>();
+		this.mainPoints.add(kmlParser.getSourcePoint());
+		for(Passenger p : this.passengers) {
+		    this.mainPoints.add(p.s);
+        }
+
+		this.mainPoints.add(kmlParser.getDestinationPoint());
+
 	}
 
     private AlgorithmInput(String pathJSONFileURL, String passengersXMLFileURL, double radius) throws IOException, SAXException, ParserConfigurationException {
@@ -72,8 +83,11 @@ public class AlgorithmInput {
 		return destination;
 	}
 
+    public List<Point> getMainPoints() {
+        return this.mainPoints;
+    }
 
-	/**
+    /**
      * Returns a URL to Google Maps that displays the given route
      * Paste that URL to your browser to see the route
      * @param path The route that is to be calculated (this is the output of the algorithm)
