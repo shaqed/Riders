@@ -179,6 +179,18 @@ public class Christofides {
 	}
 
 
+	/**
+	 * TODO function
+	 * 		1. Start regularly up until the computation of perfect matching
+	 * 		2. Add 2 vertices, s and t connect them with each other and with source and dest
+	 * 		3. Do euler path on that graph
+	 * 		4. Remove the s and t
+	 * */
+	public List<Integer> getHamiltonianPath(int source, int dest) {
+
+		return null;
+	}
+
 	// PUBLIC HELPER FUNCTIONS
 
 	/**
