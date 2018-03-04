@@ -25,6 +25,8 @@ public class Christofides {
 
 	private List<Integer> circuit;
 
+	/* CONSTRUCTORS THAT BUILD A HAMILTONIAN CYCLE */
+
 	public Christofides(double[][] graph) {
 		this.graph = graph;
 		this.circuit = go();
@@ -47,6 +49,8 @@ public class Christofides {
 		this.graph = convertPointsToGraph(points);
 		this.circuit = go();
 	}
+
+	/* CONSTRUCTORS THAT BUILD A HAMILTONIAN PATH */
 
 	public Christofides(List<Point> points, boolean verbose, int source, int dest) throws Exception {
 		this.verbose = verbose;
@@ -187,6 +191,9 @@ public class Christofides {
 	 * 		4. Remove the s and t
 	 * */
 	public List<Integer> getHamiltonianPath(int source, int dest) {
+
+		// Get MST of the graph
+
 
 		return null;
 	}
