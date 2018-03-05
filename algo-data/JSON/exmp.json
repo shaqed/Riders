@@ -1,0 +1,59 @@
+{
+   "destination_addresses" : [ "New York, NY, USA", "Pennsylvania, USA" ],
+   "origin_addresses" : [ "New York, NY, USA", "Pennsylvania, USA" ],
+   "rows" : [
+      {
+         "elements" : [
+            {
+               "distance" : {
+                  "text" : "1 ft",
+                  "value" : 0
+               },
+               "duration" : {
+                  "text" : "1 min",
+                  "value" : 0
+               },
+               "status" : "OK"
+            },
+            {
+               "distance" : {
+                  "text" : "201 mi",
+                  "value" : 323063
+               },
+               "duration" : {
+                  "text" : "3 hours 30 mins",
+                  "value" : 12621
+               },
+               "status" : "OK"
+            }
+         ]
+      },
+      {
+         "elements" : [
+            {
+               "distance" : {
+                  "text" : "200 mi",
+                  "value" : 322478
+               },
+               "duration" : {
+                  "text" : "3 hours 29 mins",
+                  "value" : 12545
+               },
+               "status" : "OK"
+            },
+            {
+               "distance" : {
+                  "text" : "1 ft",
+                  "value" : 0
+               },
+               "duration" : {
+                  "text" : "1 min",
+                  "value" : 0
+               },
+               "status" : "OK"
+            }
+         ]
+      }
+   ],
+   "status" : "OK"
+}
