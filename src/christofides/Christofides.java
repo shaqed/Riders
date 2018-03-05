@@ -190,7 +190,7 @@ public class Christofides {
 	 * 		3. Do euler path on that graph
 	 * 		4. Remove the s and t
 	 * */
-	public List<Integer> getHamiltonianPath(int source, int dest) {
+	public List<Integer> getHamiltonianPath(int source, int dest) throws Exception {
 
 		// Get MST of the graph
 		double mst [][] = new Prim(this.graph).go(0);
@@ -201,13 +201,31 @@ public class Christofides {
 		// Add them to the graph
 		List<List<Integer>> multiGraph = addEdgesToGraph(mst, tuples);
 
-		// Add vertex A and attach it to the source [The other vertices need to be aware of that... that the index 0 would now be 1 and index i would be i+1 now
-		// Add vertex B and attach it to the destination
-		// Connect A and B with an edge
-		// Get Euler Path from that graph
-		// Hamiltonian path
 
-		return null;
+		int lastVertex = this.graph.length - 1;
+
+		// Add vertex A and attach it to the source
+		// Connect A and B with an edge
+		List<Integer> vertexA = new ArrayList<>();
+		vertexA.add(0); // Add vertex source
+		vertexA.add(lastVertex + 2); // Add vertex B
+
+		// Add vertex B and attach it to the destination
+		List<Integer> vertexB = new ArrayList<>();
+		vertexB.add(lastVertex); // Add vertex dest
+		vertexB.add(lastVertex + 1); // Add vertex A
+
+		multiGraph.add(vertexA);
+		multiGraph.add(vertexB);
+
+		// Get Euler Path from that graph
+
+		List<Integer> eulerPath = new EulerPath(multiGraph).getPath();
+
+		// Hamiltonian path
+		List<Integer> hamiltonian = computeHamiltonian(eulerPath);
+
+		return hamiltonian;
 	}
 
 	// PUBLIC HELPER FUNCTIONS
@@ -296,6 +314,17 @@ public class Christofides {
 
 
 	// PRIVATE HELPER FUNCTIONS
+
+	private static List<Integer> computeHamiltonian(List<Integer> eulerPath) {
+		List<Integer> hamiltonian = new ArrayList<>();
+		for (int u : eulerPath) {
+			if (!hamiltonian.contains(u)) {
+				hamiltonian.add(u);
+			}
+		}
+
+		return hamiltonian;
+	}
 
 	private static double distanceBetweenTwoPoints(Point p1, Point p2) {
 		double x1 = p1.getLat();
@@ -417,6 +446,7 @@ public class Christofides {
 
 
 	public static void main(String[] args) {
+		// Graph from the wikipedia page
 		double g[][] = {
 //				A	B	C	D	E
 				{0,	1,	1,	1,	2},
@@ -427,8 +457,12 @@ public class Christofides {
 		};
 
 		try {
-			Christofides christofides = new Christofides(g, true, 1, 4);
-			System.out.println(christofides.getCircuitString());
+//			Christofides christofides = new Christofides(g, true, 1, 4);
+			Christofides christofides = new Christofides(g, true);
+
+			System.out.println(christofides.go(1, 4).toString());
+
+//			System.out.println(christofides.getCircuitString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
