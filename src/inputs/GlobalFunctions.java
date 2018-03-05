@@ -37,4 +37,14 @@ public class GlobalFunctions {
         };
         return graph2;
     }
+
+    public static void printMatrix(double [][] g) {
+		for (int i = 0; i < g.length; i++) {
+			System.out.print("[");
+			for (int j = 0; j < g[i].length - 1; j++) {
+				System.out.print(g[i][j] + ",\t\t\t");
+			}
+			System.out.println(g[i][g[i].length-1] + "]");
+		}
+	}
 }

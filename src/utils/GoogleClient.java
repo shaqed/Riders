@@ -7,7 +7,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import polyline_decoder.Point;
 
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -30,6 +30,44 @@ public class GoogleClient {
 
 
 	public JSONObject adjacencyMatrixRequest(String source, List<AlgorithmInput.Passenger> passengers, String dest) {
+		String filename = "algo-data/JSON/" + source + "_to_" + dest + "_"+ passengers.size() + ".json";
+
+		File file = new File(filename);
+		if (!file.exists()) { // File doesn't exist, load it from the web and store it
+			System.out.println("JSON File for the request wasn't found on the local machine, asking Google for it");
+			JSONObject jsonObject = getJSONFromInternet(source, passengers, dest);
+
+			if (jsonObject != null) {
+				// Write JSON to the file
+				try {
+					file.createNewFile();
+
+					FileWriter fileWriter = new FileWriter(file);
+					fileWriter.write(jsonObject.toString());
+					fileWriter.flush();
+					fileWriter.close();
+					System.out.println("GoogleClient Saved a new JSON File, make sure to commit it!");
+
+				} catch (IOException e) {
+					System.out.println("Couldn't create a new JSON file for: " + filename + ". Maybe it already exists?");
+				}
+			}
+			return jsonObject;
+		} else {
+			// File already exists, there's no need for the internet
+			try {
+				System.out.println("Loading an existing JSON file from local machine");
+				return (JSONObject) new JSONParser().parse(new FileReader(file));
+			} catch (IOException | ParseException e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+
+	}
+
+
+	private JSONObject getJSONFromInternet(String source, List<AlgorithmInput.Passenger> passengers, String dest) {
 		List<Point> pointList = new ArrayList<>();
 
 		for(AlgorithmInput.Passenger p : passengers) {
@@ -63,15 +101,13 @@ public class GoogleClient {
 			verify(http.toString());
 
 			String ans = http.get();
-			JSONObject jsonObject = (JSONObject) new JSONParser().parse(ans);
-			return jsonObject;
+			return (JSONObject) new JSONParser().parse(ans);
 
 		} catch (IOException | ParseException e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
-
 
 
 

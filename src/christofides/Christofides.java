@@ -264,7 +264,7 @@ public class Christofides {
 
 
 
-		debug("Euler path: ");
+		debug("Euler path (After removing: ");
 		if (verbose) {
 			printPath(eulerPath);
 		}
@@ -368,13 +368,18 @@ public class Christofides {
 	// PRIVATE HELPER FUNCTIONS
 
 	private static List<Integer> computeHamiltonian(List<Integer> eulerPath) {
+		// In the original euler circuit, the dest vertex
+		// is also an odd -vertex and will be at the end of the circuit
+		// Make sure that it stays in the hamiltonian one as well
+
+		int lastVertex = eulerPath.get(eulerPath.size() - 1);
 		List<Integer> hamiltonian = new ArrayList<>();
 		for (int u : eulerPath) {
-			if (!hamiltonian.contains(u)) {
+			if (!hamiltonian.contains(u) && u != lastVertex) {
 				hamiltonian.add(u);
 			}
 		}
-
+		hamiltonian.add(lastVertex); // At the end, add that last vertex
 		return hamiltonian;
 	}
 
@@ -526,7 +531,7 @@ public class Christofides {
 		};
 
 		try {
-			Christofides christofides = new Christofides(g, false, 1, 4);
+			Christofides christofides = new Christofides(g, true, 1, 4);
 
 			System.out.println(christofides.getCircuitString());
 		} catch (Exception e) {
