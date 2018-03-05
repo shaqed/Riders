@@ -193,7 +193,19 @@ public class Christofides {
 	public List<Integer> getHamiltonianPath(int source, int dest) {
 
 		// Get MST of the graph
+		double mst [][] = new Prim(this.graph).go(0);
 
+		// Perfect matching
+		// Get edges to add
+		List<List<Double>> tuples = new PerfectMatch().go(mst, findOddVerticesInGraph(mst));
+		// Add them to the graph
+		List<List<Integer>> multiGraph = addEdgesToGraph(mst, tuples);
+
+		// Add vertex A and attach it to the source [The other vertices need to be aware of that... that the index 0 would now be 1 and index i would be i+1 now
+		// Add vertex B and attach it to the destination
+		// Connect A and B with an edge
+		// Get Euler Path from that graph
+		// Hamiltonian path
 
 		return null;
 	}
