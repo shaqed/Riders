@@ -4,6 +4,7 @@ import christofides.Christofides;
 import inputs.AlgorithmInput;
 import org.json.simple.JSONObject;
 import polyline_decoder.Point;
+import utils.GoogleClient;
 import utils.HTTPer;
 
 import java.io.IOException;
@@ -50,19 +51,20 @@ public class AlgorithmDriver {
 
     private static void tsp(AlgorithmInput input, List<AlgorithmInput.Passenger> passengersToInclude) {
 
-        HTTPer matrixRequest = getAdjacencyMatrixRequest(input.getSource(), passengersToInclude, input.getDestination());
 
-        System.out.println("debug: " + matrixRequest.toString());
-
-        JSONObject jsonObject = null;
-//        JSONObject jsonObject = new JSONObject(matrixRequest.get()); Needs to be performed
+		GoogleClient googleClient = new GoogleClient();
+        JSONObject jsonObject = googleClient.adjacencyMatrixRequest(input.getSource(), passengersToInclude, input.getDestination());
 
 		double [][] g = getMatrixFromJSON(jsonObject); // TODO: FIXED VALUE FOR NOW.. return real matrix from Google Distances matrix API
 
 		Christofides c = null;
 		try {
-//			c = new Christofides(g,false, 0, g.length-1);
+			c = new Christofides(g,false, 0, g.length-1);
 
+			System.out.println(readResult(c, passengersToInclude));
+			System.out.println("Check this out @ Google Maps: " + input.getResultOnGoogleMaps(passengersToInclude, c.getCircuit()));
+
+			/*
             List<Point> pathToDest = new ArrayList<>();
             pathToDest.add(input.getPathToDestination().get(0));
             for(AlgorithmInput.Passenger p : passengersToInclude) {
@@ -81,6 +83,7 @@ public class AlgorithmDriver {
 			System.out.println(readResult(c, passengersToInclude));
             System.out.println("Path on Google Maps: " + input.getResultOnGoogleMaps(passengersToInclude, c.getCircuit()));
 
+			*/
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -120,47 +123,44 @@ public class AlgorithmDriver {
 
     }
 
+	private static HTTPer getAdjacencyMatrixRequest(String source, List<AlgorithmInput.Passenger> passengers, String dest) {
+		List<Point> pointList = new ArrayList<>();
+
+		for(AlgorithmInput.Passenger p : passengers) {
+			pointList.add(p.s);
+		}
 
 
-    private static HTTPer getAdjacencyMatrixRequest(String source, List<AlgorithmInput.Passenger> passengers, String dest) {
-        List<Point> pointList = new ArrayList<>();
-
-        for(AlgorithmInput.Passenger p : passengers) {
-            pointList.add(p.s);
-        }
+		try {
+			HTTPer.Builder builder = new HTTPer.Builder();
+			builder.setRootURL("https://maps.googleapis.com/maps/api/distancematrix/json");
+			builder.setMethod("GET");
 
 
-        try {
-            HTTPer.Builder builder = new HTTPer.Builder();
-            builder.setRootURL("https://maps.googleapis.com/maps/api/distancematrix/json");
-            builder.setMethod("GET");
-
-
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append(source);
-            stringBuilder.append("|");
-            for(Point p : pointList) {
-                stringBuilder.append(p.getLng());
-                stringBuilder.append(",");
-                stringBuilder.append(p.getLat());
-                stringBuilder.append("|");
-            }
+			StringBuilder stringBuilder = new StringBuilder();
+			stringBuilder.append(source);
+			stringBuilder.append("|");
+			for(Point p : pointList) {
+				stringBuilder.append(p.getLng());
+				stringBuilder.append(",");
+				stringBuilder.append(p.getLat());
+				stringBuilder.append("|");
+			}
 //            stringBuilder.deleteCharAt(stringBuilder.length()-1);
-            stringBuilder.append(dest);
+			stringBuilder.append(dest);
 
-            builder.addURLParameter("origins", stringBuilder.toString());
-            builder.addURLParameter("destinations", stringBuilder.toString());
-            builder.addURLParameter("key", "AIzaSyD56LHjhdpL7ztyU33rsph0zYYEY136nOo");
+			builder.addURLParameter("origins", stringBuilder.toString());
+			builder.addURLParameter("destinations", stringBuilder.toString());
+			builder.addURLParameter("key", "AIzaSyD56LHjhdpL7ztyU33rsph0zYYEY136nOo");
 
-            HTTPer http = builder.build();
+			HTTPer http = builder.build();
 
-            return http;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
+			return http;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
     private static double[][] getMatrixFromJSON(JSONObject jsonObject) {
         double g [][] = {
@@ -171,6 +171,8 @@ public class AlgorithmDriver {
                 {0.8, 0.4, 0.7, 0.8, 0, 0.8},
                 {1.3, 1.0, 1.2, 0.3, 1.3, 0}
         };
+
+
         return g;
     }
 
