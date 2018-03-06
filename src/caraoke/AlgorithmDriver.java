@@ -2,9 +2,12 @@ package caraoke;
 
 import christofides.Christofides;
 import inputs.AlgorithmInput;
+import inputs.GlobalFunctions;
 import org.json.simple.JSONObject;
 import polyline_decoder.Point;
+import utils.GoogleClient;
 import utils.HTTPer;
+import utils.JSONmatrix;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -15,7 +18,7 @@ import java.util.List;
 public class AlgorithmDriver {
 
     public static void main(String[] args) {
-        AlgorithmInput input = AlgorithmInput.getInstance("algo-data/kml/Sderot-Route-1.kml", 0.003);
+        AlgorithmInput input = AlgorithmInput.getInstance("algo-data/kml/Sderot-Route-2.kml", 0.003);
 
         double radiuses[] = {0.001, 0.002, 0.003};
         for (double radius : radiuses) {
@@ -50,36 +53,19 @@ public class AlgorithmDriver {
 
     private static void tsp(AlgorithmInput input, List<AlgorithmInput.Passenger> passengersToInclude) {
 
-        HTTPer matrixRequest = getAdjacencyMatrixRequest(input.getSource(), passengersToInclude, input.getDestination());
 
-        System.out.println("debug: " + matrixRequest.toString());
+		GoogleClient googleClient = new GoogleClient();
+        JSONObject jsonObject = googleClient.adjacencyMatrixRequest(input.getSource(), passengersToInclude, input.getDestination());
 
-        JSONObject jsonObject = null;
-//        JSONObject jsonObject = new JSONObject(matrixRequest.get()); Needs to be performed
-
-		double [][] g = getMatrixFromJSON(jsonObject); // TODO: FIXED VALUE FOR NOW.. return real matrix from Google Distances matrix API
+		double [][] g = getMatrixFromJSON(jsonObject);
 
 		Christofides c = null;
 		try {
-//			c = new Christofides(g,false, 0, g.length-1);
-
-            List<Point> pathToDest = new ArrayList<>();
-            pathToDest.add(input.getPathToDestination().get(0));
-            for(AlgorithmInput.Passenger p : passengersToInclude) {
-                pathToDest.add(p.s);
-                // TODO: Add the t as well
-            }
-            pathToDest.add(input.getPathToDestination().get(input.getPathToDestination().size()-1)); // get last point
-
-            System.out.println("Main points: " + pathToDest.toString());
-
-            // Currently taking the points directly
-            // If you want accurate results you have to give it a distances matrix from the real world
-            // Giving a bunch of points is only for testing
-            c = new Christofides(pathToDest, false, 0, pathToDest.size()-1);
+			c = new Christofides(g,false, 0, g.length-1);
 
 			System.out.println(readResult(c, passengersToInclude));
-            System.out.println("Path on Google Maps: " + input.getResultOnGoogleMaps(passengersToInclude, c.getCircuit()));
+			System.out.println("Check this out @ Google Maps: " + input.getResultOnGoogleMaps(passengersToInclude, c.getCircuit()));
+
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -120,47 +106,44 @@ public class AlgorithmDriver {
 
     }
 
+	private static HTTPer getAdjacencyMatrixRequest(String source, List<AlgorithmInput.Passenger> passengers, String dest) {
+		List<Point> pointList = new ArrayList<>();
+
+		for(AlgorithmInput.Passenger p : passengers) {
+			pointList.add(p.s);
+		}
 
 
-    private static HTTPer getAdjacencyMatrixRequest(String source, List<AlgorithmInput.Passenger> passengers, String dest) {
-        List<Point> pointList = new ArrayList<>();
-
-        for(AlgorithmInput.Passenger p : passengers) {
-            pointList.add(p.s);
-        }
+		try {
+			HTTPer.Builder builder = new HTTPer.Builder();
+			builder.setRootURL("https://maps.googleapis.com/maps/api/distancematrix/json");
+			builder.setMethod("GET");
 
 
-        try {
-            HTTPer.Builder builder = new HTTPer.Builder();
-            builder.setRootURL("https://maps.googleapis.com/maps/api/distancematrix/json");
-            builder.setMethod("GET");
-
-
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append(source);
-            stringBuilder.append("|");
-            for(Point p : pointList) {
-                stringBuilder.append(p.getLng());
-                stringBuilder.append(",");
-                stringBuilder.append(p.getLat());
-                stringBuilder.append("|");
-            }
+			StringBuilder stringBuilder = new StringBuilder();
+			stringBuilder.append(source);
+			stringBuilder.append("|");
+			for(Point p : pointList) {
+				stringBuilder.append(p.getLng());
+				stringBuilder.append(",");
+				stringBuilder.append(p.getLat());
+				stringBuilder.append("|");
+			}
 //            stringBuilder.deleteCharAt(stringBuilder.length()-1);
-            stringBuilder.append(dest);
+			stringBuilder.append(dest);
 
-            builder.addURLParameter("origins", stringBuilder.toString());
-            builder.addURLParameter("destinations", stringBuilder.toString());
-            builder.addURLParameter("key", "AIzaSyD56LHjhdpL7ztyU33rsph0zYYEY136nOo");
+			builder.addURLParameter("origins", stringBuilder.toString());
+			builder.addURLParameter("destinations", stringBuilder.toString());
+			builder.addURLParameter("key", "AIzaSyD56LHjhdpL7ztyU33rsph0zYYEY136nOo");
 
-            HTTPer http = builder.build();
+			HTTPer http = builder.build();
 
-            return http;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
+			return http;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
     private static double[][] getMatrixFromJSON(JSONObject jsonObject) {
         double g [][] = {
@@ -171,8 +154,17 @@ public class AlgorithmDriver {
                 {0.8, 0.4, 0.7, 0.8, 0, 0.8},
                 {1.3, 1.0, 1.2, 0.3, 1.3, 0}
         };
-        return g;
-    }
+
+		double matrix [][] = JSONmatrix.getMatrix(jsonObject);
+		if (matrix != null) {
+			return matrix;
+		} else {
+			System.out.println("BAD MATRIX");
+			System.exit(1);
+			return null;
+		}
+
+	}
 
     private static String readResult(Christofides christofides, List<AlgorithmInput.Passenger> passengers){
 		StringBuilder stringBuilder = new StringBuilder();

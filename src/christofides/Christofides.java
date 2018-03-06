@@ -25,6 +25,8 @@ public class Christofides {
 
 	private List<Integer> circuit;
 
+	/* CONSTRUCTORS THAT BUILD A HAMILTONIAN CYCLE */
+
 	public Christofides(double[][] graph) {
 		this.graph = graph;
 		this.circuit = go();
@@ -39,7 +41,7 @@ public class Christofides {
 	public Christofides(double[][] graph, boolean verbose) {
 		this.graph = graph;
 		this.verbose = verbose;
-		this.circuit = go();
+//		this.circuit = go();
 	}
 
 	public Christofides(List<Point> points, boolean verbose) {
@@ -47,6 +49,8 @@ public class Christofides {
 		this.graph = convertPointsToGraph(points);
 		this.circuit = go();
 	}
+
+	/* CONSTRUCTORS THAT BUILD A HAMILTONIAN PATH */
 
 	public Christofides(List<Point> points, boolean verbose, int source, int dest) throws Exception {
 		this.verbose = verbose;
@@ -57,7 +61,12 @@ public class Christofides {
 	public Christofides(double graph[][], boolean verbose, int source, int dest) throws Exception {
 		this.verbose = verbose;
 		this.graph = graph;
-		this.circuit = go(source, dest);
+
+		// Compute using our custom min-matching.
+//		this.circuit = go(source, dest);
+
+		// Compute using the second method
+		this.circuit = getHamiltonianPath(source, dest);
 	}
 
 	public List<Integer> getCircuit() {
@@ -179,6 +188,98 @@ public class Christofides {
 	}
 
 
+	/**
+	 * TODO function
+	 * 		1. Start regularly up until the computation of perfect matching
+	 * 		2. Add 2 vertices, s and t connect them with each other and with source and dest
+	 * 		3. Do euler path on that graph
+	 * 		4. Remove the s and t
+	 * */
+	public List<Integer> getHamiltonianPath(int source, int dest) throws Exception {
+
+		// Get MST of the graph
+		double mst [][] = new Prim(this.graph).go(0);
+
+		debug("MST:");
+		if (verbose) {
+			printGraph(mst);
+		}
+
+
+		// Perfect matching
+		// Get edges to add
+		List<List<Double>> tuples = new PerfectMatch().go(mst, findOddVerticesInGraph(mst));
+		// Add them to the graph
+		List<List<Integer>> multiGraph = addEdgesToGraph(mst, tuples);
+
+		debug("Tuples:");
+		if (verbose) {
+			for(List<Double> tuple : tuples) {
+				debug(tuple.toString());
+			}
+		}
+
+		int vertexAIndex = this.graph.length;
+		int vertexBIndex = vertexAIndex + 1;
+
+
+
+		debug("Multigraph before:");
+		if (verbose) {
+			printGraph(multiGraph);
+		}
+
+		// Add vertex A and attach it to the source
+		// Connect A and B with an edge
+		List<Integer> vertexA = new ArrayList<>();
+
+		// Add vertex A to  source
+		vertexA.add(source);
+		multiGraph.get(source).add(vertexAIndex);
+		vertexA.add(vertexBIndex); // Add vertex B
+
+		// Add vertex B to destination
+		List<Integer> vertexB = new ArrayList<>();
+		vertexB.add(dest); // Add vertex dest
+		multiGraph.get(dest).add(vertexBIndex);
+		vertexB.add(vertexAIndex); // Add vertex A
+
+
+
+		multiGraph.add(vertexA);
+		multiGraph.add(vertexB);
+
+		// Get Euler Path from that graph
+
+		debug("Multigraph after;");
+		if (verbose) {
+			printGraph(multiGraph);
+		}
+
+		List<Integer> eulerPath = new EulerPath(multiGraph).getPath();
+
+		//remove last 2 vertices
+		eulerPath.remove(new Integer(vertexAIndex));
+		eulerPath.remove(new Integer(vertexBIndex));
+
+
+
+		debug("Euler path (After removing: ");
+		if (verbose) {
+			printPath(eulerPath);
+		}
+
+		// Hamiltonian path
+		List<Integer> hamiltonian = computeHamiltonian(eulerPath);
+
+		debug("Hamiltonian:");
+		if (verbose) {
+			printPath(hamiltonian);
+		}
+
+		return hamiltonian;
+	}
+
 	// PUBLIC HELPER FUNCTIONS
 
 	/**
@@ -265,6 +366,22 @@ public class Christofides {
 
 
 	// PRIVATE HELPER FUNCTIONS
+
+	private static List<Integer> computeHamiltonian(List<Integer> eulerPath) {
+		// In the original euler circuit, the dest vertex
+		// is also an odd -vertex and will be at the end of the circuit
+		// Make sure that it stays in the hamiltonian one as well
+
+		int lastVertex = eulerPath.get(eulerPath.size() - 1);
+		List<Integer> hamiltonian = new ArrayList<>();
+		for (int u : eulerPath) {
+			if (!hamiltonian.contains(u) && u != lastVertex) {
+				hamiltonian.add(u);
+			}
+		}
+		hamiltonian.add(lastVertex); // At the end, add that last vertex
+		return hamiltonian;
+	}
 
 	private static double distanceBetweenTwoPoints(Point p1, Point p2) {
 		double x1 = p1.getLat();
@@ -379,13 +496,31 @@ public class Christofides {
 	}
 
 	private static void printGraph(List<List<Integer>> graph) {
-		for (List<Integer> node : graph) {
-			System.out.println(node.toString());
+		System.out.println("V = " + graph.size());
+		for (int i = 0; i < graph.size(); i++) {
+			List<Integer> node = graph.get(i);
+			char c = (char) (i+65);
+			System.out.print(c + ": [");
+			for (int j = 0; j < node.size(); j++) {
+				char subc = (char) (node.get(j)+65);
+				System.out.print(subc + ", ");
+			}
+			System.out.println("]");
+
 		}
+	}
+
+	private static void printPath(List<Integer> path) {
+		for (int i = 0; i < path.size(); i++) {
+			char symbol = (char) (path.get(i)+65);
+			System.out.print(symbol+ ", ");
+		}
+		System.out.println();
 	}
 
 
 	public static void main(String[] args) {
+		// Graph from the wikipedia page
 		double g[][] = {
 //				A	B	C	D	E
 				{0,	1,	1,	1,	2},
@@ -397,6 +532,7 @@ public class Christofides {
 
 		try {
 			Christofides christofides = new Christofides(g, true, 1, 4);
+
 			System.out.println(christofides.getCircuitString());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -405,6 +541,8 @@ public class Christofides {
 
 	private static int linorFunction() {
 		// TODO: a bunch of stuff
+
+
 		return 0;
 	}
 
