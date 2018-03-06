@@ -18,9 +18,9 @@ import java.util.List;
 public class AlgorithmDriver {
 
     public static void main(String[] args) {
-        AlgorithmInput input = AlgorithmInput.getInstance("algo-data/kml/Sderot-Route-2.kml", 0.003);
+        AlgorithmInput input = AlgorithmInput.getInstance("algo-data/kml/Ashkelon-Route-1.kml", 0.003);
 
-        double radiuses[] = {0.001, 0.002, 0.003};
+        double radiuses[] = {0.001, 0.002, 0.01};
         for (double radius : radiuses) {
             input.setRadius(radius);
             System.out.println("Starting algorithm with radius: " + input.getRadius());
@@ -32,16 +32,6 @@ public class AlgorithmDriver {
 
             long endtime = System.currentTimeMillis();
 
-            // TODO: From the passengers selected, There needs to be a TSP solution which will tell who to pick up first
-			/* Need to:
-			*		1. [V]	Extract the passengers from the function
-			*		2. [ ]	Create an adjacency matrix between all of the points
-			*			2.1 [V]	Use the Google API and the HTTPer class for creating an API query
-			*			2.2 [ ]	Extract the matrix from the HTTP response
-			*		3. [ ]	Plug the matrix as well as the source and destination to Christofides to calculate a path
-			*	    4. [V]  Form a final path from source to destination using the Google Maps API with stops
-			*
-			* */
 
             System.out.println("Total number of passengers on route: " + answer +
                     ". Algorithm took: " + (endtime - startTime) + " ms\n\n");
@@ -106,44 +96,7 @@ public class AlgorithmDriver {
 
     }
 
-	private static HTTPer getAdjacencyMatrixRequest(String source, List<AlgorithmInput.Passenger> passengers, String dest) {
-		List<Point> pointList = new ArrayList<>();
 
-		for(AlgorithmInput.Passenger p : passengers) {
-			pointList.add(p.s);
-		}
-
-
-		try {
-			HTTPer.Builder builder = new HTTPer.Builder();
-			builder.setRootURL("https://maps.googleapis.com/maps/api/distancematrix/json");
-			builder.setMethod("GET");
-
-
-			StringBuilder stringBuilder = new StringBuilder();
-			stringBuilder.append(source);
-			stringBuilder.append("|");
-			for(Point p : pointList) {
-				stringBuilder.append(p.getLng());
-				stringBuilder.append(",");
-				stringBuilder.append(p.getLat());
-				stringBuilder.append("|");
-			}
-//            stringBuilder.deleteCharAt(stringBuilder.length()-1);
-			stringBuilder.append(dest);
-
-			builder.addURLParameter("origins", stringBuilder.toString());
-			builder.addURLParameter("destinations", stringBuilder.toString());
-			builder.addURLParameter("key", "AIzaSyD56LHjhdpL7ztyU33rsph0zYYEY136nOo");
-
-			HTTPer http = builder.build();
-
-			return http;
-		} catch (IOException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
 
     private static double[][] getMatrixFromJSON(JSONObject jsonObject) {
         double g [][] = {
