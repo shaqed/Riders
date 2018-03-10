@@ -1,5 +1,7 @@
 package utils.net;
 
+import inputs.GlobalFunctions;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -76,7 +78,7 @@ public class HTTPer {
 
 	public String get() {
 		try {
-			String response = readInputStream(this.connection.getInputStream());
+			String response = GlobalFunctions.readInputStream(this.connection.getInputStream());
 			int responseCode = this.connection.getResponseCode();
 
 			if (!String.valueOf(responseCode).startsWith("2")) {
@@ -100,25 +102,6 @@ public class HTTPer {
 		return "Active connection: " + this.connection.getURL().toString();
 	}
 
-	private String readInputStream(InputStream inputStream) {
-		StringBuilder stringBuilder = new StringBuilder();
-		try {
-			char buffer[] = new char[4096];
 
-			InputStreamReader reader = new InputStreamReader(inputStream);
-			int bytesRead = 0;
-			while (bytesRead != -1){
-				bytesRead = reader.read(buffer);
-				for (int i = 0; i < bytesRead; i++) {
-					stringBuilder.append(buffer[i]);
-				}
-			}
-			return stringBuilder.toString();
-		} catch (IOException e) {
-			e.printStackTrace();
-			return null;
-		}
-
-	}
 
 }

@@ -1,5 +1,8 @@
 package utils;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
@@ -46,5 +49,27 @@ public class GlobalFunctions {
 			}
 			System.out.println(g[i][g[i].length-1] + "]");
 		}
+	}
+
+	public static String readInputStream(InputStream inputStream) {
+		StringBuilder stringBuilder = new StringBuilder();
+		try {
+			char buffer[] = new char[4096];
+
+			InputStreamReader reader = new InputStreamReader(inputStream);
+			int bytesRead = 0;
+			while (bytesRead != -1){
+				bytesRead = reader.read(buffer);
+				for (int i = 0; i < bytesRead; i++) {
+					stringBuilder.append(buffer[i]);
+//					System.out.print(buffer[i]);
+				}
+			}
+			return stringBuilder.toString();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+
 	}
 }
