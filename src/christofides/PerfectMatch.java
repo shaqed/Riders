@@ -1,7 +1,5 @@
 package christofides;
 
-import inputs.GlobalFunctions;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +20,7 @@ public class PerfectMatch {
 		arrayList.add(3);
 		arrayList.add(4);
 
-//		new PerfectMatch().go(graph, arrayList);
+//		new PerfectMatch().preProcessing(graph, arrayList);
 	}
 
 

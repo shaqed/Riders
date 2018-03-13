@@ -7,7 +7,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-import polyline_decoder.Point;
+import utils.polyline_decoder.Point;
+import utils.parser.KMLParser;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -269,7 +270,7 @@ public class AlgorithmInput {
 
     public static void main(String[] args) {
 
-	}
+    }
 
 
 }

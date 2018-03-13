@@ -1,6 +1,4 @@
-package caraoke;
-
-import polyline_decoder.Point;
+package utils;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -19,8 +17,10 @@ public class LineCircleIntersection {
 		System.out.println(intersect(point1, point2, pointCircle, radiusCircle));
 	}
 
+	public static boolean verbose = false;
 
-	public static boolean intersect(polyline_decoder.Point point1, polyline_decoder.Point point2, polyline_decoder.Point pointCircle, double radius) {
+
+	public static boolean intersect(utils.polyline_decoder.Point point1, utils.polyline_decoder.Point point2, utils.polyline_decoder.Point pointCircle, double radius) {
 
 		return intersect(new Point(point1.getLat(), point1.getLng()),
 				new Point(point2.getLat(), point2.getLng()),
@@ -106,6 +106,37 @@ public class LineCircleIntersection {
 		Point p2 = new Point(pointA.x - baX * abScalingFactor2, pointA.y
 				- baY * abScalingFactor2);
 		return Arrays.asList(p1, p2);
+	}
+
+
+	public static boolean circleIntersectionWithPath(List<utils.polyline_decoder.Point> path, utils.polyline_decoder.Point point, double radius) {
+		for (int i = 0; i < path.size() - 1; i++) {
+			// Intersection must be between 2 points
+			utils.polyline_decoder.Point x = path.get(i);
+			utils.polyline_decoder.Point y = path.get(i+1);
+			boolean intersection = LineCircleIntersection.intersect(x,y, point, radius);
+
+			String circleDesmosString = "(x - " + point.getLat() + ")^2 + (y - " + point.getLng()
+					+ ")^2 = (" + radius + ")^2";
+
+
+			if (intersection) {
+				debug("Intersection detected between circle: " + circleDesmosString + " and points: " +
+						x.toString() + " and " + y.toString());
+				return true;
+			} else {
+				debug("No intersection between circle: " + circleDesmosString + " and points: " +
+						x.toString() + " and " + y.toString());
+			}
+		}
+		return false;
+	}
+
+
+	private static void debug(String msg) {
+		if (verbose) {
+			System.out.println(msg);
+		}
 	}
 
 	static class Point {

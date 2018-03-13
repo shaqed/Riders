@@ -1,10 +1,8 @@
 package christofides;
 
-import polyline_decoder.Point;
+import utils.polyline_decoder.Point;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Driver {

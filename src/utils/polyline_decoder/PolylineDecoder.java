@@ -1,4 +1,4 @@
-package polyline_decoder;
+package utils.polyline_decoder;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,11 +1,11 @@
-package utils;
+package utils.net;
 
 import inputs.AlgorithmInput;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import polyline_decoder.Point;
+import utils.polyline_decoder.Point;
 
 import java.io.*;
 import java.util.ArrayList;

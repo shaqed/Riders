@@ -2,16 +2,12 @@ package caraoke;
 
 import christofides.Christofides;
 import inputs.AlgorithmInput;
-import inputs.GlobalFunctions;
 import org.json.simple.JSONObject;
-import polyline_decoder.Point;
-import utils.GoogleClient;
-import utils.HTTPer;
-import utils.JSONmatrix;
+import utils.polyline_decoder.Point;
+import utils.net.GoogleClient;
+import utils.parser.JSONmatrix;
+import utils.LineCircleIntersection;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,13 +21,12 @@ public class AlgorithmDriver {
             input.setRadius(radius);
             System.out.println("Starting algorithm with radius: " + input.getRadius());
             long startTime = System.currentTimeMillis();
-            List<AlgorithmInput.Passenger> passengersToInclude = go(input);
+            List<AlgorithmInput.Passenger> passengersToInclude = preProcessing(input);
             int answer = passengersToInclude.size();
 
             tsp(input, passengersToInclude);
 
             long endtime = System.currentTimeMillis();
-
 
             System.out.println("Total number of passengers on route: " + answer +
                     ". Algorithm took: " + (endtime - startTime) + " ms\n\n");
@@ -68,7 +63,7 @@ public class AlgorithmDriver {
      * Main function of the algorithm
      * @param input Create an instance of AlgorithmInput using the GenerateInput class
      * */
-    public static List<AlgorithmInput.Passenger> go(AlgorithmInput input) {
+    public static List<AlgorithmInput.Passenger> preProcessing(AlgorithmInput input) {
         List<AlgorithmInput.Passenger> passengers = new ArrayList<>();
 
         // For each passenger, check if its S and its T as circle points intersects with the
@@ -81,7 +76,7 @@ public class AlgorithmDriver {
             Point ti = passenger.t;
 
             // Check if Si and Ti, with a given radius, intersects with the path
-            boolean siIntersects = circleIntersectionWithPath(driverPath, si, radius);
+            boolean siIntersects = LineCircleIntersection.circleIntersectionWithPath(driverPath, si, radius);
 //            boolean tiIntersects = circleIntersectionWithPath(driverPath, ti, radius);
             boolean tiIntersects = true;
 
@@ -142,28 +137,6 @@ public class AlgorithmDriver {
     	return stringBuilder.toString();
 	}
 
-    private static boolean circleIntersectionWithPath(List<Point> path, Point point, double radius) {
-        for (int i = 0; i < path.size() - 1; i++) {
-            // Intersection must be between 2 points
-            Point x = path.get(i);
-            Point y = path.get(i+1);
-            boolean intersection = LineCircleIntersection.intersect(x,y, point, radius);
-
-            String circleDesmosString = "(x - " + point.getLat() + ")^2 + (y - " + point.getLng()
-                    + ")^2 = (" + radius + ")^2";
-
-
-            if (intersection) {
-                debug("Intersection detected between circle: " + circleDesmosString + " and points: " +
-                        x.toString() + " and " + y.toString());
-                return true;
-            } else {
-                debug("No intersection between circle: " + circleDesmosString + " and points: " +
-                        x.toString() + " and " + y.toString());
-            }
-        }
-        return false;
-    }
 
     private static void debug(String msg) {
         if (false) {

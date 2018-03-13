@@ -12,8 +12,8 @@ import java.util.List;
 
 import org.json.simple.JSONArray;
 import org.json.simple.parser.ParseException;
-import polyline_decoder.Point;
-import polyline_decoder.PolylineDecoder;
+import utils.polyline_decoder.Point;
+import utils.polyline_decoder.PolylineDecoder;
 
 public class GetPointsFromJSON {
 

@@ -1,4 +1,4 @@
-package polyline_decoder;
+package utils.polyline_decoder;
 
 import java.io.Serializable;
 import java.util.Iterator;
