@@ -16,11 +16,8 @@ public class JSONmatrix {
 	}
 
 	public static double[][] getMatrix(JSONObject jsonObject) {
-		JSONParser parser = new JSONParser();
 		List<List<Double>> list = new ArrayList<>();
 		try {
-
-
 			Object obj = jsonObject;
 
 			JSONObject jsonobj = (JSONObject) obj;
