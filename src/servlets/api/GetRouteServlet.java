@@ -7,7 +7,43 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/api/go")
+
+/**
+ * Main servlet for accessing the algorithm
+ * URL:				/api/getroute
+ * Method:			POST
+ * Expected Input:	JSON Object in the following format:
+ *					 	{
+ 						"radius" : Number,
+ 						"source" : {
+ 							"lat": Number,
+ 							"lng": Number
+ 						},
+ 						"dest" : {
+ 							"lat": Number,
+ 							"lng": Number
+ 						},
+ 						"passengers" : [
+ 							{
+ 								"name" : String,
+ 								"si" : {
+ 									"lat": Number,
+ 									"lng": Number
+ 								},
+ 								"ti" : {
+ 									"lat": Number,
+ 									"lng": Number
+ 								}
+ 							},
+ 						...
+ 						]
+ 						}
+
+ * Expected Output:	JSON Object in the following format:
+
+ * */
+
+@WebServlet("/api/getroute")
 public class GetRouteServlet extends HttpServlet{
 
 	@Override
