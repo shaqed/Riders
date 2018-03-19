@@ -1,5 +1,6 @@
 package inputs;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -7,8 +8,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-import utils.polyline_decoder.Point;
-import utils.parser.KMLParser;
+import polyline_decoder.Point;
+import utils.Tags;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -24,8 +25,14 @@ public class AlgorithmInput {
     private List<Point> pathToDestination;
     private List<Passenger> passengers;
     private double radius;
+
+    // This because google maps can handle just addresses names [DEPRECATED]
     private String source;
     private String destination;
+
+    // New way, better way.
+    private Point pSource;
+    private Point pDestintation;
 
     private List<Point> mainPoints; // passengers and source & destination
 
@@ -46,6 +53,42 @@ public class AlgorithmInput {
         }
 
 		this.mainPoints.add(kmlParser.getDestinationPoint());
+
+	}
+
+	private AlgorithmInput(JSONObject jsonObject) {
+		this.radius = (double) jsonObject.get(Tags.IO_RADIUS);
+
+		JSONObject source = (JSONObject) jsonObject.get(Tags.IO_SOURCE);
+		double sourceLat = (double) source.get(Tags.IO_POINT_LATITUDE);
+		double sourceLng = (double) source.get(Tags.IO_POINT_LONGITUDE);
+		this.pSource = new Point(sourceLat, sourceLng);
+
+		JSONObject dest = (JSONObject) jsonObject.get(Tags.IO_DESTINATION);
+		double destLat = (double) dest.get(Tags.IO_POINT_LATITUDE);
+		double destLng = (double) dest.get(Tags.IO_POINT_LONGITUDE);
+		this.pDestintation = new Point(destLat, destLng);
+
+		this.passengers = new ArrayList<>();
+		JSONArray passengersArray = (JSONArray) jsonObject.get(Tags.IO_PASSENGERS);
+		for (int i = 0; i < passengersArray.size(); i++) {
+			JSONObject passenger = (JSONObject) passengersArray.get(i);
+
+			String name = (String) passenger.get(Tags.IO_PASSENGERS_NAME);
+
+			JSONObject si = (JSONObject) passenger.get(Tags.IO_PASSENGERS_SI);
+			double siLat = (double) si.get(Tags.IO_POINT_LATITUDE);
+			double siLng = (double) si.get(Tags.IO_POINT_LONGITUDE);
+			Point siPoint = new Point(siLat, siLng);
+
+			JSONObject ti = (JSONObject) passenger.get(Tags.IO_PASSENGERS_TI);
+			double tiLat = (double) ti.get(Tags.IO_POINT_LATITUDE);
+			double tiLng = (double) ti.get(Tags.IO_POINT_LONGITUDE);
+			Point tiPoint = new Point(tiLat, tiLng);
+
+			this.passengers.add(new Passenger(name, siPoint, tiPoint));
+		}
+
 
 	}
 
@@ -84,11 +127,22 @@ public class AlgorithmInput {
 		return destination;
 	}
 
-    public List<Point> getMainPoints() {
-        return this.mainPoints;
-    }
+	@Override
+	public String toString() {
+		StringBuilder stringBuilder = new StringBuilder();
 
-    /**
+		stringBuilder.append("Source: ");
+		stringBuilder.append(this.pSource.toString());
+
+		stringBuilder.append(" Destination: ");
+		stringBuilder.append(pDestintation.toString());
+
+		stringBuilder.append(this.passengers.toString());
+
+		return stringBuilder.toString();
+	}
+
+	/**
      * Returns a URL to Google Maps that displays the given route
      * Paste that URL to your browser to see the route
      * @param passengers The passengers available to choose from
@@ -133,13 +187,21 @@ public class AlgorithmInput {
 
     // Builder functions
 
-    public static AlgorithmInput getInstance(String source, String dest, double radius) {
-        // TODO Function
-        // Create a Google Maps query based on the source and the path
-        // Lookup the correct passengers file and load it
+    public static AlgorithmInput getInstance(JSONObject jsonObject) {
+		try {
+			AlgorithmInput input = new AlgorithmInput(jsonObject);
 
-        return null;
-    }
+			// debug
+			System.out.println("Creation from JSON was successful");
+			System.out.println(input.toString());
+
+			return input;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("COULDNT CREATE AN INPUT FROM JSON");
+			return null;
+		}
+	}
 
 
     public static AlgorithmInput getInstance(String pathToXMLFile, double radius) {
@@ -270,7 +332,7 @@ public class AlgorithmInput {
 
     public static void main(String[] args) {
 
-    }
+	}
 
 
 }

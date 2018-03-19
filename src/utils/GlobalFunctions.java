@@ -1,5 +1,9 @@
 package utils;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -62,14 +66,23 @@ public class GlobalFunctions {
 				bytesRead = reader.read(buffer);
 				for (int i = 0; i < bytesRead; i++) {
 					stringBuilder.append(buffer[i]);
-//					System.out.print(buffer[i]);
+//					System.out.print("read: [" + i + "]: " + ((int)buffer[i]) + ". ");
 				}
+
 			}
 			return stringBuilder.toString();
 		} catch (IOException e) {
 			e.printStackTrace();
 			return null;
 		}
+	}
 
+	public static JSONObject readJSONObject(InputStream inputStream) {
+		try {
+			return (JSONObject) new JSONParser().parse(readInputStream(inputStream));
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 }

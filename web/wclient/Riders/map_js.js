@@ -52,7 +52,7 @@ function initMap() {
         center: new google.maps.LatLng(37.7699298, -122.4469157)
     };
 
-    map = new google.maps.Map(document.getElementById('map'), mapOptions)
+    map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
     map.addListener("click", function (e) {
         var lat = e.latLng.lat();
@@ -63,7 +63,39 @@ function initMap() {
             lng : lng
         };
 
-        if (passengers[statusText.c] !== undefined) {
+        if (statusText.currentEdit !== undefined) {
+
+            var passengerIndex = statusText.currentEdit.split(" ")[0]; // get the index
+
+            var elementToEdit = document.getElementById(statusText.currentEdit);
+            if (elementToEdit.gMarker === undefined) {
+                // Create a new marker
+                // Store the marker on the element itself
+                elementToEdit.gMarker = new google.maps.Marker({
+                    position: coords,
+                    icon : {
+                        url : statusText.gIcon,
+                        labelOrigin : new google.maps.Point(0, -15)
+                    },
+                    label : {
+                        text : statusText.currentEdit[0].toUpperCase(),
+                        fontSize : "20px",
+                        color : 'blue',
+                        fontWeight: 'bold'
+                    },
+                    map : map
+                });
+            } else {
+                // Marker already there, just change its position
+                elementToEdit.gMarker.setPosition(coords);
+            }
+
+            doneEditing(coords);
+        }
+
+
+
+        /*if (passengers[statusText.c] !== undefined) {
             if (passengers[statusText.c].marker === undefined) {
                 passengers[statusText.c].marker = new google.maps.Marker({
                     position: coords,
@@ -98,33 +130,34 @@ function initMap() {
 
         }
         // console.log("Setting: " + lat + ", " + lng);
-
         doneEditing(coords);
+        */
+
     });
 
 }
 
-document.getElementById("go").onclick = function () {
-    var source = sourceInputText.point;
-    var dest = destInputText.point;
-
-    var waypoints = [];
-    for (var i = 0; i < passengers.length; i++) {
-        var passenger = passengers[i];
-
-        if (passenger !== undefined) {
-            console.log(passenger);
-            if (passenger.value !== undefined) {
-                // console.log("Pushing: " + passenger.value);
-                waypoints.push({
-                    location : passenger.value,
-                    stopover : true
-                });
-            }
-        }
-
-    }
-
-    console.log(waypoints);
-    directionsOnMap(source, dest, waypoints);
-};
+// document.getElementById("go").onclick = function () {
+//     var source = sourceInputText.point;
+//     var dest = destInputText.point;
+//
+//     var waypoints = [];
+//     for (var i = 0; i < passengers.length; i++) {
+//         var passenger = passengers[i];
+//
+//         if (passenger !== undefined) {
+//             console.log(passenger);
+//             if (passenger.value !== undefined) {
+//                 // console.log("Pushing: " + passenger.value);
+//                 waypoints.push({
+//                     location : passenger.value,
+//                     stopover : true
+//                 });
+//             }
+//         }
+//
+//     }
+//
+//     console.log(waypoints);
+//     directionsOnMap(source, dest, waypoints);
+// };
