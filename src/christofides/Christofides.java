@@ -539,11 +539,4 @@ public class Christofides {
 		}
 	}
 
-	private static int linorFunction() {
-		// TODO: a bunch of stuff
-
-
-		return 0;
-	}
-
 }
