@@ -78,10 +78,12 @@ public class GlobalFunctions {
 	}
 
 	public static JSONObject readJSONObject(InputStream inputStream) {
+    	String string = readInputStream(inputStream);
 		try {
-			return (JSONObject) new JSONParser().parse(readInputStream(inputStream));
+			return (JSONObject) new JSONParser().parse(string);
 		} catch (ParseException e) {
 			e.printStackTrace();
+			System.out.println("Failed to parse: " + string);
 			return null;
 		}
 	}

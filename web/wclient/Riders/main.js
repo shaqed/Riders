@@ -156,6 +156,27 @@ btnAdd.onclick = function () {
 sourceInputText.onclick = edt;
 destInputText.onclick = edt;
 
+
+
+
+function sendRequest(data) {
+    console.log(data);
+    $.ajax({
+        url : "/api/getroute",
+        type : "post",
+        contentType : "application/json",
+        data : JSON.stringify(data),
+        success : function (response) {
+            console.log("Response");
+            console.log(response);
+        },
+        error : function (e) {
+            console.log("error");
+            console.log(e);
+        }
+    });
+}
+
 function go() {
     // make a JSON Object
 
@@ -186,14 +207,16 @@ function go() {
         radius : document.getElementById("radius-ip").value,
         source : document.getElementById("source-ip").point,
         dest : document.getElementById("destination-ip").point,
+        path : undefined,
         passengers : passengers
     };
 
-    console.log(data);
-    console.log(JSON.stringify(data))
+
+    console.log(JSON.stringify(data));
     // Send a POST request to /api/GetRouteServlet
 
     // for now the object is ready to be sent
+    directionsOnMap(data, undefined);
 
 
     // Display result on the map (display directions when you have the order)

@@ -21,7 +21,7 @@ public class AlgorithmDriver {
             input.setRadius(radius);
             System.out.println("Starting algorithm with radius: " + input.getRadius());
             long startTime = System.currentTimeMillis();
-            List<AlgorithmInput.Passenger> passengersToInclude = go(input);
+            List<AlgorithmInput.Passenger> passengersToInclude = filterPassengers(input);
             int answer = passengersToInclude.size();
 
             tsp(input, passengersToInclude);
@@ -37,10 +37,12 @@ public class AlgorithmDriver {
     }
 
 
-    private static void tsp(AlgorithmInput input, List<AlgorithmInput.Passenger> passengersToInclude) {
+    public static void tsp(AlgorithmInput input, List<AlgorithmInput.Passenger> passengersToInclude) {
 
 
 		GoogleClient googleClient = new GoogleClient();
+
+		// Currently fails because of inverted lat/lngs of the passengers
         JSONObject jsonObject = googleClient.adjacencyMatrixRequest(input.getSource(), passengersToInclude, input.getDestination());
 
 		double [][] g = getMatrixFromJSON(jsonObject);
@@ -50,8 +52,8 @@ public class AlgorithmDriver {
 			c = new Christofides(g,false, 0, g.length-1);
 
 			System.out.println(readResult(c, passengersToInclude));
-			System.out.println("Check this out @ Google Maps: " + input.getResultOnGoogleMaps(passengersToInclude, c.getCircuit()));
-
+//			System.out.println("Check this out @ Google Maps: " + input.getResultOnGoogleMaps(passengersToInclude, c.getCircuit()));
+			System.out.println("Route: " + c.getCircuitString());
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -64,7 +66,7 @@ public class AlgorithmDriver {
      * Main function of the algorithm
      * @param input Create an instance of AlgorithmInput using the GenerateInput class
      * */
-    public static List<AlgorithmInput.Passenger> go(AlgorithmInput input) {
+    public static List<AlgorithmInput.Passenger> filterPassengers(AlgorithmInput input) {
         List<AlgorithmInput.Passenger> passengers = new ArrayList<>();
 
         // For each passenger, check if its S and its T as circle points intersects with the
@@ -116,7 +118,12 @@ public class AlgorithmDriver {
 	}
 
     private static String readResult(Christofides christofides, List<AlgorithmInput.Passenger> passengers){
-		StringBuilder stringBuilder = new StringBuilder();
+
+    	// TODO THIS FUNCTION NEEDS A RE-WRITE!!
+		// FIGURE OUT HOW TO DISCOVER Si and Ti FROM THE CIRCUIT!
+		// DONT CONTINUE TILL YOU DO
+		// BACKWARDS COMPATABILITY ! WHAT IF TI IS NULL
+    	StringBuilder stringBuilder = new StringBuilder();
 
     	List<Integer> circuit = christofides.getCircuit();
 
@@ -129,7 +136,12 @@ public class AlgorithmDriver {
 //				nameOfNode = input.getDestination();
 				nameOfNode = "DESTINATION";
 			} else {
-				nameOfNode = passengers.get(i-1).name;
+				if (i-1 < passengers.size()) {
+					nameOfNode = passengers.get(i-1).name;
+				} else {
+					System.out.println("figuring out what is: " + i + "in the route");
+					nameOfNode = passengers.get((i-1)%passengers.size()).name;
+				}
 			}
 			stringBuilder.append(nameOfNode);
     		stringBuilder.append("->");

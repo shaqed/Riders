@@ -9,6 +9,7 @@ public class Tags {
 	public static final String IO_RADIUS = "radius";
 	public static final String IO_SOURCE = "source";
 	public static final String IO_DESTINATION = "dest";
+	public static final String IO_PATH = "path";
 
 	public static final String IO_POINT_LATITUDE = "lat";
 	public static final String IO_POINT_LONGITUDE = "lng";

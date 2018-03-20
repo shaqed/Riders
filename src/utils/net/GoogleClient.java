@@ -33,6 +33,20 @@ public class GoogleClient {
 		String filename = "algo-data/JSON/" + source + "_to_" + dest + "_"+ passengers.size() + ".json";
 
 		File file = new File(filename);
+
+		// if path doesn't exist, create it
+		File algoDataDir = new File("algo-data");
+		if (!algoDataDir.exists()) {
+			algoDataDir.mkdir();
+		}
+
+		File jsonDir = new File("algo-data/JSON");
+		if (!jsonDir.exists()) {
+			jsonDir.mkdir();
+		}
+
+		// By here, the path to the file should exist in whatever environment
+
 		if (!file.exists()) { // File doesn't exist, load it from the web and store it
 			System.out.println("JSON File for the request wasn't found on the local machine, asking Google for it");
 			JSONObject jsonObject = getJSONFromInternet(source, passengers, dest);
@@ -40,16 +54,20 @@ public class GoogleClient {
 			if (jsonObject != null) {
 				// Write JSON to the file
 				try {
-					file.createNewFile();
+					if (file.createNewFile()) {
+						FileWriter fileWriter = new FileWriter(file);
+						fileWriter.write(jsonObject.toString());
+						fileWriter.flush();
+						fileWriter.close();
+						System.out.println("GoogleClient Saved a new JSON File, make sure to commit it!");
+					} else {
+						throw new IOException("Couldn't create file");
+					}
 
-					FileWriter fileWriter = new FileWriter(file);
-					fileWriter.write(jsonObject.toString());
-					fileWriter.flush();
-					fileWriter.close();
-					System.out.println("GoogleClient Saved a new JSON File, make sure to commit it!");
 
 				} catch (IOException e) {
-					System.out.println("Couldn't create a new JSON file for: " + filename + ". Maybe it already exists?");
+					System.err.println("Couldn't create a new JSON file for: " + filename +
+							". Maybe it already exists? \n Message: " + e.getMessage());
 				}
 			}
 			return jsonObject;
@@ -72,6 +90,9 @@ public class GoogleClient {
 
 		for(AlgorithmInput.Passenger p : passengers) {
 			pointList.add(p.s);
+			if (p.t != null) {
+				pointList.add(p.t);
+			}
 		}
 
 		try {
@@ -84,9 +105,9 @@ public class GoogleClient {
 			stringBuilder.append(source);
 			stringBuilder.append("|");
 			for(Point p : pointList) {
-				stringBuilder.append(p.getLng());
-				stringBuilder.append(",");
 				stringBuilder.append(p.getLat());
+				stringBuilder.append(",");
+				stringBuilder.append(p.getLng());
 				stringBuilder.append("|");
 			}
 //            stringBuilder.deleteCharAt(stringBuilder.length()-1);

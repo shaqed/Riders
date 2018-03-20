@@ -1,5 +1,7 @@
 package servlets.api;
 
+import caraoke.AlgorithmDriver;
+import inputs.AlgorithmInput;
 import org.json.simple.JSONObject;
 import utils.GlobalFunctions;
 import utils.Validator;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 
 /**
@@ -71,8 +74,21 @@ public class GetRouteServlet extends HttpServlet{
 			// request json is valid
 
 			// Create a new AlgorithmInput instance from it and run the algorithm
+			AlgorithmInput input = AlgorithmInput.getInstance(requestJSON);
 
+			// Run the algorithm
+			List<AlgorithmInput.Passenger> passengers = AlgorithmDriver.filterPassengers(input);
+			AlgorithmDriver.tsp(input, passengers); // currently void
+
+			System.out.println("Algorithm done");
+
+
+			resp.setStatus(HttpServletResponse.SC_OK);
 			// Return the answer as a JSON object based on the format
+
+
+		} else {
+			resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Bad JSON");
 		}
 
 	}

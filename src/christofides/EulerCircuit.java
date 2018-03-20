@@ -38,7 +38,7 @@ public class EulerCircuit {
 
 
 		System.out.println(new EulerCircuit().go(graph).toString());
-//		new EulerCircuit().preProcessing();
+//		new EulerCircuit().filterPassengers();
 	}
 
 	private boolean verbose = false;
@@ -224,7 +224,7 @@ public class EulerCircuit {
 					}
 				}
 
-				if (!movedToANewVertex) { // If you haven't found a new vertex to preProcessing to, just preProcessing to the next available
+				if (!movedToANewVertex) { // If you haven't found a new vertex to filterPassengers to, just filterPassengers to the next available
 					for(int neighborOfCurrent : adjacencyList.get(currentNode)){
 						print("Traveling to a visited node: " + neighborOfCurrent);
 

@@ -34,7 +34,7 @@ public class AllCombinationsOfArray {
 
     /**
      *  @param arr The array
-     *  @param depth How deep to preProcessing into the array ? How many for loops to create ?
+     *  @param depth How deep to filterPassengers into the array ? How many for loops to create ?
      *  @param counters Empty array, size of the the 'arr' - will represent the counters that iterate over the arr [TODO: Is it optimal in terms of space?]
      *  @param currentCount Enter 0, this helps to count all possibilites calculated [TODO: Maybe you should just return a set of all combinations?]
      *  @param sizeOfLoop [TODO:Might be redundant if you fix the counter's array to be the size of the amount you want selected]

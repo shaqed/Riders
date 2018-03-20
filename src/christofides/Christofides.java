@@ -1,6 +1,6 @@
 package christofides;
 
-import utils.polyline_decoder.Point;
+import polyline_decoder.Point;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,7 +41,7 @@ public class Christofides {
 	public Christofides(double[][] graph, boolean verbose) {
 		this.graph = graph;
 		this.verbose = verbose;
-//		this.circuit = preProcessing();
+//		this.circuit = filterPassengers();
 	}
 
 	public Christofides(List<Point> points, boolean verbose) {
@@ -63,9 +63,9 @@ public class Christofides {
 		this.graph = graph;
 
 		// Compute using our custom min-matching.
-//		this.circuit = preProcessing(source, dest);
+//		this.circuit = filterPassengers(source, dest);
 
-		// Compute using the second method
+		// Compute using the second method of adding ST vertices
 		this.circuit = getHamiltonianPath(source, dest);
 	}
 
@@ -283,7 +283,7 @@ public class Christofides {
 	// PUBLIC HELPER FUNCTIONS
 
 	/**
-	 * @param result The answer from the preProcessing() function (the hamiltonian circuit)
+	 * @param result The answer from the filterPassengers() function (the hamiltonian circuit)
 	 * @return The cost of traveling to each node based on the graph
 	 * */
 	public double calculatePathCost(List<Integer> result) {

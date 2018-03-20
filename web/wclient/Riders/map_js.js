@@ -1,7 +1,7 @@
 var map;
 
 
-function directionsOnMap(sourceLatlng, destLatlng, waypoints) {
+function directionsOnMap(data, waypoints) {
     var directionsService = new google.maps.DirectionsService();
     var directionsDisplay = new google.maps.DirectionsRenderer();
     // var haight = new google.maps.LatLng(37.7699298, -122.4469157);
@@ -12,8 +12,8 @@ function directionsOnMap(sourceLatlng, destLatlng, waypoints) {
     directionsDisplay.setMap(map);
 
     directionsService.route({
-        origin: sourceLatlng,
-        destination: destLatlng,
+        origin: data.source,
+        destination: data.dest,
         waypoints : waypoints,
         travelMode : google.maps.TravelMode["DRIVING"]
     }, function (response, status) {
@@ -21,6 +21,20 @@ function directionsOnMap(sourceLatlng, destLatlng, waypoints) {
             console.log("GOOD");
             console.log(response);
             directionsDisplay.setDirections(response);
+
+            // Extract route from response
+            // Add it to the JSON
+            var points = response.routes[0].overview_path;
+            var path = [];
+            for (var i = 0; i < points.length; i++) {
+                path.push({
+                    lat : points[i].lat(),
+                    lng : points[i].lng()
+                });
+            }
+            data.path = path;
+            sendRequest(data);
+
         } else {
             console.log("BAD");
             console.log(response);

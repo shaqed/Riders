@@ -56,18 +56,20 @@ public class AlgorithmInput {
 
 	}
 
-	private AlgorithmInput(JSONObject jsonObject) {
-		this.radius = (double) jsonObject.get(Tags.IO_RADIUS);
+	private AlgorithmInput(JSONObject jsonObject) throws Exception{
+		this.radius = Double.valueOf(jsonObject.get(Tags.IO_RADIUS).toString());
 
 		JSONObject source = (JSONObject) jsonObject.get(Tags.IO_SOURCE);
-		double sourceLat = (double) source.get(Tags.IO_POINT_LATITUDE);
-		double sourceLng = (double) source.get(Tags.IO_POINT_LONGITUDE);
+		double sourceLat = Double.valueOf(source.get(Tags.IO_POINT_LATITUDE).toString());
+		double sourceLng = Double.valueOf(source.get(Tags.IO_POINT_LONGITUDE).toString());
 		this.pSource = new Point(sourceLat, sourceLng);
+		this.source = (this.pSource.getLat() + "," + this.pSource.getLng());
 
 		JSONObject dest = (JSONObject) jsonObject.get(Tags.IO_DESTINATION);
-		double destLat = (double) dest.get(Tags.IO_POINT_LATITUDE);
-		double destLng = (double) dest.get(Tags.IO_POINT_LONGITUDE);
+		double destLat = Double.valueOf(dest.get(Tags.IO_POINT_LATITUDE).toString());
+		double destLng = Double.valueOf(dest.get(Tags.IO_POINT_LONGITUDE).toString());
 		this.pDestintation = new Point(destLat, destLng);
+		this.destination = (this.pDestintation.getLat() +"," + this.pDestintation.getLng());
 
 		this.passengers = new ArrayList<>();
 		JSONArray passengersArray = (JSONArray) jsonObject.get(Tags.IO_PASSENGERS);
@@ -77,16 +79,27 @@ public class AlgorithmInput {
 			String name = (String) passenger.get(Tags.IO_PASSENGERS_NAME);
 
 			JSONObject si = (JSONObject) passenger.get(Tags.IO_PASSENGERS_SI);
-			double siLat = (double) si.get(Tags.IO_POINT_LATITUDE);
-			double siLng = (double) si.get(Tags.IO_POINT_LONGITUDE);
+			double siLat = Double.valueOf(si.get(Tags.IO_POINT_LATITUDE).toString());
+			double siLng = Double.valueOf(si.get(Tags.IO_POINT_LONGITUDE).toString());
 			Point siPoint = new Point(siLat, siLng);
 
 			JSONObject ti = (JSONObject) passenger.get(Tags.IO_PASSENGERS_TI);
-			double tiLat = (double) ti.get(Tags.IO_POINT_LATITUDE);
-			double tiLng = (double) ti.get(Tags.IO_POINT_LONGITUDE);
+			double tiLat = Double.valueOf(ti.get(Tags.IO_POINT_LATITUDE).toString());
+			double tiLng = Double.valueOf(ti.get(Tags.IO_POINT_LONGITUDE).toString());
 			Point tiPoint = new Point(tiLat, tiLng);
 
 			this.passengers.add(new Passenger(name, siPoint, tiPoint));
+		}
+
+		// FILL PATH TO DESTINATION !!
+		this.pathToDestination = new ArrayList<>();
+		JSONArray path = (JSONArray) jsonObject.get(Tags.IO_PATH);
+		for (int i = 0; i < path.size(); i++) {
+			JSONObject currentPoint = (JSONObject) path.get(i);
+			double lat = Double.valueOf(currentPoint.get(Tags.IO_POINT_LATITUDE).toString());
+			double lng = Double.valueOf(currentPoint.get(Tags.IO_POINT_LONGITUDE).toString());
+
+			this.pathToDestination.add(new Point(lat, lng));
 		}
 
 
@@ -119,8 +132,17 @@ public class AlgorithmInput {
         return radius;
     }
 
+	public Point getpSource() {
+		return pSource;
+	}
+
 	public String getSource() {
 		return source;
+	}
+
+
+	public Point getpDestintation() {
+		return pDestintation;
 	}
 
 	public String getDestination() {
@@ -165,7 +187,7 @@ public class AlgorithmInput {
 
                 Passenger p = passengers.get(index-1);
 
-                stringBuilder.append(URLEncoder.encode(p.s.getLng() + ", " + p.s.getLat(), UTF8));
+                stringBuilder.append(URLEncoder.encode(p.s.getLat() + ", " + p.s.getLng(), UTF8));
                 stringBuilder.append(divider);
             }
             stringBuilder.append(URLEncoder.encode(this.getDestination(), UTF8));
