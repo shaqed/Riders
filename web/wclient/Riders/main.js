@@ -158,7 +158,7 @@ destInputText.onclick = edt;
 
 function sendRequest(data) {
 
-
+    statusText.innerText = "Loading... please wait";
     $.ajax({
         url: "/api/getroute",
         type: "post",
@@ -168,10 +168,14 @@ function sendRequest(data) {
             console.log("Response");
             console.log(response);
             displayRouteOnMap(response.route);
+
+            statusText.innerText = "";
         },
         error: function (e) {
             console.log("error");
             console.log(e);
+
+            statusText.innerText = "";
         }
     });
 

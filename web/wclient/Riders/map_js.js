@@ -1,7 +1,11 @@
 var map;
+var directionsService;
+var directionsDisplay;
 
 function reset() {
-    var directionsDisplay = new google.maps.DirectionsRenderer();
+    if (directionsDisplay === undefined) {
+        directionsDisplay = new google.maps.DirectionsRenderer();
+    }
 
     directionsDisplay.set("directions", null); // Clear directions if given any
 
@@ -37,9 +41,13 @@ function displayRouteOnMap(data) {
     }
 
 
-    var directionsService = new google.maps.DirectionsService();
-    var directionsDisplay = new google.maps.DirectionsRenderer();
+    if (directionsService === undefined) {
+        directionsService = new google.maps.DirectionsService();
+    }
 
+    if (directionsDisplay === undefined) {
+        directionsDisplay = new google.maps.DirectionsRenderer();
+    }
     directionsDisplay.setMap(map);
     directionsService.route({
         origin : source,

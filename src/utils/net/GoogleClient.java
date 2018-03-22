@@ -119,7 +119,7 @@ public class GoogleClient {
 
 			HTTPer http = builder.build();
 
-			verify(http.toString());
+//			verify(http.toString());
 
 			String ans = http.get();
 			return (JSONObject) new JSONParser().parse(ans);
