@@ -1,5 +1,61 @@
 var map;
 
+function reset() {
+    var directionsDisplay = new google.maps.DirectionsRenderer();
+
+    directionsDisplay.set("directions", null); // Clear directions if given any
+
+    var elements = $("input[type=text]");
+    for (var i = 0; i < elements.length; i++) {
+        var ele = elements[i];
+        if (ele.gMarker !== undefined) {
+            ele.gMarker.setMap(null);
+            ele.gMarker = undefined;
+            ele.value = "";
+        } else {
+
+
+        }
+    }
+
+    $("#radius-ip").val("");
+
+    $("#passengers-container").empty();
+    passengersIds = 0;
+}
+
+function displayRouteOnMap(data) {
+
+    var source = data[0];
+    var dest = data[data.length - 1];
+    var waypoints = [];
+    for (var i = 1; i < data.length - 1; i++) {
+        waypoints.push({
+            location: data[i],
+            stopover: true
+        });
+    }
+
+
+    var directionsService = new google.maps.DirectionsService();
+    var directionsDisplay = new google.maps.DirectionsRenderer();
+
+    directionsDisplay.setMap(map);
+    directionsService.route({
+        origin : source,
+        destination : dest,
+        waypoints: waypoints,
+        travelMode : google.maps.TravelMode["DRIVING"]
+    }, function (response, status) {
+        if (status === "OK") {
+            directionsDisplay.setDirections(response);
+        } else {
+            console.log("Error while displaying final route");
+            console.log(response);
+        }
+    });
+
+}
 
 function directionsOnMap(data, waypoints) {
     var directionsService = new google.maps.DirectionsService();
@@ -7,7 +63,9 @@ function directionsOnMap(data, waypoints) {
     // var haight = new google.maps.LatLng(37.7699298, -122.4469157);
     // var oceanBeach = new google.maps.LatLng(37.7683909618184, -122.51089453697205);
 
-
+    console.log("DirectionOnMap");
+    console.log(data);
+    console.log(waypoints);
 
     directionsDisplay.setMap(map);
 
@@ -20,7 +78,7 @@ function directionsOnMap(data, waypoints) {
         if (status === "OK") {
             console.log("GOOD");
             console.log(response);
-            directionsDisplay.setDirections(response);
+            //directionsDisplay.setDirections(response);
 
             // Extract route from response
             // Add it to the JSON
@@ -105,6 +163,8 @@ function initMap() {
             }
 
             doneEditing(coords);
+        } else {
+            alert("Click on some input type text first")
         }
 
 

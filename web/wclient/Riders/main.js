@@ -46,7 +46,7 @@ function addPassenger() {
 
     var btn = document.createElement("button");
     btn.innerText = "X";
-    btn.id = "del-"+ passengerIndex;
+    btn.id = "del-" + passengerIndex;
     btn.onclick = removePassenger;
 
     cont.appendChild(span);
@@ -71,7 +71,6 @@ function removePassenger() {
             break;
         }
     }
-
 
 
     // Before deleting it, make sure to remove the markers (if applied) on the map
@@ -117,7 +116,7 @@ function edt() {
         statusText.currentEdit = this.id;
         statusText.innerText = "Editing Source";
         statusText.gIcon = ICON_RED;
-    }  else {
+    } else {
         console.log("Error, unexpected item to be edited: " + this.id);
     }
 
@@ -157,24 +156,25 @@ sourceInputText.onclick = edt;
 destInputText.onclick = edt;
 
 
-
-
 function sendRequest(data) {
-    console.log(data);
+
+
     $.ajax({
-        url : "/api/getroute",
-        type : "post",
-        contentType : "application/json",
-        data : JSON.stringify(data),
-        success : function (response) {
+        url: "/api/getroute",
+        type: "post",
+        contentType: "application/json",
+        data: JSON.stringify(data),
+        success: function (response) {
             console.log("Response");
             console.log(response);
+            displayRouteOnMap(response.route);
         },
-        error : function (e) {
+        error: function (e) {
             console.log("error");
             console.log(e);
         }
     });
+
 }
 
 function go() {
@@ -185,12 +185,12 @@ function go() {
     for (var i = 0; i < passengersElements.length; i++) {
         var inputs = passengersElements[i].getElementsByTagName("input");
         var psngr = {
-            name : "Passenger: " + passengersElements[i].id,
-            si : null,
-            ti : null
+            name: "Passenger: " + passengersElements[i].id,
+            si: null,
+            ti: null
         };
 
-        for (var j = 0; j < inputs.length; j++){
+        for (var j = 0; j < inputs.length; j++) {
             if (inputs[j].id.includes("si")) {
                 psngr.si = inputs[j].point;
             } else if (inputs[j].id.includes("ti")) {
@@ -204,19 +204,55 @@ function go() {
     }
 
     var data = {
-        radius : document.getElementById("radius-ip").value,
-        source : document.getElementById("source-ip").point,
-        dest : document.getElementById("destination-ip").point,
-        path : undefined,
-        passengers : passengers
+        radius: document.getElementById("radius-ip").value,
+        source: document.getElementById("source-ip").point,
+        dest: document.getElementById("destination-ip").point,
+        path: undefined,
+        passengers: passengers
     };
 
 
-    console.log(JSON.stringify(data));
     // Send a POST request to /api/GetRouteServlet
 
     // for now the object is ready to be sent
-    directionsOnMap(data, undefined);
+
+    // before sending, check if the data object is valid
+    var hasSource = data.source !== undefined;
+    var hasDest = data.dest !== undefined;
+    var hasRadius = data.radius.length > 0;
+    var validPassengers = true;
+    for (var a = 0; a < passengers.length; a++) {
+        var passenger = passengers[a];
+        if (passenger.si === undefined || passenger.ti === undefined) {
+            validPassengers = false;
+            break;
+        }
+    }
+
+
+    var problems = "";
+    if (!hasSource) {
+        problems = problems.concat("No Source| ");
+    }
+    if (!hasDest) {
+        problems = problems.concat("No Destination| ")
+    }
+    if (!hasRadius) {
+        problems = problems.concat("No radius| ");
+    }
+    if (!validPassengers) {
+        problems = problems.concat("One or more passengers do not have both Si and Ti defined ");
+    }
+
+
+    var validData = hasSource && hasDest && hasRadius && validPassengers;
+
+    if (validData) {
+        directionsOnMap(data, undefined);
+    } else {
+        alert("Invalid data: " + problems);
+        console.log(data);
+    }
 
 
     // Display result on the map (display directions when you have the order)

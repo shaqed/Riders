@@ -37,7 +37,7 @@ public class AlgorithmDriver {
     }
 
 
-    public static void tsp(AlgorithmInput input, List<AlgorithmInput.Passenger> passengersToInclude) {
+    public static List<Point> tsp(AlgorithmInput input, List<AlgorithmInput.Passenger> passengersToInclude) {
 
 
 		GoogleClient googleClient = new GoogleClient();
@@ -51,12 +51,16 @@ public class AlgorithmDriver {
 		try {
 			c = new Christofides(g,false, 0, g.length-1);
 
-			System.out.println(readResult(c, passengersToInclude));
+			return c.getCircuitPoints(passengersToInclude, input);
+
+
+//			System.out.println(readResult(c, passengersToInclude));
 //			System.out.println("Check this out @ Google Maps: " + input.getResultOnGoogleMaps(passengersToInclude, c.getCircuit()));
-			System.out.println("Route: " + c.getCircuitString());
+//			System.out.println("Route: " + c.getCircuitString());
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			return null;
 		}
 
 	}
@@ -123,6 +127,8 @@ public class AlgorithmDriver {
 		// FIGURE OUT HOW TO DISCOVER Si and Ti FROM THE CIRCUIT!
 		// DONT CONTINUE TILL YOU DO
 		// BACKWARDS COMPATABILITY ! WHAT IF TI IS NULL
+
+
     	StringBuilder stringBuilder = new StringBuilder();
 
     	List<Integer> circuit = christofides.getCircuit();

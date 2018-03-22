@@ -1,5 +1,6 @@
 package christofides;
 
+import inputs.AlgorithmInput;
 import polyline_decoder.Point;
 
 import java.util.ArrayList;
@@ -69,6 +70,15 @@ public class Christofides {
 		this.circuit = getHamiltonianPath(source, dest);
 	}
 
+	public Christofides(double graph[][], boolean verbose, int source, int dest, List<AlgorithmInput.Passenger> passengers) throws Exception {
+		this.verbose = verbose;
+		this.graph = graph;
+
+		this.circuit = getHamiltonianPath(source, dest); // Compute TSP
+
+
+	}
+
 	public List<Integer> getCircuit() {
 		return circuit;
 	}
@@ -89,6 +99,63 @@ public class Christofides {
 		return stringBuilder.toString();
 	}
 
+
+	/**
+	 * Returns an ordered list of the points you need to visit
+	 * based on the passengers
+	 * @param passengers The same list of passengers that created the distances matrix fed to the algorithm
+	 * @param input The same input fed to the algorithm
+	 * */
+	public List<Point> getCircuitPoints(List<AlgorithmInput.Passenger> passengers, AlgorithmInput input) {
+		List<Point> points = new ArrayList<>();
+
+		System.out.println("Regular circuit: " + this.circuit.toString() + " CircuitString: " + this.getCircuitString());
+
+		points.add(input.getpSource()); // First point is the source
+
+
+		StringBuilder stringBuilder = new StringBuilder();
+		stringBuilder.append("Source: " + points.get(0).toString()); // DEBUG
+
+		// Loop from the 2nd element to the 2nd last (don't include first and last)
+
+		// The original Distances Matrix was like this:
+		// Source,	S1	T1	S2	T2	S3	T3 ... Si Ti DEST
+		// So if the circuit say an odd number -> that's an Si
+		// If the circuit say an even number -> that's a Ti
+		// For figuring out what passenger is it, take the Si index, math.floor(index/2) to get index in passengers
+		for (int i = 1; i < this.circuit.size() - 1; i++) {
+			int current = this.circuit.get(i);// get(i-1) because this circuit contains the source as the first element
+			boolean pointsIsSi = (current % 2) == 1;
+
+			int passengerIndex = -1;
+			if (pointsIsSi) {
+				passengerIndex = (current/2);
+				points.add(passengers.get(passengerIndex).s);
+
+				// DEBUG
+				stringBuilder.append(" S" + passengerIndex + ": ");
+
+			} else {
+				passengerIndex = (current-1)/2;
+				points.add(passengers.get(passengerIndex).t);
+
+				// DEBUG
+				stringBuilder.append(" T" + passengerIndex + ": ");
+			}
+
+
+
+		}
+
+		points.add(input.getpDestintation()); // Last point is the destination
+
+		// DEBUG
+		stringBuilder.append("Dest: " + input.getpDestintation() + "\n");
+
+		System.out.println("ANSWER: " + stringBuilder.toString());
+		return points;
+	}
 
 	/**
 	 * Creates an Hamiltonian cycle from the graph loaded to the class

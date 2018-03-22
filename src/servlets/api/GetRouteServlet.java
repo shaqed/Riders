@@ -2,8 +2,11 @@ package servlets.api;
 
 import caraoke.AlgorithmDriver;
 import inputs.AlgorithmInput;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import polyline_decoder.Point;
 import utils.GlobalFunctions;
+import utils.Tags;
 import utils.Validator;
 
 import javax.servlet.ServletException;
@@ -78,10 +81,12 @@ public class GetRouteServlet extends HttpServlet{
 
 			// Run the algorithm
 			List<AlgorithmInput.Passenger> passengers = AlgorithmDriver.filterPassengers(input);
-			AlgorithmDriver.tsp(input, passengers); // currently void
+			List<Point> points = AlgorithmDriver.tsp(input, passengers); // currently void
 
 			System.out.println("Algorithm done");
 
+			resp.setContentType("application/json");
+			resp.getWriter().write(buildAnswerJSON(points).toString());
 
 			resp.setStatus(HttpServletResponse.SC_OK);
 			// Return the answer as a JSON object based on the format
@@ -91,5 +96,20 @@ public class GetRouteServlet extends HttpServlet{
 			resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Bad JSON");
 		}
 
+	}
+
+	private JSONObject buildAnswerJSON(List<Point> points) {
+		JSONObject jsonObject = new JSONObject();
+
+		JSONArray routeArray = new JSONArray();
+		for (Point p : points) {
+			JSONObject pointJSON = new JSONObject();
+			pointJSON.put(Tags.IO_POINT_LATITUDE, p.getLat());
+			pointJSON.put(Tags.IO_POINT_LONGITUDE, p.getLng());
+
+			routeArray.add(pointJSON);
+		}
+		jsonObject.put(Tags.IO_ROUTE, routeArray);
+		return jsonObject;
 	}
 }
