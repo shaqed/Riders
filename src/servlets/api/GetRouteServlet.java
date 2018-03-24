@@ -71,29 +71,34 @@ public class GetRouteServlet extends HttpServlet{
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		JSONObject requestJSON = GlobalFunctions.readJSONObject(req.getInputStream());
-		if (Validator.inputJSON(requestJSON)) {
-			// request json is valid
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		try {
+			JSONObject requestJSON = GlobalFunctions.readJSONObject(req.getInputStream());
+			if (Validator.inputJSON(requestJSON)) {
+				// request json is valid
 
-			// Create a new AlgorithmInput instance from it and run the algorithm
-			AlgorithmInput input = AlgorithmInput.getInstance(requestJSON);
+				// Create a new AlgorithmInput instance from it and run the algorithm
+				AlgorithmInput input = AlgorithmInput.getInstance(requestJSON);
 
-			// Run the algorithm
-			List<AlgorithmInput.Passenger> passengers = AlgorithmDriver.filterPassengers(input);
-			List<Point> points = AlgorithmDriver.tsp(input, passengers); // currently void
+				// Run the algorithm
+				List<AlgorithmInput.Passenger> passengers = AlgorithmDriver.filterPassengers(input);
+				List<Point> points = AlgorithmDriver.tsp(input, passengers); // currently void
 
-			System.out.println("Algorithm done");
+				System.out.println("Algorithm done");
 
-			resp.setContentType("application/json");
-			resp.getWriter().write(buildAnswerJSON(points).toString());
+				resp.setContentType("application/json");
+				resp.getWriter().write(buildAnswerJSON(points).toString());
 
-			resp.setStatus(HttpServletResponse.SC_OK);
-			// Return the answer as a JSON object based on the format
+				resp.setStatus(HttpServletResponse.SC_OK);
+				// Return the answer as a JSON object based on the format
 
 
-		} else {
-			resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Bad JSON");
+			} else {
+				resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Bad JSON");
+			}
+		} catch (Exception e) {
+			resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			resp.getWriter().write(e.getMessage());
 		}
 
 	}

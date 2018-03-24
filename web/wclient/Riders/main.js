@@ -175,7 +175,7 @@ function sendRequest(data) {
             console.log("error");
             console.log(e);
 
-            statusText.innerText = "";
+            statusText.innerText = "Error: " + e.responseText;
         }
     });
 

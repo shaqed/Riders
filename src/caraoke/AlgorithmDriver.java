@@ -24,9 +24,13 @@ public class AlgorithmDriver {
             List<AlgorithmInput.Passenger> passengersToInclude = filterPassengers(input);
             int answer = passengersToInclude.size();
 
-            tsp(input, passengersToInclude);
+			try {
+				tsp(input, passengersToInclude);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 
-            long endtime = System.currentTimeMillis();
+			long endtime = System.currentTimeMillis();
 
 
             System.out.println("Total number of passengers on route: " + answer +
@@ -37,7 +41,7 @@ public class AlgorithmDriver {
     }
 
 
-    public static List<Point> tsp(AlgorithmInput input, List<AlgorithmInput.Passenger> passengersToInclude) {
+    public static List<Point> tsp(AlgorithmInput input, List<AlgorithmInput.Passenger> passengersToInclude) throws Exception {
 
 
 		GoogleClient googleClient = new GoogleClient();
@@ -46,6 +50,7 @@ public class AlgorithmDriver {
         JSONObject jsonObject = googleClient.adjacencyMatrixRequest(input.getSource(), passengersToInclude, input.getDestination());
 
 		double [][] g = getMatrixFromJSON(jsonObject);
+
 
 		Christofides c = null;
 		try {
@@ -100,7 +105,7 @@ public class AlgorithmDriver {
 
 
 
-    private static double[][] getMatrixFromJSON(JSONObject jsonObject) {
+    private static double[][] getMatrixFromJSON(JSONObject jsonObject) throws Exception {
         double g [][] = {
                 {0, 0.4, 0.4, 1.5, 0.7, 1.4},
                 {0.5, 0, 0.5, 1.1, 0.3, 1.0},
@@ -111,12 +116,10 @@ public class AlgorithmDriver {
         };
 
 		double matrix [][] = JSONmatrix.getMatrix(jsonObject);
-		if (matrix != null) {
+		if (matrix != null && matrix.length > 0) {
 			return matrix;
 		} else {
-			System.out.println("BAD MATRIX");
-			System.exit(1);
-			return null;
+			throw new Exception("Couldn't create a Distances Matrix from Google Maps API");
 		}
 
 	}
