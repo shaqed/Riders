@@ -1,5 +1,7 @@
 package utils.net;
 
+import utils.GlobalFunctions;
+
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;

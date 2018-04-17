@@ -8,7 +8,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-import polyline_decoder.Point;
+import utils.parser.KMLParser;
+import utils.polyline_decoder.Point;
 import utils.Tags;
 
 import javax.xml.parsers.DocumentBuilder;

@@ -1,7 +1,7 @@
 package christofides;
 
 import inputs.AlgorithmInput;
-import polyline_decoder.Point;
+import utils.polyline_decoder.Point;
 
 import java.util.ArrayList;
 import java.util.Arrays;

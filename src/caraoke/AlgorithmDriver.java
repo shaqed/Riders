@@ -3,9 +3,10 @@ package caraoke;
 import christofides.Christofides;
 import inputs.AlgorithmInput;
 import org.json.simple.JSONObject;
-import polyline_decoder.Point;
-import utils.GoogleClient;
-import utils.JSONmatrix;
+import utils.LineCircleIntersection;
+import utils.polyline_decoder.Point;
+import utils.net.GoogleClient;
+import utils.parser.JSONmatrix;
 
 import java.util.ArrayList;
 import java.util.List;

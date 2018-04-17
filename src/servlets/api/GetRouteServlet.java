@@ -4,7 +4,7 @@ import caraoke.AlgorithmDriver;
 import inputs.AlgorithmInput;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import polyline_decoder.Point;
+import utils.polyline_decoder.Point;
 import utils.GlobalFunctions;
 import utils.Tags;
 import utils.Validator;
