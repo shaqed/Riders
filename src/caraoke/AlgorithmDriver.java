@@ -12,8 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AlgorithmDriver {
-    // TODO: Create a JSON which represent the results of the algorithm
-
     public static void main(String[] args) {
         AlgorithmInput input = AlgorithmInput.getInstance("algo-data/kml/Ashkelon-Route-1.kml", 0.003);
 
