@@ -142,41 +142,6 @@ public class AlgorithmDriver {
 
 	}
 
-    private static String readResult(Christofides christofides, List<AlgorithmInput.Passenger> passengers){
-
-    	// TODO THIS FUNCTION NEEDS A RE-WRITE!!
-		// FIGURE OUT HOW TO DISCOVER Si and Ti FROM THE CIRCUIT!
-		// DONT CONTINUE TILL YOU DO
-		// BACKWARDS COMPATABILITY ! WHAT IF TI IS NULL
-
-
-    	StringBuilder stringBuilder = new StringBuilder();
-
-    	List<Integer> circuit = christofides.getCircuit();
-
-    	for (int i : circuit) {
-			String nameOfNode = null;
-			if (i == 0) {
-//				nameOfNode = input.getSource();
-				nameOfNode = "SOURCE";
-			} else if (i == passengers.size()+1) {
-//				nameOfNode = input.getDestination();
-				nameOfNode = "DESTINATION";
-			} else {
-				if (i-1 < passengers.size()) {
-					nameOfNode = passengers.get(i-1).name;
-				} else {
-					System.out.println("figuring out what is: " + i + "in the route");
-					nameOfNode = passengers.get((i-1)%passengers.size()).name;
-				}
-			}
-			stringBuilder.append(nameOfNode);
-    		stringBuilder.append("->");
-		}
-
-    	return stringBuilder.toString();
-	}
-
 
 	private static double distanceBetweenTwoPoints(Point point1, Point point2) {
     	double x1 = point1.getLat();
