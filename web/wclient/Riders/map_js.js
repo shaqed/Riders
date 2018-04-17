@@ -108,31 +108,24 @@ function directionsOnMap(data, waypoints) {
     });
 }
 
-
+/**
+ * Called by Google Maps
+ * */
 function initMap() {
-    /*var m = new google.maps.Map(document.getElementById("map"), {
-        zoom :4,
-        center : {lat: -25.363, lng: 131.044}
-    });
-    m.addListener("click", function (e) {
-        var lat = e.latLng.lat();
-        var long = e.latLng.lng();
-
-        console.log(lat + ", " + long);
-    });*/
-
-
-
-    /* GET DIRECTIONS AND DISPLAY THEM ON THE MAP*/
-
-    /*END*/
 
     var mapOptions = {
         zoom: 14,
-        center: new google.maps.LatLng(37.7699298, -122.4469157)
+        center: new google.maps.LatLng(31.526771, 34.599354) // Sderot
     };
 
     map = new google.maps.Map(document.getElementById('map'), mapOptions);
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            map.setCenter(initialLocation);
+        });
+    }
+
 
     map.addListener("click", function (e) {
         var lat = e.latLng.lat();

@@ -88,13 +88,30 @@ public class AlgorithmDriver {
             Point ti = passenger.t;
 
             // Check if Si and Ti, with a given radius, intersects with the path
-            boolean siIntersects = circleIntersectionWithPath(driverPath, si, radius);
-//            boolean tiIntersects = circleIntersectionWithPath(driverPath, ti, radius);
-            boolean tiIntersects = true;
+			int siIntersectionIndex = circleIntersectionWithPath(driverPath, si, radius);
+            boolean siIntersects = siIntersectionIndex != -1;
+
+            int tiIntersectionIndex = circleIntersectionWithPath(driverPath, ti, radius);
+            boolean tiIntersects = tiIntersectionIndex != -1;
 
             // TODO Temporary debug, for now just prints the passengers you need to include
-            if (siIntersects && tiIntersects) {
-                System.out.println("You should include: " + passenger );
+
+			boolean siBeforeTi = siIntersectionIndex < tiIntersectionIndex;
+
+			if (siIntersectionIndex == tiIntersectionIndex) {
+				// Both Si and Ti intersect the same line
+				// Check aerial distance to A
+
+				double distanceFromAToSi = distanceBetweenTwoPoints(input.getpSource(), si);
+				double distanceFromAToTi = distanceBetweenTwoPoints(input.getpSource(), ti);
+
+//				System.out.println("A-Si: " + distanceFromAToSi + " A-Ti: " + distanceFromAToTi);
+				siBeforeTi = distanceFromAToSi < distanceFromAToTi; // Change siBeforeTi for linear line
+
+			}
+
+            if (siIntersects && tiIntersects && siBeforeTi) {
+                System.out.println("You should include: " + passenger);
                 passengers.add(passenger);
             }
 
@@ -159,7 +176,18 @@ public class AlgorithmDriver {
     	return stringBuilder.toString();
 	}
 
-    private static boolean circleIntersectionWithPath(List<Point> path, Point point, double radius) {
+
+	private static double distanceBetweenTwoPoints(Point point1, Point point2) {
+    	double x1 = point1.getLat();
+    	double y1 = point1.getLng();
+
+    	double x2 = point2.getLat();
+    	double y2 = point2.getLng();
+
+    	return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
+	}
+
+    private static int circleIntersectionWithPath(List<Point> path, Point point, double radius) {
         for (int i = 0; i < path.size() - 1; i++) {
             // Intersection must be between 2 points
             Point x = path.get(i);
@@ -173,17 +201,17 @@ public class AlgorithmDriver {
             if (intersection) {
                 debug("Intersection detected between circle: " + circleDesmosString + " and points: " +
                         x.toString() + " and " + y.toString());
-                return true;
+                return i;
             } else {
                 debug("No intersection between circle: " + circleDesmosString + " and points: " +
                         x.toString() + " and " + y.toString());
             }
         }
-        return false;
+        return -1;
     }
 
     private static void debug(String msg) {
-        if (false) {
+        if (true) {
             System.out.println(msg);
         }
     }
