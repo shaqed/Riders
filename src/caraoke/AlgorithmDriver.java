@@ -41,16 +41,10 @@ public class AlgorithmDriver {
 
 
     public static List<Point> tsp(AlgorithmInput input, List<AlgorithmInput.Passenger> passengersToInclude) throws Exception {
-
-
 		GoogleClient googleClient = new GoogleClient();
-
-		// Currently fails because of inverted lat/lngs of the passengers
-        JSONObject jsonObject = googleClient.adjacencyMatrixRequest(input.getSource(), passengersToInclude, input.getDestination());
+		JSONObject jsonObject = googleClient.adjacencyMatrixRequest(input.getSource(), passengersToInclude, input.getDestination());
 
 		double [][] g = getMatrixFromJSON(jsonObject);
-
-
 		Christofides c = null;
 		try {
 			c = new Christofides(g,false, 0, g.length-1);
@@ -71,8 +65,10 @@ public class AlgorithmDriver {
 
 
     /**
-     * Main function of the algorithm
+     * Part of the main function of the algorithm.
+	 * The part of filtering passengers
      * @param input Create an instance of AlgorithmInput using the GenerateInput class
+	 * @return List of Passengers that you should include based on the given radius
      * */
     public static List<AlgorithmInput.Passenger> filterPassengers(AlgorithmInput input) {
         List<AlgorithmInput.Passenger> passengers = new ArrayList<>();
@@ -93,7 +89,6 @@ public class AlgorithmDriver {
             int tiIntersectionIndex = circleIntersectionWithPath(driverPath, ti, radius);
             boolean tiIntersects = tiIntersectionIndex != -1;
 
-            // TODO Temporary debug, for now just prints the passengers you need to include
 
 			boolean siBeforeTi = siIntersectionIndex < tiIntersectionIndex;
 
@@ -109,6 +104,8 @@ public class AlgorithmDriver {
 
 			}
 
+			// Final check
+			// siBeforeTi = si closer to A than Ti AND si was found before Ti
             if (siIntersects && tiIntersects && siBeforeTi) {
                 System.out.println("You should include: " + passenger);
                 passengers.add(passenger);
@@ -119,6 +116,14 @@ public class AlgorithmDriver {
 
     }
 
+
+    private static double computeRadiusValue(List<AlgorithmInput.Passenger> passengers, double percent) {
+    	// Go over all the passengers
+		// And compute the distance from the point to the closest line it intersects
+
+		// Return the MAX found times the percent
+		return 0.0;
+	}
 
 
     private static double[][] getMatrixFromJSON(JSONObject jsonObject) throws Exception {
@@ -139,7 +144,6 @@ public class AlgorithmDriver {
 		}
 
 	}
-
 
 	private static double distanceBetweenTwoPoints(Point point1, Point point2) {
     	double x1 = point1.getLat();
