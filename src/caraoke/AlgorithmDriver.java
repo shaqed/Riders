@@ -117,12 +117,31 @@ public class AlgorithmDriver {
     }
 
 
-    private static double computeRadiusValue(List<AlgorithmInput.Passenger> passengers, double percent) {
+    private static double computeRadiusValue(AlgorithmInput input, double percent) {
+    	List<AlgorithmInput.Passenger> passengers = input.getPassengers();
     	// Go over all the passengers
 		// And compute the distance from the point to the closest line it intersects
 
+		double maxDistance = 0;
+		for (AlgorithmInput.Passenger passenger : passengers) {
+			// Distance from passenger to the line
+
+			List<Point> points = input.getPathToDestination();
+			for (int i = 0; i < points.size() - 1; i++) {
+				Point start = points.get(i);
+				Point end = points.get(i);
+
+				// Complete this:
+				// The line between these two points
+				// How close is it to the passenger's Ti and Si
+
+			}
+
+
+		}
+
 		// Return the MAX found times the percent
-		return 0.0;
+		return percent * maxDistance;
 	}
 
 
