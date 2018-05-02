@@ -3,7 +3,7 @@ package caraoke;
 import christofides.Christofides;
 import inputs.AlgorithmInput;
 import org.json.simple.JSONObject;
-import utils.LineCircleIntersection;
+import utils.math.LineCircleIntersection;
 import utils.polyline_decoder.Point;
 import utils.net.GoogleClient;
 import utils.parser.JSONmatrix;
