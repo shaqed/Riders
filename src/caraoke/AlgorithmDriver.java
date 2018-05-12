@@ -4,6 +4,7 @@ import christofides.Christofides;
 import inputs.AlgorithmInput;
 import org.json.simple.JSONObject;
 import utils.math.LineCircleIntersection;
+import utils.math.LinePointIntersection;
 import utils.polyline_decoder.Point;
 import utils.net.GoogleClient;
 import utils.parser.JSONmatrix;
@@ -78,6 +79,11 @@ public class AlgorithmDriver {
         List<Point> driverPath = input.getPathToDestination();
         double radius = input.getRadius();
 
+        // Radius has changed... now its a number which is a percentage from the path from A to B
+		// Use that as a parameter for deciding if a passengers is included or not
+		// Sample
+		// DEBUG: Radius is 0.12% from 3243 is: 389.15999999999997
+
         for (AlgorithmInput.Passenger passenger : input.getPassengers()) {
             Point si = passenger.s;
             Point ti = passenger.t;
@@ -116,33 +122,6 @@ public class AlgorithmDriver {
 
     }
 
-
-    private static double computeRadiusValue(AlgorithmInput input, double percent) {
-    	List<AlgorithmInput.Passenger> passengers = input.getPassengers();
-    	// Go over all the passengers
-		// And compute the distance from the point to the closest line it intersects
-
-		double maxDistance = 0;
-		for (AlgorithmInput.Passenger passenger : passengers) {
-			// Distance from passenger to the line
-
-			List<Point> points = input.getPathToDestination();
-			for (int i = 0; i < points.size() - 1; i++) {
-				Point start = points.get(i);
-				Point end = points.get(i);
-
-				// Complete this:
-				// The line between these two points
-				// How close is it to the passenger's Ti and Si
-
-			}
-
-
-		}
-
-		// Return the MAX found times the percent
-		return percent * maxDistance;
-	}
 
 
     private static double[][] getMatrixFromJSON(JSONObject jsonObject) throws Exception {

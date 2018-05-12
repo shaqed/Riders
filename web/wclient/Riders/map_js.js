@@ -80,7 +80,7 @@ function directionsOnMap(data, waypoints) {
     directionsService.route({
         origin: data.source,
         destination: data.dest,
-        waypoints : waypoints,
+        waypoints : waypoints, // undefined
         travelMode : google.maps.TravelMode["DRIVING"]
     }, function (response, status) {
         if (status === "OK") {
@@ -99,6 +99,9 @@ function directionsOnMap(data, waypoints) {
                 });
             }
             data.path = path;
+            data.plength = response.routes[0].legs[0].distance.value; // length in meters
+
+            console.log("data.plength: " , data.plength);
             sendRequest(data);
 
         } else {

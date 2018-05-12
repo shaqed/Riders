@@ -37,6 +37,8 @@ public class AlgorithmInput {
 
     private List<Point> mainPoints; // passengers and source & destination
 
+	private long totalPathLength;
+
     // Constructors
 
 	private AlgorithmInput(String kmlFile, double radius) throws Exception {
@@ -58,7 +60,15 @@ public class AlgorithmInput {
 	}
 
 	private AlgorithmInput(JSONObject jsonObject) throws Exception{
-		this.radius = Double.valueOf(jsonObject.get(Tags.IO_RADIUS).toString());
+		// raw value from user
+		double percentFromUser = (Double.valueOf(jsonObject.get(Tags.IO_RADIUS).toString()));
+		// As meters... originally from GMaps
+		System.out.println("DEBUG: " + jsonObject.get(Tags.IO_PATH_LENGTH).toString());
+		this.totalPathLength = (long) jsonObject.get(Tags.IO_PATH_LENGTH);
+
+		this.radius = percentFromUser * totalPathLength;
+
+		System.out.println("DEBUG: Radius is " + percentFromUser +"% from " + this.totalPathLength + " is: " + this.radius);
 
 		JSONObject source = (JSONObject) jsonObject.get(Tags.IO_SOURCE);
 		double sourceLat = Double.valueOf(source.get(Tags.IO_POINT_LATITUDE).toString());
@@ -104,6 +114,7 @@ public class AlgorithmInput {
 		}
 
 
+
 	}
 
     private AlgorithmInput(String pathJSONFileURL, String passengersXMLFileURL, double radius) throws IOException, SAXException, ParserConfigurationException {
@@ -120,6 +131,11 @@ public class AlgorithmInput {
 
 
     // Getters & Setters
+
+	// Check the KML to see if you can extract the total length in KM
+	// If not, just calcualte the distance from every 2 points on the path
+
+
 
     public List<Point> getPathToDestination() {
         return pathToDestination;
@@ -141,6 +157,9 @@ public class AlgorithmInput {
 		return source;
 	}
 
+	public long getTotalPathLength() {
+		return totalPathLength;
+	}
 
 	public Point getpDestintation() {
 		return pDestintation;
@@ -209,7 +228,6 @@ public class AlgorithmInput {
 
 
     // Builder functions
-
     public static AlgorithmInput getInstance(JSONObject jsonObject) {
 		try {
 			AlgorithmInput input = new AlgorithmInput(jsonObject);
