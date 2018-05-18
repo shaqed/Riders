@@ -8,6 +8,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+import utils.math.Vectors;
 import utils.parser.KMLParser;
 import utils.polyline_decoder.Point;
 import utils.Tags;
@@ -38,9 +39,12 @@ public class AlgorithmInput {
     private List<Point> mainPoints; // passengers and source & destination
 
 	private long totalPathLength;
+	private double aerialVector[];
 
     // Constructors
 
+
+	@Deprecated
 	private AlgorithmInput(String kmlFile, double radius) throws Exception {
 		KMLParser kmlParser = new KMLParser(kmlFile);
 		this.pathToDestination = kmlParser.getPath();
@@ -62,6 +66,12 @@ public class AlgorithmInput {
 	private AlgorithmInput(JSONObject jsonObject) throws Exception{
 		// raw value from user
 		double percentFromUser = (Double.valueOf(jsonObject.get(Tags.IO_RADIUS).toString()));
+
+		if (percentFromUser < 0 || percentFromUser > 100) {
+			System.out.println("DEBUG: Warning! radius input was not in range of[1,100] and now set to 0. No passengers will be collected!");
+			percentFromUser = 0;
+		}
+
 		// As meters... originally from GMaps
 		System.out.println("DEBUG: " + jsonObject.get(Tags.IO_PATH_LENGTH).toString());
 		this.totalPathLength = (long) jsonObject.get(Tags.IO_PATH_LENGTH);
@@ -113,7 +123,7 @@ public class AlgorithmInput {
 			this.pathToDestination.add(new Point(lat, lng));
 		}
 
-
+		this.aerialVector = this.computeVector(this.pSource, this.pDestintation);
 
 	}
 
@@ -131,11 +141,6 @@ public class AlgorithmInput {
 
 
     // Getters & Setters
-
-	// Check the KML to see if you can extract the total length in KM
-	// If not, just calcualte the distance from every 2 points on the path
-
-
 
     public List<Point> getPathToDestination() {
         return pathToDestination;
@@ -167,6 +172,14 @@ public class AlgorithmInput {
 
 	public String getDestination() {
 		return destination;
+	}
+
+	public double[] getAerialVector() {
+		return aerialVector;
+	}
+
+	private double[] computeVector(Point p1, Point p2) {
+		return Vectors.computeVector(p1, p2);
 	}
 
 	@Override
@@ -348,6 +361,7 @@ public class AlgorithmInput {
         public Point s;
         public Point t;
         public String name;
+        public double[] aerialVector;
 
         public Passenger(JSONObject jsonObject) {
             JSONObject siJSON = (JSONObject) jsonObject.get(Tags.IO_PASSENGERS_SI);
@@ -373,7 +387,9 @@ public class AlgorithmInput {
             this.name = name;
             this.s = s;
             this.t = t;
+            this.aerialVector = Vectors.computeVector(this.s, this.t);
         }
+
 
         public void setT(Point t) {
             this.t = t;

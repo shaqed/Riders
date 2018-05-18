@@ -117,10 +117,21 @@ public class AlgorithmDriver {
 
         }
 
-        // Final check
-        // siBeforeTi = si closer to A than Ti AND si was found before Ti
-        return (siIntersects && tiIntersects && siBeforeTi);
+			// Final check
+			// siBeforeTi = si closer to A than Ti AND si was found before Ti
+
+			// And find out if both vectors (driver's and passenger's)
+			// Are going in the same direction
+		boolean sameDirection = vectorsMatch(input.getAerialVector(), passenger.aerialVector);
+
+
+
+
+		return (siIntersects && tiIntersects && siBeforeTi && sameDirection);
+
     }
+
+
 
     private static double[][] getMatrixFromJSON(JSONObject jsonObject) throws Exception {
         double g [][] = {
@@ -141,7 +152,15 @@ public class AlgorithmDriver {
 
 	}
 
-	// TODO: Move these two functions to utils.math somewhere
+	private static boolean vectorsMatch(double[] v1, double[] v2) {
+    	double x = v1[0] - v2[0]; // Get the X part
+    	double y = v2[1] - v2[1]; // Get the Y part
+
+		// If x and y both have the same sign (-,+) then
+		// multiplying them will yield a positive
+    	return x * y > 0;
+	}
+
 	private static double distanceBetweenTwoPoints(Point point1, Point point2) {
     	double x1 = point1.getLat();
     	double y1 = point1.getLng();
