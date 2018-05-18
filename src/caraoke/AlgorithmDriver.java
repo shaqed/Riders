@@ -73,77 +73,48 @@ public class AlgorithmDriver {
     public static List<AlgorithmInput.Passenger> filterPassengers(AlgorithmInput input) {
         List<AlgorithmInput.Passenger> passengers = new ArrayList<>();
 
-        // For each passenger, check if its S and its T as circle points intersects with the
-        // Driver's path
-        List<Point> driverPath = input.getPathToDestination();
-        double radius = input.getRadius();
-
         for (AlgorithmInput.Passenger passenger : input.getPassengers()) {
-            Point si = passenger.s;
-            Point ti = passenger.t;
-
-            // Check if Si and Ti, with a given radius, intersects with the path
-			int siIntersectionIndex = circleIntersectionWithPath(driverPath, si, radius);
-            boolean siIntersects = siIntersectionIndex != -1;
-
-            int tiIntersectionIndex = circleIntersectionWithPath(driverPath, ti, radius);
-            boolean tiIntersects = tiIntersectionIndex != -1;
-
-
-			boolean siBeforeTi = siIntersectionIndex < tiIntersectionIndex;
-
-			if (siIntersectionIndex == tiIntersectionIndex) {
-				// Both Si and Ti intersect the same line
-				// Check aerial distance to A
-
-				double distanceFromAToSi = distanceBetweenTwoPoints(input.getpSource(), si);
-				double distanceFromAToTi = distanceBetweenTwoPoints(input.getpSource(), ti);
-
-//				System.out.println("A-Si: " + distanceFromAToSi + " A-Ti: " + distanceFromAToTi);
-				siBeforeTi = distanceFromAToSi < distanceFromAToTi; // Change siBeforeTi for linear line
-
-			}
-
-			// Final check
-			// siBeforeTi = si closer to A than Ti AND si was found before Ti
-            if (siIntersects && tiIntersects && siBeforeTi) {
+            if (includePassenger(passenger, input)) {
                 System.out.println("You should include: " + passenger);
                 passengers.add(passenger);
             }
-
         }
         return passengers;
 
     }
 
+    public static boolean includePassenger(AlgorithmInput.Passenger passenger, AlgorithmInput input) {
+        double radius = input.getRadius();
+        List<Point> driverPath = input.getPathToDestination();
+        Point si = passenger.s;
+        Point ti = passenger.t;
 
-    private static double computeRadiusValue(AlgorithmInput input, double percent) {
-    	List<AlgorithmInput.Passenger> passengers = input.getPassengers();
-    	// Go over all the passengers
-		// And compute the distance from the point to the closest line it intersects
+        // Check if Si and Ti, with a given radius, intersects with the path
+        int siIntersectionIndex = circleIntersectionWithPath(driverPath, si, radius);
+        boolean siIntersects = siIntersectionIndex != -1;
 
-		double maxDistance = 0;
-		for (AlgorithmInput.Passenger passenger : passengers) {
-			// Distance from passenger to the line
-
-			List<Point> points = input.getPathToDestination();
-			for (int i = 0; i < points.size() - 1; i++) {
-				Point start = points.get(i);
-				Point end = points.get(i);
-
-				// Complete this:
-				// The line between these two points
-				// How close is it to the passenger's Ti and Si
-
-			}
+        int tiIntersectionIndex = circleIntersectionWithPath(driverPath, ti, radius);
+        boolean tiIntersects = tiIntersectionIndex != -1;
 
 
-		}
+        boolean siBeforeTi = siIntersectionIndex < tiIntersectionIndex;
 
-		// Return the MAX found times the percent
-		return percent * maxDistance;
-	}
+        if (siIntersectionIndex == tiIntersectionIndex) {
+            // Both Si and Ti intersect the same line
+            // Check aerial distance to A
 
+            double distanceFromAToSi = distanceBetweenTwoPoints(input.getpSource(), si);
+            double distanceFromAToTi = distanceBetweenTwoPoints(input.getpSource(), ti);
+
+//				System.out.println("A-Si: " + distanceFromAToSi + " A-Ti: " + distanceFromAToTi);
+            siBeforeTi = distanceFromAToSi < distanceFromAToTi; // Change siBeforeTi for linear line
+
+        }
+
+        // Final check
+        // siBeforeTi = si closer to A than Ti AND si was found before Ti
+        return (siIntersects && tiIntersects && siBeforeTi);
+    }
 
     private static double[][] getMatrixFromJSON(JSONObject jsonObject) throws Exception {
         double g [][] = {
@@ -164,6 +135,7 @@ public class AlgorithmDriver {
 
 	}
 
+	// TODO: Move these two functions to utils.math somewhere
 	private static double distanceBetweenTwoPoints(Point point1, Point point2) {
     	double x1 = point1.getLat();
     	double y1 = point1.getLng();
