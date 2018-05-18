@@ -83,6 +83,11 @@ public class AlgorithmDriver {
 
     }
 
+
+    /**
+     * Checks if a given passenger is within the route of the input
+     * @return -1 if the answer is false, or the index of which the passenger should be included
+     * */
     public static boolean includePassenger(AlgorithmInput.Passenger passenger, AlgorithmInput input) {
         double radius = input.getRadius();
         List<Point> driverPath = input.getPathToDestination();

@@ -50,6 +50,10 @@ import java.util.List;
  						}
 
  * Expected Output:	JSON Object in the following format:
+ * This route array returns a list of points which indicate the order
+ * For actual Google Maps usage you need to compute the shortest path from each one to each next
+ *
+ * If you were to use the online algorithm. Include this array as-is to the input of it
  * 						{
  							"route": [
  								"point" : {
@@ -63,7 +67,7 @@ import java.util.List;
  * */
 
 @WebServlet("/api/getroute")
-public class GetRouteServlet extends HttpServlet{
+public class GetRouteServlet extends MyServlet{
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -103,18 +107,5 @@ public class GetRouteServlet extends HttpServlet{
 
 	}
 
-	private JSONObject buildAnswerJSON(List<Point> points) {
-		JSONObject jsonObject = new JSONObject();
 
-		JSONArray routeArray = new JSONArray();
-		for (Point p : points) {
-			JSONObject pointJSON = new JSONObject();
-			pointJSON.put(Tags.IO_POINT_LATITUDE, p.getLat());
-			pointJSON.put(Tags.IO_POINT_LONGITUDE, p.getLng());
-
-			routeArray.add(pointJSON);
-		}
-		jsonObject.put(Tags.IO_ROUTE, routeArray);
-		return jsonObject;
-	}
 }

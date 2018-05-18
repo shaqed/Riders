@@ -331,6 +331,21 @@ public class AlgorithmInput {
         public Point t;
         public String name;
 
+        public Passenger(JSONObject jsonObject) {
+            JSONObject siJSON = (JSONObject) jsonObject.get(Tags.IO_PASSENGERS_SI);
+            double siLat = (double) siJSON.get(Tags.IO_POINT_LATITUDE);
+            double siLng = (double) siJSON.get(Tags.IO_POINT_LONGITUDE);
+
+            JSONObject tiJSON = (JSONObject) jsonObject.get(Tags.IO_PASSENGERS_TI);
+            double tiLat = (double) tiJSON.get(Tags.IO_POINT_LATITUDE);
+            double tiLng = (double) tiJSON.get(Tags.IO_POINT_LONGITUDE);
+
+            this.s = new Point(siLat, siLng);
+            this.t = new Point(tiLat, tiLng);
+            this.name = "NewPassenger";
+
+        }
+
         public Passenger(String name, Point s) {
             this.s = s;
             this.name = name;
