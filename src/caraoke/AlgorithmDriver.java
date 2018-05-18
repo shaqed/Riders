@@ -74,55 +74,53 @@ public class AlgorithmDriver {
     public static List<AlgorithmInput.Passenger> filterPassengers(AlgorithmInput input) {
         List<AlgorithmInput.Passenger> passengers = new ArrayList<>();
 
-        // For each passenger, check if its S and its T as circle points intersects with the
-        // Driver's path
-        List<Point> driverPath = input.getPathToDestination();
-        double radius = input.getRadius();
-
-        // Radius has changed... now its a number which is a percentage from the path from A to B
-		// Use that as a parameter for deciding if a passengers is included or not
-		// Sample
-		// DEBUG: Radius is 0.12% from 3243 is: 389.15999999999997
-
         for (AlgorithmInput.Passenger passenger : input.getPassengers()) {
-            Point si = passenger.s;
-            Point ti = passenger.t;
-
-            // Check if Si and Ti, with a given radius, intersects with the path
-			int siIntersectionIndex = circleIntersectionWithPath(driverPath, si, radius);
-            boolean siIntersects = siIntersectionIndex != -1;
-
-            int tiIntersectionIndex = circleIntersectionWithPath(driverPath, ti, radius);
-            boolean tiIntersects = tiIntersectionIndex != -1;
-
-
-			boolean siBeforeTi = siIntersectionIndex < tiIntersectionIndex;
-
-			if (siIntersectionIndex == tiIntersectionIndex) {
-				// Both Si and Ti intersect the same line
-				// Check aerial distance to A
-
-				double distanceFromAToSi = distanceBetweenTwoPoints(input.getpSource(), si);
-				double distanceFromAToTi = distanceBetweenTwoPoints(input.getpSource(), ti);
-
-//				System.out.println("A-Si: " + distanceFromAToSi + " A-Ti: " + distanceFromAToTi);
-				siBeforeTi = distanceFromAToSi < distanceFromAToTi; // Change siBeforeTi for linear line
-
-			}
-
-			// Final check
-			// siBeforeTi = si closer to A than Ti AND si was found before Ti
-            if (siIntersects && tiIntersects && siBeforeTi) {
+            if (includePassenger(passenger, input)) {
                 System.out.println("You should include: " + passenger);
                 passengers.add(passenger);
             }
-
         }
         return passengers;
 
     }
 
 
+    /**
+     * Checks if a given passenger is within the route of the input
+     * @return -1 if the answer is false, or the index of which the passenger should be included
+     * */
+    public static boolean includePassenger(AlgorithmInput.Passenger passenger, AlgorithmInput input) {
+        double radius = input.getRadius();
+        List<Point> driverPath = input.getPathToDestination();
+        Point si = passenger.s;
+        Point ti = passenger.t;
+
+        // Check if Si and Ti, with a given radius, intersects with the path
+        int siIntersectionIndex = circleIntersectionWithPath(driverPath, si, radius);
+        boolean siIntersects = siIntersectionIndex != -1;
+
+        int tiIntersectionIndex = circleIntersectionWithPath(driverPath, ti, radius);
+        boolean tiIntersects = tiIntersectionIndex != -1;
+
+
+        boolean siBeforeTi = siIntersectionIndex < tiIntersectionIndex;
+
+        if (siIntersectionIndex == tiIntersectionIndex) {
+            // Both Si and Ti intersect the same line
+            // Check aerial distance to A
+
+            double distanceFromAToSi = distanceBetweenTwoPoints(input.getpSource(), si);
+            double distanceFromAToTi = distanceBetweenTwoPoints(input.getpSource(), ti);
+
+//				System.out.println("A-Si: " + distanceFromAToSi + " A-Ti: " + distanceFromAToTi);
+            siBeforeTi = distanceFromAToSi < distanceFromAToTi; // Change siBeforeTi for linear line
+
+        }
+
+        // Final check
+        // siBeforeTi = si closer to A than Ti AND si was found before Ti
+        return (siIntersects && tiIntersects && siBeforeTi);
+    }
 
     private static double[][] getMatrixFromJSON(JSONObject jsonObject) throws Exception {
         double g [][] = {
@@ -143,6 +141,7 @@ public class AlgorithmDriver {
 
 	}
 
+	// TODO: Move these two functions to utils.math somewhere
 	private static double distanceBetweenTwoPoints(Point point1, Point point2) {
     	double x1 = point1.getLat();
     	double y1 = point1.getLng();

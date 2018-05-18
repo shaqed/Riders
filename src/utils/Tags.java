@@ -23,4 +23,10 @@ public class Tags {
 	// answer
 
 	public static final String IO_ROUTE = "route";
+	public static final String IO_ERROR_MESSAGE = "errorMessage";
+	public static final String IO_ERROR_CODE = "errorCode";
+
+	// online
+
+	public static final String IO_NEW_PASSENGER = "newPassenger";
 }
