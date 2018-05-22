@@ -10,6 +10,18 @@ import java.util.List;
 
 public abstract class MyServlet extends HttpServlet {
 
+    /**
+     * Creates a JSON Object of the following format:
+     * {
+     *     "route" : [
+     *          {"lat" : Number, "lng" : Number},
+     *          {"lat" : Number, "lng" : Number},
+     *          {"lat" : Number, "lng" : Number},
+     *          ...
+     *     ]
+     * }
+     *
+     * */
     protected JSONObject buildAnswerJSON(List<Point> points) {
         JSONObject jsonObject = new JSONObject();
 

@@ -2,6 +2,8 @@ var map;
 var directionsService;
 var directionsDisplay;
 
+var displayedPath = [];
+
 function reset() {
     if (directionsDisplay === undefined) {
         directionsDisplay = new google.maps.DirectionsRenderer();
@@ -56,6 +58,20 @@ function displayRouteOnMap(data) {
         travelMode : google.maps.TravelMode["DRIVING"]
     }, function (response, status) {
         if (status === "OK") {
+            console.log("directions are: " , response);
+
+            // Extract the points in set them in the displayed route
+            var pathFromAnswer = response.routes[0].overview_path;
+            for (var i = 0; i < pathFromAnswer.length; i++) {
+                var p = pathFromAnswer[i];
+                displayedPath.push({
+                    lat : p.lat(),
+                    lng : p.lng()
+                });
+            }
+
+            console.log("displayed_path is: ", displayedPath);
+
             directionsDisplay.setDirections(response);
         } else {
             console.log("Error while displaying final route");

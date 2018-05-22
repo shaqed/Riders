@@ -1,5 +1,8 @@
 package utils.polyline_decoder;
 
+import org.json.simple.JSONObject;
+import utils.Tags;
+
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
@@ -16,6 +19,11 @@ public class Point implements Serializable {
     public Point(double lat, double lng) {
         this.lat = lat;
         this.lng = lng;
+    }
+
+    public Point(JSONObject jsonObject) {
+        this.lat = (double) jsonObject.get(Tags.IO_POINT_LATITUDE);
+        this.lng = (double) jsonObject.get(Tags.IO_POINT_LONGITUDE);
     }
 
     public double getLat() {

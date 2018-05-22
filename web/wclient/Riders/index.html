@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Riders</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<style>
+    <title>Riders</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
 
-	</style>
+    </style>
 
-	<style>
-		#map {
-			height: 550px;
-			width: 100%;
-		}
-	</style>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        #map {
+            height: 550px;
+            width: 100%;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
 <div>
@@ -22,27 +22,35 @@
 <div id="map"></div>
 <br>
 <div id="controls">
-	<h3 id="sts"></h3>
-	<p>
-		<span>Source</span>
-		<input type="text" id="source-ip" onclick="edt()">
-		<br>
-		<span>Destination</span>
-		<input type="text" id="destination-ip" onclick="edt()">
-	</p>
-	<p>
-		<button id="btn-add">Add Passenger</button>
-		<input type="range" id="radius-ip" placeholder="radius" value="100" min="0" max="100" step="1">
-		<div id="passengers-container">
+    <h3 id="sts"></h3>
+    <p>
+        <span>Source</span>
+        <input type="text" id="source-ip" onclick="edt()">
+        <br>
+        <span>Destination</span>
+        <input type="text" id="destination-ip" onclick="edt()">
+    </p>
+    <p>
+        <button id="btn-add">Add Passenger</button>
+        <input type="range" id="radius-ip" placeholder="radius" value="100" min="0" max="100" step="1">
+    <div id="passengers-container">
 
-		</div>
-	</p>
-	<button id="go" onclick="go()">Go</button>
-	<button id="reset" onclick="reset()">Reset</button>
+    </div>
+    </p>
+    <button id="go" onclick="go()">Go</button>
+    <button id="reset" onclick="reset()">Reset</button>
 
-	<script src="main.js"></script>
-	<script src="map_js.js"></script>
-	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD56LHjhdpL7ztyU33rsph0zYYEY136nOo&callback=initMap"></script>
+    <script src="algo_inputs.js"></script>
+    <script src="main.js"></script>
+    <script src="map_js.js"></script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD56LHjhdpL7ztyU33rsph0zYYEY136nOo&callback=initMap"></script>
+    <script>
+        function online() {
+
+        }
+
+    </script>
 
 </div>
 </body>

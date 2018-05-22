@@ -374,7 +374,14 @@ public class AlgorithmInput {
 
             this.s = new Point(siLat, siLng);
             this.t = new Point(tiLat, tiLng);
-            this.name = "NewPassenger";
+
+            if (jsonObject.containsKey(Tags.IO_PASSENGERS_NAME)) {
+            	this.name = (String) jsonObject.get(Tags.IO_PASSENGERS_NAME);
+			} else {
+            	this.name = "UnnamedPassenger";
+			}
+
+			this.aerialVector = Vectors.computeVector(this.s, this.t);
 
         }
 

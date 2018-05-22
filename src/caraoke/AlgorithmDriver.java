@@ -2,6 +2,7 @@ package caraoke;
 
 import christofides.Christofides;
 import inputs.AlgorithmInput;
+import inputs.OnlineAlgorithmInput;
 import org.json.simple.JSONObject;
 import utils.math.LineCircleIntersection;
 import utils.math.LinePointIntersection;
@@ -10,6 +11,7 @@ import utils.net.GoogleClient;
 import utils.parser.JSONmatrix;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class AlgorithmDriver {
@@ -87,7 +89,7 @@ public class AlgorithmDriver {
 
     /**
      * Checks if a given passenger is within the route of the input
-     * @return -1 if the answer is false, or the index of which the passenger should be included
+     * @return What should this function return in order to accommodate the online algorithm?
      * */
     public static boolean includePassenger(AlgorithmInput.Passenger passenger, AlgorithmInput input) {
         double radius = input.getRadius();
@@ -116,7 +118,6 @@ public class AlgorithmDriver {
             siBeforeTi = distanceFromAToSi < distanceFromAToTi; // Change siBeforeTi for linear line
 
         }
-
 			// Final check
 			// siBeforeTi = si closer to A than Ti AND si was found before Ti
 
@@ -124,13 +125,74 @@ public class AlgorithmDriver {
 			// Are going in the same direction
 		boolean sameDirection = vectorsMatch(input.getAerialVector(), passenger.aerialVector);
 
-
-
-
+		System.out.println("sameDirection = " + sameDirection);
 		return (siIntersects && tiIntersects && siBeforeTi && sameDirection);
 
     }
 
+    /**
+	 * Used by the online algorithm to determine whether a passenger should be included in the route
+	 * And returns a new path that includes that passenger in the correct place
+	 * @param passenger The passenger to be included in the route (must have a valid Si and a Ti)
+	 * @return A new list of points of the path. This may or may not include the point
+	 * */
+	public static List<Point> addPassengerToRoute(
+			AlgorithmInput.Passenger passenger,
+			OnlineAlgorithmInput oInput)
+	{
+
+		// Clone the path to destination
+		// Because we want to (maybe) change it
+    	List<Point> newPath = new ArrayList<>();
+		for (int i = 0; i < oInput.getPath().size(); i++) {
+			newPath.add(oInput.getPath().get(i));
+		}
+
+		System.out.println("AlgorithmDriver.addPassengerToRoute");
+		System.out.println("Before: " + newPath.toString());
+
+		double radius = oInput.getRadius();
+		List<Point> driverPath = oInput.getPath();
+		Point si = passenger.s;
+		Point ti = passenger.t;
+
+		// Check if Si and Ti, with a given radius, intersects with the path
+		int siIntersectionIndex = circleIntersectionWithPath(driverPath, si, radius);
+		boolean siIntersects = siIntersectionIndex != -1;
+
+		int tiIntersectionIndex = circleIntersectionWithPath(driverPath, ti, radius);
+		boolean tiIntersects = tiIntersectionIndex != -1;
+
+
+		boolean siBeforeTi = siIntersectionIndex < tiIntersectionIndex;
+
+		if (siIntersectionIndex == tiIntersectionIndex) {
+			// Both Si and Ti intersect the same line
+			// Check aerial distance to A
+
+			double distanceFromAToSi = distanceBetweenTwoPoints(oInput.getFirstPoint(), si);
+			double distanceFromAToTi = distanceBetweenTwoPoints(oInput.getFirstPoint(), ti);
+
+//				System.out.println("A-Si: " + distanceFromAToSi + " A-Ti: " + distanceFromAToTi);
+			siBeforeTi = distanceFromAToSi < distanceFromAToTi; // Change siBeforeTi for linear line
+
+		}
+		// Final check
+		// siBeforeTi = si closer to A than Ti AND si was found before Ti
+
+		// And find out if both vectors (driver's and passenger's)
+		// Are going in the same direction
+		boolean sameDirection = vectorsMatch(oInput.getAerialVector(), passenger.aerialVector);
+
+		if (siIntersects && tiIntersects && siBeforeTi && sameDirection){
+			newPath.add(siIntersectionIndex, si);
+			newPath.add(tiIntersectionIndex, ti);
+		}
+
+		System.out.println("After: " + newPath.toString());
+		System.out.println("End of AlgorithmDriver.addPassengerToRoute");
+    	return newPath; // Return the new path with the new points and the passenger included
+	}
 
 
     private static double[][] getMatrixFromJSON(JSONObject jsonObject) throws Exception {
@@ -158,7 +220,9 @@ public class AlgorithmDriver {
 
 		// If x and y both have the same sign (-,+) then
 		// multiplying them will yield a positive
-    	return x * y > 0;
+//		System.out.println("VectorsMatch: v1: " + Arrays.toString(v1) +" v2: "+ Arrays.toString(v2));
+//		System.out.println("X: " + x + " y: " + y);
+    	return x * y >= 0;
 	}
 
 	private static double distanceBetweenTwoPoints(Point point1, Point point2) {

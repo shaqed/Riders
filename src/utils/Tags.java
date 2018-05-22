@@ -1,5 +1,8 @@
 package utils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Common strings between the clients and the server.
  * The API will use these constants to process the inputs
@@ -29,4 +32,5 @@ public class Tags {
 	// online
 
 	public static final String IO_NEW_PASSENGER = "newPassenger";
+
 }
