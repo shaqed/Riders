@@ -6,6 +6,7 @@ import inputs.OnlineAlgorithmInput;
 import org.json.simple.JSONObject;
 import utils.math.LineCircleIntersection;
 import utils.math.LinePointIntersection;
+import utils.math.Vectors;
 import utils.polyline_decoder.Point;
 import utils.net.GoogleClient;
 import utils.parser.JSONmatrix;
@@ -149,7 +150,7 @@ public class AlgorithmDriver {
 		}
 
 		System.out.println("AlgorithmDriver.addPassengerToRoute");
-		System.out.println("Before: " + newPath.toString());
+		System.out.println("Before: " + oInput.getMainPoints().toString());
 
 		double radius = oInput.getRadius();
 		List<Point> driverPath = oInput.getPath();
@@ -184,14 +185,21 @@ public class AlgorithmDriver {
 		// Are going in the same direction
 		boolean sameDirection = vectorsMatch(oInput.getAerialVector(), passenger.aerialVector);
 
+		// New passenger will be included
 		if (siIntersects && tiIntersects && siBeforeTi && sameDirection){
-			newPath.add(siIntersectionIndex, si);
-			newPath.add(tiIntersectionIndex, ti);
+			// add it to the totalPath
+//			newPath.add(siIntersectionIndex, si);
+//			newPath.add(tiIntersectionIndex, ti);
+
+			addPointToMainPath(oInput.getMainPoints(), si);
+			addPointToMainPath(oInput.getMainPoints(), ti);
 		}
 
-		System.out.println("After: " + newPath.toString());
+		System.out.println("After: " + oInput.getMainPoints().toString());
 		System.out.println("End of AlgorithmDriver.addPassengerToRoute");
-    	return newPath; // Return the new path with the new points and the passenger included
+
+		// Return the new path with the new points and the passenger included
+    	return oInput.getMainPoints();
 	}
 
 
@@ -257,6 +265,28 @@ public class AlgorithmDriver {
         }
         return -1;
     }
+
+    /**
+	 * @param mainPath List of points containing the passenger's points only! [THIS IS NOT THE TOTAL PATH]
+	 * @param point The desired point to push to mainPath
+	 * */
+    private static void addPointToMainPath(List<Point> mainPath, Point point) {
+		double minimumDistance = mainPath.get(0).distanceTo(point);
+		int minDistIndex = 0;
+		for (int i = 0; i < mainPath.size(); i++){
+			Point mPoint = mainPath.get(i);
+			double tempDistance = mPoint.distanceTo(point);
+			if (tempDistance < minimumDistance) {
+				minimumDistance = tempDistance;
+				minDistIndex = i;
+			}
+		}
+
+		if (minDistIndex != -1){
+			System.out.println("addpoint: Point: " + point.toString() + " is closes to the point at index: " + minDistIndex);
+			mainPath.add(minDistIndex, point);
+		}
+	}
 
     private static void debug(String msg) {
         if (true) {

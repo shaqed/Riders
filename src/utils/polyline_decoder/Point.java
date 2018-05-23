@@ -34,6 +34,10 @@ public class Point implements Serializable {
         return lng;
     }
 
+    public double distanceTo(Point target) {
+        return Math.sqrt(Math.pow(this.lat - target.lat,2) + Math.pow(this.lng - target.lng, 2));
+    }
+
     @Override
     public String toString() {
         return "(" + lng + ", " + lat + ")";
@@ -70,10 +74,10 @@ public class Point implements Serializable {
             return false;
         }
         Point that = (Point) o;
-        if (Math.abs(that.getLat() - lat) > 0.001) {
+        if (Math.abs(that.getLat() - lat) > 0.0001) {
             return false;
         }
-        return Math.abs(that.getLng() - lng) <= 0.001;
+        return Math.abs(that.getLng() - lng) <= 0.0001;
     }
 
     @Override

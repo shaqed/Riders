@@ -27,17 +27,23 @@ import java.util.List;
  * URL:                 /api/includepassenger
  * Method:              POST
  * Expected Input:      A JSON Object in the following format:
- * {
- * "radius" : [Number],
- * "path" : [
- * {"lat" : Number, "lng", Number},
- * {"lat" : Number, "lng", Number},
- * ...
- * ]
- * "newPassenger" : {
- * "si" : {"lat": Number, "lng" : Number},
- * "ti" : {"lat" : Number, "lng" : Number}
- * }
+ * 		{
+ * 			"mainPoints" : [
+ * 				{"lat" : Number, "lng", Number},
+ * 				{"lat" : Number, "lng", Number},
+ * 				...
+ * 			],
+ * 			"plength" : Number, // the path in kms
+ * 			"radius" : [Number],
+ * 			"path" : [
+ * 				{"lat" : Number, "lng", Number},
+ * 				{"lat" : Number, "lng", Number},
+ * 				...
+ * 			]
+ * 			"newPassenger" : {
+ * 				"si" : {"lat": Number, "lng" : Number},
+ * 				"ti" : {"lat" : Number, "lng" : Number}
+ * 			}
  * <p>
  * }
  * Expected Output:    A JSON Object in the following format - representing the new order of nodes
@@ -50,10 +56,13 @@ import java.util.List;
  * 		},
  * 		...
  * 	],
- * 	TODO: We said that on a given instance there can only be a finite number of additions
+ *
+ *
+ * 	TODO: Issue 1:
+ * 	We said that on a given instance there can only be a finite number of additions
  * 	How do we decrement the number of additions?
  * 		Supply a variable that decreases for each addition?
- * 		Or perhaps this needs to be handled by the client
+ * 		Or perhaps this needs to be handled by the client [V] -> Chose this
  * }
  */
 

@@ -15,7 +15,11 @@ public class OnlineAlgorithmInput {
 	private AlgorithmInput.Passenger suggestedPassenger;
 	private double[] aerialVector;
 
+	private List<Point> mainPoints; // main points in the path
+
 	public OnlineAlgorithmInput(JSONObject jsonObject) throws Exception {
+
+		// Get radius
 		double radius = -1;
 		if (jsonObject.containsKey(Tags.IO_RADIUS)){
 			radius = Double.valueOf(jsonObject.get(Tags.IO_RADIUS).toString());
@@ -23,6 +27,7 @@ public class OnlineAlgorithmInput {
 			throw new Exception("Input JSON does not contain a 'radius'");
 		}
 
+		// Plength
 		long plength = -1;
 		if (jsonObject.containsKey(Tags.IO_PATH_LENGTH)) {
 			plength = (long) jsonObject.get(Tags.IO_PATH_LENGTH);
@@ -30,6 +35,7 @@ public class OnlineAlgorithmInput {
 			throw new Exception("Input JSON does not contain 'plength' field");
 		}
 
+		// Path (all of the points)
 		List<Point> path = null;
 		if (jsonObject.containsKey(Tags.IO_PATH)) {
 			JSONArray pathJSONArray = (JSONArray) jsonObject.get(Tags.IO_PATH);
@@ -41,6 +47,7 @@ public class OnlineAlgorithmInput {
 			throw new Exception("Input JSON does not contain a 'path' array");
 		}
 
+		// The optional passenger
 		AlgorithmInput.Passenger newPassenger = null;
 		if (jsonObject.containsKey(Tags.IO_NEW_PASSENGER)) {
 			newPassenger = new AlgorithmInput.Passenger((JSONObject) jsonObject.get(Tags.IO_NEW_PASSENGER));
@@ -48,6 +55,19 @@ public class OnlineAlgorithmInput {
 			throw new Exception("Input JSON does not contain a newPassenger field");
 		}
 
+		List<Point> mainPath = null;
+		if (jsonObject.containsKey(Tags.IO_MAIN_POINTS)) {
+			mainPath = new ArrayList<>();
+			JSONArray mainPathJSON = (JSONArray) jsonObject.get(Tags.IO_MAIN_POINTS);
+			for (int i = 0; i < mainPathJSON.size(); i++) {
+				mainPath.add(new Point((JSONObject) mainPathJSON.get(i)));
+			}
+		} else {
+			throw new Exception("Input JSON does not contain an array in field: " + Tags.IO_MAIN_POINTS);
+		}
+
+
+		// Show errors if there were any
 		StringBuilder stringBuilder = new StringBuilder();
 		if (radius == -1) {
 			stringBuilder.append("Couldn't extract radius. ");
@@ -61,13 +81,18 @@ public class OnlineAlgorithmInput {
 		if (plength == -1) {
 			stringBuilder.append("Couldn't extract the plength. ");
 		}
+		if (mainPath == null) {
+			stringBuilder.append("Couldn't extract the main points");
+		}
 
 		if (stringBuilder.length() > 0){
 			throw new Exception(stringBuilder.toString());
 		}
 
+		// Wrap-up
 		this.radius = radius * plength;
 		this.path = path;
+		this.mainPoints = mainPath;
 		this.suggestedPassenger = newPassenger;
 		this.aerialVector = Vectors.computeVector(getFirstPoint(), getLastPoint());
 	}
@@ -96,5 +121,7 @@ public class OnlineAlgorithmInput {
 		return this.path.get(this.path.size()-1);
 	}
 
-
+	public List<Point> getMainPoints() {
+		return mainPoints;
+	}
 }

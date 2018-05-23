@@ -32,5 +32,6 @@ public class Tags {
 	// online
 
 	public static final String IO_NEW_PASSENGER = "newPassenger";
+	public static final String IO_MAIN_POINTS = "mainPoints";
 
 }

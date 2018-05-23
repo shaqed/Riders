@@ -3,6 +3,7 @@ var directionsService;
 var directionsDisplay;
 
 var displayedPath = [];
+var tspAnswer = null;
 
 function reset() {
     if (directionsDisplay === undefined) {
@@ -31,6 +32,8 @@ function reset() {
 }
 
 function displayRouteOnMap(data) {
+    tspAnswer = data;
+    onlineObject.mainPoints = data; // For later use of the onlie algorithm
 
     var source = data[0];
     var dest = data[data.length - 1];

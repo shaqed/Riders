@@ -1,7 +1,7 @@
-ICON_GREEN = "markers-icons/green.png";
-ICON_BLUE = "markers-icons/blue.png";
-ICON_RED = "markers-icons/red.png";
-ICON_YELLOW = "markers-icons/yellow.png";
+const ICON_GREEN = "markers-icons/green.png";
+const ICON_BLUE = "markers-icons/blue.png";
+const ICON_RED = "markers-icons/red.png";
+const ICON_YELLOW = "markers-icons/yellow.png";
 
 
 var btnAdd = document.getElementById("btn-add");
