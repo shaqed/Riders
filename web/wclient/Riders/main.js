@@ -156,7 +156,7 @@ sourceInputText.onclick = edt;
 destInputText.onclick = edt;
 
 
-function sendRequest(data, url='/api/getroute') {
+function sendRequest(data, url="/api/getroute") {
     console.log(data);
     statusText.innerText = "Loading... please wait";
     $.ajax({
@@ -167,6 +167,15 @@ function sendRequest(data, url='/api/getroute') {
         success: function (response) {
             console.log("Response");
             console.log(response);
+
+            // Online-stuff
+
+            globalOnlineInit(data.radius); // Init radius and a default change-rate
+            globalOnlineInitMainPoints(response.route); // Init the main points
+
+            // Note: PLength and TotalPoints will be computed after a google maps call later
+            // End of online-stuff
+
             if (response.route !== undefined) {
                 displayRouteOnMap(response.route);
             }

@@ -31,9 +31,16 @@ function reset() {
     passengersIds = 0;
 }
 
-function displayRouteOnMap(data) {
+/**
+ * @param data array of points given from the main TSP API
+ * */
+function displayRouteOnMap(data, onlineStateObject) {
     tspAnswer = data;
     onlineObject.mainPoints = data; // For later use of the onlie algorithm
+
+    // if (onlineStateObject !== undefined) {
+    //     onlineStateObject.mainPoints = data.route;
+    // }
 
     var source = data[0];
     var dest = data[data.length - 1];
@@ -73,7 +80,25 @@ function displayRouteOnMap(data) {
                 });
             }
 
-            console.log("displayed_path is: ", displayedPath);
+            // compute the total plength
+            var legsArray = response.routes[0].legs;
+            var plengthSum = 0;
+            for (var j = 0; j < legsArray.length; j++) {
+                plengthSum += legsArray[j].distance.value;
+            }
+
+            console.log("displayed_path is: ", displayedPath, " its total length is " + plengthSum);
+
+            // Remove this
+            if (onlineStateObject !== undefined) {
+                onlineUpdateChange(onlineStateObject, pathFromAnswer, plengthSum);
+            }
+
+
+            // Online object construction
+            // Online object should be ready by now
+            globalOnlineInitPath(displayedPath, plengthSum);
+
 
             directionsDisplay.setDirections(response);
         } else {
@@ -84,6 +109,10 @@ function displayRouteOnMap(data) {
 
 }
 
+
+/**
+ * This function ONLY computes the path from source to destination from Google
+ * */
 function directionsOnMap(data, waypoints) {
     var directionsService = new google.maps.DirectionsService();
     var directionsDisplay = new google.maps.DirectionsRenderer();
@@ -118,6 +147,7 @@ function directionsOnMap(data, waypoints) {
                 });
             }
             data.path = path;
+            // compute leg
             data.plength = response.routes[0].legs[0].distance.value; // length in meters
 
             console.log("data.plength: " , data.plength);
