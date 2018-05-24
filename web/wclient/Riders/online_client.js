@@ -5,11 +5,15 @@
  * At the end it should have a 'ready' field which will indicate if the object is ready to be sent
  * as data to an online request
  * */
-var globalOnlineState = undefined;
+var globalOnlineState = {
+};
 
 function globalOnlineInit(radius, maxChange = 100) {
     globalOnlineState = {
         radius : radius,
+        newPassenger: {
+            // Will be filled later from the user
+        },
         maxChange : maxChange
     };
 }
@@ -41,11 +45,6 @@ function OnlineState() {
 
 // Send a request with the online state parameter
 function onlineSendRequest() {
-
-    if (globalOnlineState === undefined) {
-        globalOnlineState = new OnlineState(); // Create a default one
-    }
-
     $.ajax({
         url : "/api/includepassenger",
         type : "POST",
@@ -74,5 +73,24 @@ function onlineUpdateChange(onlineStateObject, totalPoints, plength) {
 
     onlineStateObject.maxChange -= (changePercent-100);
     console.log("max change now is: "  + onlineStateObject.maxChange);
+
+}
+
+
+// Used by the client when pressed on the 'online' button
+function doOnline() {
+    if (!globalOnlineState.ready) {
+        window.alert("Online error: Get your route first");
+        return;
+    }
+
+    // Ask the user for an Si
+    statusText.currentEdit = "online-si";
+    statusText.innerText = "Select Si on the map"
+
+
+    // Ask the user for a Ti
+
+    // Assign newPassenger to the global online state object and go!
 
 }

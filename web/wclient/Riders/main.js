@@ -18,6 +18,7 @@ function addPassenger() {
     var passengerIndex = passengersIds++;
     var cont = document.createElement("div");
     cont.id = passengerIndex;
+    cont.className = "passenger";
 
     var span = document.createElement("span");
     span.innerText = "Passenger " + passengerIndex + ": Si: ";
@@ -56,6 +57,7 @@ function addPassenger() {
     cont.appendChild(btn);
     container.appendChild(cont);
 
+    return cont;
 }
 
 function removePassenger() {
@@ -87,7 +89,7 @@ function removePassenger() {
 
 
 /**
- * Function that get used by the input texts of Si and Ti
+ * Function used by the input texts of Si and Ti
  * */
 function edt() {
     if (this.parentNode !== undefined) {
@@ -135,8 +137,27 @@ function doneEditing(point) {
     var currentlyEditing = statusText.currentEdit; // id of the input text currently editing
 
     var elementToEdit = document.getElementById(currentlyEditing);
-    elementToEdit.value = point.lat + ", " + point.lng;
-    elementToEdit.point = point;
+    if (elementToEdit !== null) {
+        elementToEdit.value = point.lat + ", " + point.lng;
+        elementToEdit.point = point;
+    } else {
+        // online
+        console.log("Couldn't find a DOM element to display the point on. are you trying to using the online passenger?");
+
+        // If online si -> move to online Ti
+        if (currentlyEditing === "online-si") {
+            statusText.innerText = "Select Ti on the map";
+            statusText.currentEdit = "online-ti";
+            return;
+        } else if (currentlyEditing === "online-ti") {
+            // If that's a ti, finish editing send online request!
+            onlineSendRequest();
+        } else {
+            console.log("ERROR: statusText.currentlyEditing contain invalid value: ", statusText.currentEdit);
+        }
+
+
+    }
 
 
     // Clear

@@ -284,7 +284,7 @@ public class AlgorithmDriver {
 
 		if (minDistIndex != -1){
 			System.out.println("addpoint: Point: " + point.toString() + " is closes to the point at index: " + minDistIndex);
-			mainPath.add(minDistIndex+1, point);
+			mainPath.add(minDistIndex+1, point); //TODO: what if that's the last point? are you replacing it as well?
 		}
 	}
 

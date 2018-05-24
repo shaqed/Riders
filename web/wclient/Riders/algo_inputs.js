@@ -65,6 +65,7 @@ var onlineObject = {
 
 var testTotalPoints = JSON.parse('[{"lat":31.5344,"lng":34.58225},{"lat":31.53404,"lng":34.58332},{"lat":31.534010000000002,"lng":34.583330000000004},{"lat":31.533960000000004,"lng":34.583360000000006},{"lat":31.53394,"lng":34.583420000000004},{"lat":31.53393,"lng":34.58348},{"lat":31.53395,"lng":34.58354},{"lat":31.533970000000004,"lng":34.583560000000006},{"lat":31.53309,"lng":34.586040000000004},{"lat":31.53291,"lng":34.586650000000006},{"lat":31.532860000000003,"lng":34.587230000000005},{"lat":31.532840000000004,"lng":34.587410000000006},{"lat":31.532790000000002,"lng":34.58744},{"lat":31.532680000000003,"lng":34.58749},{"lat":31.53262,"lng":34.587540000000004},{"lat":31.532120000000003,"lng":34.58757},{"lat":31.531750000000002,"lng":34.587630000000004},{"lat":31.532120000000003,"lng":34.58757},{"lat":31.53262,"lng":34.587540000000004},{"lat":31.532680000000003,"lng":34.58757},{"lat":31.532780000000002,"lng":34.58758},{"lat":31.532790000000002,"lng":34.58762},{"lat":31.53282,"lng":34.58764},{"lat":31.53281,"lng":34.58793},{"lat":31.532770000000003,"lng":34.588550000000005},{"lat":31.53271,"lng":34.58901},{"lat":31.532480000000003,"lng":34.58997},{"lat":31.532420000000002,"lng":34.590160000000004},{"lat":31.532390000000003,"lng":34.59017},{"lat":31.53235,"lng":34.590210000000006},{"lat":31.53233,"lng":34.59026},{"lat":31.53233,"lng":34.59033},{"lat":31.532360000000004,"lng":34.59039},{"lat":31.532370000000004,"lng":34.590410000000006},{"lat":31.532140000000002,"lng":34.59134},{"lat":31.531980000000004,"lng":34.59183},{"lat":31.531940000000002,"lng":34.59187},{"lat":31.531920000000003,"lng":34.591930000000005},{"lat":31.531920000000003,"lng":34.59199},{"lat":31.531930000000003,"lng":34.592020000000005},{"lat":31.531940000000002,"lng":34.59203},{"lat":31.531390000000002,"lng":34.594350000000006},{"lat":31.530860000000004,"lng":34.59642},{"lat":31.53029,"lng":34.5987},{"lat":31.530060000000002,"lng":34.599270000000004},{"lat":31.529950000000003,"lng":34.599470000000004},{"lat":31.529920000000004,"lng":34.59948},{"lat":31.529880000000002,"lng":34.599500000000006},{"lat":31.529870000000003,"lng":34.59951},{"lat":31.529770000000003,"lng":34.59948},{"lat":31.529280000000004,"lng":34.59928},{"lat":31.528760000000002,"lng":34.59915},{"lat":31.5283,"lng":34.59908},{"lat":31.527790000000003,"lng":34.599070000000005},{"lat":31.527400000000004,"lng":34.599140000000006},{"lat":31.527040000000003,"lng":34.599270000000004},{"lat":31.5269,"lng":34.59928},{"lat":31.526880000000002,"lng":34.599270000000004},{"lat":31.526820000000004,"lng":34.599270000000004},{"lat":31.526410000000002,"lng":34.59819},{"lat":31.52634,"lng":34.59796},{"lat":31.52616,"lng":34.59743},{"lat":31.525900000000004,"lng":34.59677},{"lat":31.525910000000003,"lng":34.59677},{"lat":31.525940000000002,"lng":34.59675},{"lat":31.52596,"lng":34.59673},{"lat":31.525980000000004,"lng":34.59667},{"lat":31.525990000000004,"lng":34.596610000000005},{"lat":31.52597,"lng":34.59655},{"lat":31.525890000000004,"lng":34.59648},{"lat":31.525840000000002,"lng":34.59648},{"lat":31.52578,"lng":34.59651},{"lat":31.525750000000002,"lng":34.596560000000004},{"lat":31.525730000000003,"lng":34.59664},{"lat":31.525750000000002,"lng":34.596700000000006},{"lat":31.525790000000004,"lng":34.59675},{"lat":31.525820000000003,"lng":34.59677},{"lat":31.52595,"lng":34.597080000000005},{"lat":31.526260000000004,"lng":34.59792},{"lat":31.526640000000004,"lng":34.59904},{"lat":31.526730000000004,"lng":34.59937},{"lat":31.526730000000004,"lng":34.59942},{"lat":31.526740000000004,"lng":34.599470000000004},{"lat":31.526780000000002,"lng":34.59951},{"lat":31.5268,"lng":34.59953},{"lat":31.526820000000004,"lng":34.59976},{"lat":31.526820000000004,"lng":34.599940000000004},{"lat":31.526830000000004,"lng":34.60023},{"lat":31.5268,"lng":34.60051},{"lat":31.526750000000003,"lng":34.600730000000006},{"lat":31.526580000000003,"lng":34.601200000000006},{"lat":31.526490000000003,"lng":34.601380000000006},{"lat":31.526460000000004,"lng":34.601380000000006},{"lat":31.52642,"lng":34.60139},{"lat":31.526370000000004,"lng":34.601440000000004},{"lat":31.526350000000004,"lng":34.601510000000005},{"lat":31.526350000000004,"lng":34.60155},{"lat":31.526130000000002,"lng":34.601940000000006},{"lat":31.525080000000003,"lng":34.60331},{"lat":31.524960000000004,"lng":34.60347},{"lat":31.524950000000004,"lng":34.60347},{"lat":31.52493,"lng":34.60347},{"lat":31.524880000000003,"lng":34.60349},{"lat":31.524850000000004,"lng":34.603530000000006},{"lat":31.52483,"lng":34.60363},{"lat":31.52484,"lng":34.60365},{"lat":31.52427,"lng":34.604380000000006},{"lat":31.523960000000002,"lng":34.60479},{"lat":31.523880000000002,"lng":34.60486},{"lat":31.523940000000003,"lng":34.604940000000006},{"lat":31.524140000000003,"lng":34.60524},{"lat":31.524670000000004,"lng":34.605940000000004},{"lat":31.52501,"lng":34.60642},{"lat":31.525460000000002,"lng":34.606950000000005},{"lat":31.525930000000002,"lng":34.6075},{"lat":31.52625,"lng":34.60783},{"lat":31.526750000000003,"lng":34.608320000000006},{"lat":31.52737,"lng":34.60886},{"lat":31.528230000000004,"lng":34.609550000000006},{"lat":31.52933,"lng":34.610290000000006},{"lat":31.53008,"lng":34.61074},{"lat":31.532700000000002,"lng":34.61238},{"lat":31.534290000000002,"lng":34.61339},{"lat":31.534460000000003,"lng":34.613490000000006},{"lat":31.5347,"lng":34.613580000000006},{"lat":31.534810000000004,"lng":34.61365}]');
 var testMainPoints = JSON.parse('{"route":[{"lng":34.58221771998603,"lat":31.534316883318827},{"lng":34.58762735728112,"lat":31.53171262695318},{"lng":34.59848493937341,"lat":31.526353660019602},{"lng":34.6137907202301,"lat":31.534745288134978}]}').route;
+// This function is only for the one above
 function computeMainPoints(totalPoints, mainPoints, epsilon = 0.0001) {
     var ans = [];
     for (var i = 0; i < totalPoints.length; i++) {
@@ -89,3 +90,102 @@ function computeMainPoints(totalPoints, mainPoints, epsilon = 0.0001) {
 }
 
 
+
+
+function genGMarker(type, point, text) {
+    var opts = {
+        position: point,
+        icon : {
+            // url : statusText.gIcon,
+            labelOrigin : new google.maps.Point(0, -15)
+        },
+        label : {
+            text : text,
+            fontSize : "20px",
+            color : 'blue',
+            fontWeight: 'bold'
+        },
+        map : map
+    };
+    if (type === "source") {
+        opts.icon.url = ICON_RED;
+    } else if (type === "dest") {
+        opts.icon.url = ICON_GREEN;
+    } else if (type === "si") {
+        opts.icon.url = ICON_BLUE;
+    } else if (type === "ti") {
+        opts.icon.url = ICON_YELLOW;
+    } else {
+        console.log("GenerateGoogleMarker Error: unexpected type: " + type)
+    }
+    return new google.maps.Marker(opts);
+}
+
+/**
+ * @param s The following object
+ * {
+ *  "source" : {"lat": number, "lng": number},
+ *  "dest" : {"lat": number, "lng": number}
+ *  "passengers" : [
+ *      {"name" : text, "si" : Point, "ti": Point},
+ *      {"name" : text, "si" : Point, "ti": Point},
+ *      ...
+ *  ],
+ *  "radius" : number
+ * }
+ * */
+function loadState(s = JSON.parse('{"source":{"lat":31.518064348352137,"lng":34.58958646607971},"dest":{"lat":31.5321116536017,"lng":34.61198827577209},"radius":"100","passengers":[{"name":0,"si":{"lat":31.51916187014703,"lng":34.59233304811096},"ti":{"lat":31.52944868096882,"lng":34.61035749269104}},{"name":1,"si":{"lat":31.526449087860232,"lng":34.59885618043518},"ti":{"lat":31.52462002039239,"lng":34.60632345033264}}]}')) {
+    var source = s.source;
+    var dest = s.dest;
+    var passengers = s.passengers;
+    var radius = s.radius;
+
+    /* source */
+    sourceInputText.value = source.lat + ", " + source.lng;
+    sourceInputText.point = source;
+    sourceInputText.gMarker = genGMarker("source", source, "S");
+
+    /* destination */
+    destInputText.value = dest.lat + ", " + dest.lng;
+    destInputText.point = dest;
+    destInputText.gMarker = genGMarker("dest", dest, "D");
+
+    /* radius */
+    document.getElementById("radius-ip").value = radius;
+
+    /* Passengers */
+    for (var i = 0; i < passengers.length; i++) {
+        var passengerDOM = addPassenger();
+        var passenger = passengers[i];
+
+        // 1 and 3 are the indexes of the inputs
+        passengerDOM.childNodes[1].value = passenger.si.lat + ", " + passenger.si.lng;
+        passengerDOM.childNodes[1].point = passenger.si;
+        passengerDOM.childNodes[1].gMarker = genGMarker("si", passenger.si, i + "");
+
+        passengerDOM.childNodes[3].value = passenger.ti.lat + ", " + passenger.ti.lng;
+        passengerDOM.childNodes[3].point = passenger.ti;
+        passengerDOM.childNodes[3].gMarker = genGMarker("ti", passenger.ti, i + "");
+    }
+
+}
+
+function saveState() {
+    var data = {
+        source: sourceInputText.point,
+        dest : destInputText.point,
+        radius : document.getElementById("radius-ip").value,
+        passengers: [] // for now
+    };
+    var passengersDOMs = document.getElementsByClassName("passenger");
+    for (var i = 0; i < passengersDOMs.length; i++) {
+        var passengerDOM = passengersDOMs[i];
+
+        data.passengers.push({
+            "name" : i,
+            "si" : passengerDOM.childNodes[1].point, // second child is the input text
+            "ti" : passengerDOM.childNodes[3].point // fourth child is the input text
+        })
+    }
+    return data;
+}

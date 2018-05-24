@@ -179,6 +179,7 @@ function initMap() {
     }
 
 
+    // Set map's onclick events
     map.addListener("click", function (e) {
         var lat = e.latLng.lat();
         var lng = e.latLng.lng();
@@ -188,7 +189,37 @@ function initMap() {
             lng : lng
         };
 
-        if (statusText.currentEdit !== undefined) {
+        var onlineButton = document.getElementById("online");
+
+        if (statusText.currentEdit === "online-si") {
+
+            globalOnlineState.newPassenger.si = {
+                lat: lat,
+                lng: lng
+            };
+            if (onlineButton.sigMarker === undefined) {
+                onlineButton.sigMarker = new google.maps.Marker({
+                    position: coords,
+                    map: map
+                })
+            }
+
+            doneEditing(coords);
+
+        } else if (statusText.currentEdit === "online-ti") {
+            globalOnlineState.newPassenger.ti = {
+                lat: lat,
+                lng: lng
+            };
+            if (onlineButton.tigMarker === undefined) {
+                onlineButton.tigMarker = new google.maps.Marker({
+                    position: coords,
+                    map: map
+                })
+            }
+
+            doneEditing(coords);
+        } else if (statusText.currentEdit !== undefined) {
 
             var passengerIndex = statusText.currentEdit.split(" ")[0]; // get the index
 
@@ -219,46 +250,6 @@ function initMap() {
         } else {
             alert("Click on some input type text first")
         }
-
-
-
-        /*if (passengers[statusText.c] !== undefined) {
-            if (passengers[statusText.c].marker === undefined) {
-                passengers[statusText.c].marker = new google.maps.Marker({
-                    position: coords,
-                    map: map
-                });
-
-            } else {
-                // passengers[statusText.c].marker.setMap(null);
-                passengers[statusText.c].marker.setPosition(coords);
-                // passengers[statusText.c].marker.setMap(map);
-            }
-        } else if (statusText.c === "source") {
-            if (sourceInputText.point === undefined) {
-                sourceInputText.point = new google.maps.Marker({
-                    position: coords,
-                    icon : greenIcon,
-                    map : map
-                });
-            } else {
-                sourceInputText.point.setPosition(coords);
-            }
-        } else if (statusText.c === "destination") {
-            if (destInputText.point === undefined) {
-                destInputText.point = new google.maps.Marker({
-                    position: coords,
-                    icon : greenIcon,
-                    map : map
-                });
-            } else {
-                destInputText.point.setPosition(coords);
-            }
-
-        }
-        // console.log("Setting: " + lat + ", " + lng);
-        doneEditing(coords);
-        */
 
     });
 
