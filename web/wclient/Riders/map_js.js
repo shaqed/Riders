@@ -100,7 +100,9 @@ function displayRouteOnMap(data, onlineStateObject) {
             globalOnlineInitPath(displayedPath, plengthSum);
 
 
+            // This is the end of the GetRoute API call
             directionsDisplay.setDirections(response);
+            carDisplay();
         } else {
             console.log("Error while displaying final route");
             console.log(response);

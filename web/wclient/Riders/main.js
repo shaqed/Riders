@@ -2,7 +2,7 @@ const ICON_GREEN = "markers-icons/green.png";
 const ICON_BLUE = "markers-icons/blue.png";
 const ICON_RED = "markers-icons/red.png";
 const ICON_YELLOW = "markers-icons/yellow.png";
-
+const ICON_CAR = "markers-icons/car_small.png";
 
 var btnAdd = document.getElementById("btn-add");
 var statusText = document.getElementById("sts");
@@ -20,8 +20,11 @@ function addPassenger() {
     cont.id = passengerIndex;
     cont.className = "passenger";
 
+    var pTitle = document.createElement("div");
+    pTitle.innerText = "Passenger: " + passengerIndex;
+
     var span = document.createElement("span");
-    span.innerText = "Passenger " + passengerIndex + ": Si: ";
+    span.innerText = "Si: ";
 
     var input = document.createElement("input");
     input.id = passengerIndex + " si";
@@ -50,11 +53,14 @@ function addPassenger() {
     btn.id = "del-" + passengerIndex;
     btn.onclick = removePassenger;
 
+    pTitle.appendChild(btn);
+    cont.appendChild(pTitle);
     cont.appendChild(span);
     cont.appendChild(input);
+    cont.appendChild(document.createElement("br"));
     cont.appendChild(span2);
     cont.appendChild(input2);
-    cont.appendChild(btn);
+    cont.appendChild(document.createElement("br"));
     container.appendChild(cont);
 
     return cont;
@@ -294,4 +300,37 @@ function go() {
     // Display result on the map (display directions when you have the order)
 }
 
+var carMarker;
+function carDisplay() {
+    if (globalOnlineState.ready) {
+        carMarker = new google.maps.Marker({
+            position: globalOnlineState.mainPoints[0],
+            icon: {
+                url: ICON_CAR,
+                labelOrigin: new google.maps.Point(0, -15)
+            },
+            map: map
+        });
+    } else {
+        window.alert("Compute your path first")
+    }
+}
+
+function carStep() {
+    if (carMarker !== undefined) {
+        if (globalOnlineState.mainPoints.length > 1) { // Remove the first point (because we're in it already)
+            globalOnlineState.mainPoints.splice(0, 1);
+
+            carMarker.setPosition(globalOnlineState.mainPoints[0]);
+        } else {
+            console.log("Route is over!");
+        }
+
+    } else {
+        console.log("carStep error: first display the car")
+    }
+
+
+
+}
 

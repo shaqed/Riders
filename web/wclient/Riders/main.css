@@ -1,0 +1,50 @@
+body {
+    background-color : azure;
+}
+#map {
+    float: right;
+    height: 550px;
+    width: 70%;
+}
+
+.left-pane {
+    position: absolute;
+    left: 0;
+    top:0;
+    width: 32%;
+}
+
+.data-container {
+    position: relative;
+    width: 90%;
+    top: 0;
+    background-color: beige;
+    padding: 1.5%;
+    border: 1px solid black;
+    float: left;
+    clear: both;
+}
+#src-dest-container input {
+    float:right;
+    margin-left: 5px;
+}
+#src-dest-container span {
+    float: left;
+}
+#src-dest-container #radius-ip {
+    display: block;
+    position: relative;
+    width: 100%;
+}
+
+/* button controls */
+#controls {
+    margin-bottom: 10px;
+}
+
+
+/*passengers*/
+#passengers-container .passenger {
+    margin-bottom: 17px;
+}
+
