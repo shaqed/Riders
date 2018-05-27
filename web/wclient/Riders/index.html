@@ -3,6 +3,7 @@
 <head>
     <title>Riders</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="main.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
@@ -12,6 +13,24 @@
 </div>
 <div id="map"></div>
 <br>
+<div id="legend">
+    <div class="legend-item">
+        <img src="markers-icons/red.png">
+        <span>Driver's source</span>
+    </div>
+    <div class="legend-item">
+        <img src="markers-icons/green.png">
+        <span>Driver's destination</span>
+    </div>
+    <div class="legend-item">
+        <img src="markers-icons/blue.png">
+        <span>Passenger's Pickup Point</span>
+    </div>
+    <div class="legend-item">
+        <img src="markers-icons/yellow.png">
+        <span>Passenger's Drop-off Point</span>
+    </div>
+</div>
 <div class="left-pane">
     <p class="data-container" id="src-dest-container">
         <span>Source</span>
@@ -27,16 +46,18 @@
     <div id="controls">
         <h3 id="sts"></h3>
 
-        <button id="go" onclick="go()">Go</button>
-        <button id="reset" onclick="reset()">Reset</button>
-        <button id="online" onclick="doOnline()">Online</button>
-        <button id="save-state" onclick="saveStateOnClick()">Save State</button>
-        <button id="load-state" onclick="loadStateOnClick()">Load State</button>
-        <button id="drive" onclick="carStep()">Drive!</button>
+        <button class="btn btn-success" id="go" onclick="go()">Calculate</button>
+        <button class="btn btn-success" id="online" onclick="doOnline()">Online</button>
+        <button class="btn btn-primary" id="save-state" onclick="saveStateOnClick()">Save Route</button>
+        <button class="btn btn-primary" id="load-state" onclick="loadStateOnClick()">Load Route</button>
+        <button class="btn btn-warning" id="drive" onclick="carStep()">Drive!</button>
+        <br>
+        <button class="btn btn-danger" id="reset" onclick="reset()">Reset</button>
+
     </div>
 
     <div class="data-container">
-        <button id="btn-add">Add Passenger</button>
+        <button id="btn-add" class="btn">Add Passenger</button>
         <div id="passengers-container"></div>
     </div>
 

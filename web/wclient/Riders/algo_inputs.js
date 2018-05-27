@@ -116,6 +116,7 @@ function genGMarker(type, point, text) {
             color : 'blue',
             fontWeight: 'bold'
         },
+        zIndex: -100,
         map : map
     };
     if (type === "source") {
@@ -170,14 +171,16 @@ function loadState(s = JSON.parse('{"source":{"lat":31.518064348352137,"lng":34.
         var passenger = passengers[i];
 
         // 1 and 3 are the indexes of the inputs
-        passengerDOM.childNodes[1].value = passenger.si.lat + ", " + passenger.si.lng;
-        passengerDOM.childNodes[1].point = passenger.si;
-        passengerDOM.childNodes[1].gMarker = genGMarker("si", passenger.si, i + "");
+        passengerDOM.childNodes[2].value = passenger.si.lat + ", " + passenger.si.lng;
+        passengerDOM.childNodes[2].point = passenger.si;
+        passengerDOM.childNodes[2].gMarker = genGMarker("si", passenger.si, i + "");
 
-        passengerDOM.childNodes[3].value = passenger.ti.lat + ", " + passenger.ti.lng;
-        passengerDOM.childNodes[3].point = passenger.ti;
-        passengerDOM.childNodes[3].gMarker = genGMarker("ti", passenger.ti, i + "");
+        passengerDOM.childNodes[5].value = passenger.ti.lat + ", " + passenger.ti.lng;
+        passengerDOM.childNodes[5].point = passenger.ti;
+        passengerDOM.childNodes[5].gMarker = genGMarker("ti", passenger.ti, i + "");
     }
+
+    map.setCenter(source);
 
 }
 
@@ -194,8 +197,8 @@ function getCurrentState() {
 
         data.passengers.push({
             "name" : i,
-            "si" : passengerDOM.childNodes[1].point, // second child is the input text
-            "ti" : passengerDOM.childNodes[3].point // fourth child is the input text
+            "si" : passengerDOM.childNodes[2].point, // second child is the input text
+            "ti" : passengerDOM.childNodes[5].point // fourth child is the input text
         })
     }
     return data;

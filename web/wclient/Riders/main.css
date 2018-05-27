@@ -1,11 +1,39 @@
+@import url('https://fonts.googleapis.com/css?family=Sunflower:300');
+
+
 body {
     background-color : azure;
+    font-family: 'Sunflower', 'sans-serif';
 }
+
+button {
+    font-family: 'Sunflower', 'sans-serif';
+}
+
 #map {
     float: right;
     height: 550px;
     width: 70%;
 }
+
+
+#legend {
+    float: right;
+    clear: both;
+    text-align: center;
+    position: relative;
+    font-size: 1.5em;
+    width: 70%;
+}
+
+.legend-item {
+    background-color: floralwhite;
+    margin-left: 5px;
+    display: inline-block;
+    padding: 5px;
+    border: 1px solid grey;
+}
+
 
 .left-pane {
     position: absolute;
@@ -40,11 +68,17 @@ body {
 /* button controls */
 #controls {
     margin-bottom: 10px;
+    float:left;
+    clear: both;
 }
 
 
 /*passengers*/
 #passengers-container .passenger {
     margin-bottom: 17px;
+}
+
+.passenger input {
+    width: 100%;
 }
 

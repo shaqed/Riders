@@ -76,7 +76,8 @@ public class AlgorithmInput {
 		System.out.println("DEBUG: " + jsonObject.get(Tags.IO_PATH_LENGTH).toString());
 		this.totalPathLength = (long) jsonObject.get(Tags.IO_PATH_LENGTH);
 
-		this.radius = percentFromUser * totalPathLength;
+		// This divisions ans sqrt are to shrink the circle and the radius
+		this.radius = Math.sqrt(((percentFromUser/4000000.0) * 0.01) * totalPathLength);
 
 		System.out.println("DEBUG: Radius is " + percentFromUser +"% from " + this.totalPathLength + " is: " + this.radius);
 

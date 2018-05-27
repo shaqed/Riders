@@ -202,6 +202,7 @@ function initMap() {
             if (onlineButton.sigMarker === undefined) {
                 onlineButton.sigMarker = new google.maps.Marker({
                     position: coords,
+                    zIndex: -100,
                     map: map
                 })
             }
@@ -216,6 +217,7 @@ function initMap() {
             if (onlineButton.tigMarker === undefined) {
                 onlineButton.tigMarker = new google.maps.Marker({
                     position: coords,
+                    zIndex: -100,
                     map: map
                 })
             }
@@ -241,8 +243,10 @@ function initMap() {
                         color : 'blue',
                         fontWeight: 'bold'
                     },
+                    zIndex: -100,
                     map : map
                 });
+                elementToEdit.gMarker.setZIndex(-100);
             } else {
                 // Marker already there, just change its position
                 elementToEdit.gMarker.setPosition(coords);

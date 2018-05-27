@@ -175,7 +175,12 @@ function doneEditing(point) {
 
 
 btnAdd.onclick = function () {
-    addPassenger();
+    var children = document.getElementsByClassName("passenger");
+    if (children.length < 2) {
+        addPassenger();
+    } else {
+        alert("Due to Google API Query limits, visitors may only compute up to 2 additional passengers");
+    }
 };
 
 
@@ -303,14 +308,19 @@ function go() {
 var carMarker;
 function carDisplay() {
     if (globalOnlineState.ready) {
-        carMarker = new google.maps.Marker({
-            position: globalOnlineState.mainPoints[0],
-            icon: {
-                url: ICON_CAR,
-                labelOrigin: new google.maps.Point(0, -15)
-            },
-            map: map
-        });
+        if (carMarker === undefined) {
+            carMarker = new google.maps.Marker({
+                position: globalOnlineState.mainPoints[0],
+                icon: {
+                    url: ICON_CAR,
+                    labelOrigin: new google.maps.Point(0, 0)
+                },
+                zIndex: -101,
+                map: map
+            });
+        } else {
+            carMarker.setPosition(globalOnlineState.mainPoints[0]);
+        }
     } else {
         window.alert("Compute your path first")
     }
